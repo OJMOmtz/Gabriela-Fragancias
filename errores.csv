@@ -1,0 +1,418 @@
+archivo,fila,error,detalle
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,4237,"el valor es demasiado largo para el tipo character varying(2)","1008870,ROSA VIRINA,BALBUENA DOMINGUEZ,10-11-1961,F,"ÑEMBY AVDA 
+1008871,"ISIDORO",MUÑOZ,MYOR ALFARO,25,25,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,11074,"el valor es demasiado largo para el tipo character varying(2)","1025694,LUCIA MARIA,MARTINEZ PRANTTE,03-06-1971,F,"CARMEN SOLER 3966 C RADIO OPERADORES
+1025695,"PANFILO",CARDOZO PEREZ,,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,21196,"el valor es demasiado largo para el tipo character varying(2)","1049063,CARLOS RIGOBERTO CONCEPCION,MORA RIVAS,11-04-1968,M,"RIO YHAGUY ENTRE KURUPAYTY
+1049068,"LUIS GUSTAVO",DELGADO AGUERO,,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,33300,"el valor es demasiado largo para el tipo character varying(2)","1075869,TERESA,DOMINGUEZ DE ALIENTE,01-15-1964,F,"BA SOL DE AMERICA CALLE
+1075871,"BASILISIA",ENCINA DE BERTOLI,P KREUSSER 247,0,0,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,39353,"el valor es demasiado largo para el tipo character varying(2)","1090496,NESTOR DARIO,SERVIN GONZALEZ,02-08-1969,M,"BARRIO SANTA ANA C D 
+1090497,"GREGORIO",FRETEZ PORTILLO,CIA ARASATY,29,29,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,48234,"el valor es demasiado largo para el tipo character varying(2)","1111235,OSCAR FRANCISCO,VERA BENITEZ,11-06-1968,M,"B LOMA MERLO LUQUE FORTIN 13 C-
+1111237,"AURORA",SALDIVAR GONZALEZ,PERU Y TTE ROJAS,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,68559,"el valor es demasiado largo para el tipo character varying(2)","1163086,NIDIA MAGDALENA,VELAZQUEZ DE MORA,07-22-1968,F,"BA SAN CARLOS CALLE RIO YHAGY
+1163089,"MARIA CARMEN",BENITEZ DE AREVALOS,LA VICTORIA 242,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,92157,"el valor es demasiado largo para el tipo character varying(2)","1214965,ANA MARIA,SILGUERO SAMUDIO,07-26-1968,F,"TOBATI B STA TERESITA BONIFACIO
+1214966,"GLADYS",CABALLERO DE ORTIGOZA,CNEL PATIÑO N°1333,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,92344,"el valor es demasiado largo para el tipo character varying(2)","1215313,JOSE MANUEL,GAUTO UDRIZAR,07-03-1971,M,"GRECIA 1245 C-
+1215314,"ELIDA",AYALA,SAJONIA C YATAYTY CORA BO PALOMAR,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,92430,"el valor es demasiado largo para el tipo character varying(2)","1215478,ARSENIO,FELIU PEÑA,05-18-1970,M,"ÑANGAPIRY C LAS
+1215479,"JUAN RAMON",CASTILLO GONZALEZ,,0,0,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,94227,"el valor es demasiado largo para el tipo character varying(2)","1219147,ESTELA CONCEPCION,ARMOA DE AREVALOS,04-11-1969,F,"HERNANDO DE RIVERA 549 C-
+1219150,"SEMIONA",BRITEZ,ARROYO MOROTI-PLANCHADA,27,27,4,4"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,94635,"el valor es demasiado largo para el tipo character(1)","1220",13,13,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,94957,"el valor es demasiado largo para el tipo character varying(2)","1220671,ROBERTO FEDERICO,SALINAS BOGADO,07-11-1981,M,"GRAL SANTOS NRO 517 C CERRO
+1220674,"CLARA",MOREL GADEA,,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,96321,"el valor es demasiado largo para el tipo character varying(2)","1223386,MAGDALENA DEL ROCIO,BRAGA DE MORALES,07-22-1972,F,"EMILINO R FERNANDEZ NRO 1235
+1223387,"CECILIO",MARTINEZ,BO SAN MIGUEL FELICIANO DUARTE C COL,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,110986,"el valor es demasiado largo para el tipo character varying(2)","1254966,ANGELA ISIDORA,SAMUDIO MARECO,05-15-1967,F,"CALLE 22 DE AGOSTO FRACCION ANAHI
+1254967,"AMADO",BARRIOS RECALDE,BO LAS GARZAS,25,25,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,112824,"el valor es demasiado largo para el tipo character varying(2)","1258813,JULIO CESAR,CABALLERO,04-27-1969,M,"10MA 3257 CASI SANTO DOMINGO BARRIO
+1258815,"ALEJANDRO",PEREZ CESPEDES,Bº KENEDY CALL MCAL ESTIGARRIBIA C ROJ,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,113358,"el valor es demasiado largo para el tipo character varying(2)","1259840,MARIA MAGDALENA,GONZALEZ DE LOPEZ,05-27-1951,F,"SAN LORENZO LAS
+1259842,"MARIA CATALINA",RUIZ DIAZ AGUILERA,I D NACIONAL Y TTE CANDIA,7,7,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,114553,"el valor es demasiado largo para el tipo character varying(2)","1262329,JUAN BAUTISTA,GONZALEZ ESCOBAR,06-24-1949,M,"AZTECA 1044 C CARLOS A 
+1262333,"ALFREDO",LOPEZ RODRIGUEZ,COPITAS ZAYAS,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,131325,"el valor es demasiado largo para el tipo character varying(2)","1295857,VIRILA,PEREIRA CORREA,03-21-1965,F,"COLONIA COSME
+1295859,"MYRIAN ELIZABETH",TORTELLA PRIETO,CALLE PANCHITO LOPEZ,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,159165,"el valor es demasiado largo para el tipo character varying(2)","1354196,ESTELA MARY,AQUINO FERREIRA,03-28-1971,F,"FULGENCIO R MORENO 1749 C YTORORO B-
+135420,"EUGENIA ODALIS",RUIZ DIAZ DE IBARRA,TTE GARAY Y CAMPO VIA 2011,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,161537,"el valor es demasiado largo para el tipo character varying(2)","1359164,FRANCISCO RAMON,MARTINEZ VERDUN,03-24-1969,M,"ACUÑA DE FIGUEROA CASI F 
+1359165,"ANGELA",ALVARENGA VIVEROS,CORONEL PEREZ C AYALA VELAZQUEZ,19,19,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,183702,"el valor es demasiado largo para el tipo character varying(2)","1406912,ARTEMIO RUBEN,VELAZQUEZ,06-05-1968,M,"CALLE HERNANDARIAS C-
+1406913,"MARIA STELA",MENDOZA ORTEGA,KM 20 ACARAY,17,17,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,186228,"el valor es demasiado largo para el tipo character varying(2)","1412238,MAXNO ROLANDO,LOPEZ AVALOS,09-03-1969,M,"DR SEMIDEI C MANDYYUPECUA BA SAN
+1412243,"MARIA SELVA",RODAS GODOY,TAVAPY -NO ESPECIFICA -SIN Nº,34,34,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,197183,"el valor es demasiado largo para el tipo character varying(2)","1435194,MARITE,RIVEROS DE CABALLERO,03-11-1970,F,"BA
+1435196,"FRANCISCA",MARTINEZ DE RODRIGUEZ,SAN MIGUEL,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,210853,"el valor es demasiado largo para el tipo character varying(2)","1463795,RUBEN DARIO,RIOS AYALA,06-19-1972,M,"AZARA NRO1971 E EMILIANO R FERNANDEZ Y
+1463796,"DIGNO",PESOA ESPINOLA,SAN ANTONIO,16,16,2,2"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,213346,"el valor es demasiado largo para el tipo character varying(2)","1469465,DORA ISABEL,AREVALO DE CANDIA,04-29-1969,F,"Bº SAN ROQUE Aº PORA"",5,5,7,7
+1469467,"ELPIDIO ISMAEL",OJEDA AQUINO,,0,0,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,224692,"el valor es demasiado largo para el tipo character varying(2)","1494407,OLGA BEATRIZ,TOUBE ALONSO,10-04-1969,F,"KM 25 RUTA 2
+1494412,"CRESENCIO",ACUÑA RIVAROLA,,4,4,17,17"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,238910,"el valor es demasiado largo para el tipo character varying(2)","1526837,ZUNILDA,BOGADO DE GIMENEZ,11-10-1970,F,"CALLE CORTA CASI TTE INSFRAN
+1526838,"FRANCISCA",AGUILERA QUINTANA,ANTEQUERA Y CASTRO,7,7,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,240258,"el valor es demasiado largo para el tipo character varying(2)","1529716,HECTOR ROLANDO,HERRERA CABRAL,08-22-1972,M,"CNEL MACHUCA E GRAL
+1529721,"LUZ MABEL",DIAZ OCAMPOS,,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,241646,"el valor es demasiado largo para el tipo character varying(2)","1532920,ATILIO JOEL,SAMUDIO LEDEZMA,06-22-1982,M,"OSCAR CARVALLO 171 C LAS RESIDENTAS -
+1532921,"MIRTHA ESTELA",RIVEROS DE ALVAREZ,PINDOTY PORA,1,1,14,14"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,242577,"el valor es demasiado largo para el tipo character varying(2)","1535055,MANCIO EDMUNDO,MENDOZA DAVID,07-20-1972,M,"JOVENES POR LA DEMOCRACIA 32 C E,A
+1535057,"IGNACIO CECILIO",CORONEL ACOSTA,LAPACHO Y CNEL MARTINEZ,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,250203,"el valor es demasiado largo para el tipo character varying(2)","1554708,HERIBERTA,MEZA LOPEZ,03-28-1968,F,"VENEZUELA 885 C SGTO GAUTO Bº
+1554710,"PEDRO",JARA GALEANO,C A LOPEZ Y 29 DE SETIEMBRE,7,7,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,265298,"el valor es demasiado largo para el tipo character varying(2)","1594311,JULIO CESAR,FRUTOS VERA,05-14-1972,M,"GOYA 873 CASI STO
+1594312,"ELENA",PEREZ MORALES,BO SAN MIGUEL,0,0,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,304837,"el valor es demasiado largo para el tipo character varying(2)","1700199,MONICA RAQUEL,SILVERO TORRES,03-20-1981,F,"AVD PARANA COUNTRY
+1700202,"ELENA ZEUDI",IBARRA LOVERA,SAJONIA DIAZ DE GUZMAN 1051,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,338278,"el valor es demasiado largo para el tipo character varying(2)","1778036,ISRRAEL,GIMENEZ AQUINO,06-02-1955,M,"MANZANA "M" LOTE "5", BO SAN ISIDRO E",7,7,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,368779,"el valor es demasiado largo para el tipo character(1)","185",3,3,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,369175,"el valor es demasiado largo para el tipo character varying(2)","1850858,HUGO VALERIO,SAMUDIO ALMIRON,05-20-1973,M,"28 DE SETIEMBRE C EMILIO
+1850860,"MIRTA ELENA",MARTINEZ SEGOVIA,BO D LAS AMERICAS C RICA,5,5,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,382589,"el valor es demasiado largo para el tipo character varying(2)","1880435,EUGENIA BEATRIZ,BAEZ DE SANCHEZ,01-08-1976,F,"ANGEL TORRES
+1880437,"WALTER OPTACIANO",FIGUEREDO MIERES,BARRIO SAN PABLO,25,25,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,391332,"el valor es demasiado largo para el tipo character(1)","19",1,1,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,414064,"el valor es demasiado largo para el tipo character varying(2)","1951492,PATRICIA ELENA,MENDEZ FRONTELA,05-29-1980,F,"NILO MEYER SAN
+1951493,"ROLANDO",ORTIZ,RICARDO BRUGADA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,426734,"el valor es demasiado largo para el tipo character varying(2)","1980992,DELIA ELIZABETH,GUZMAN,07-13-1971,F,"CARLOS GOMEZ C TTE COLMAN
+1980998,"CRISPIN",BERNAL ALVAREZ,CIA COL BLAS GARAY,0,0,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,439502,"el valor es demasiado largo para el tipo character varying(2)","2009280,MARIA EUGENIA CONCEPCION,GALEANO FERNANDEZ,12-10-1984,F,"EL TRABAJADOR NO 4592 C DR 
+2009284,"ARNALDO ANDRE",QUINTANA SALINAS,CAPIATA CÃIA CERRITO B° SAN MIGUEL,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,451645,"el valor es demasiado largo para el tipo character varying(2)","2034760,ROLANDO,RUIZ DIAZ JARA,02-23-1974,M,"INDIA JULIANA 4854 CASI
+2034766,"CATHERINA ROSSANA",LOPEZ FRANCO,28 DE FEBRERO 705,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,463486,"el valor es demasiado largo para el tipo character varying(2)","2059633,SILVIA CAROLINA,GONZALEZ BAEZ,12-31-1979,F,"PORTA OGGINIGNS 297 ESQ OKARA POTY
+2059634,"MYRIAM BEATRIZ",DUARTE DURE,BO SAN BLAS,7,7,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,476910,"el valor es demasiado largo para el tipo character varying(2)","2087380,MARIA ROSANA,VILLALBA ALFONZO,07-07-1973,F,"RUTA 1 KM 17 MIRIAN GRACIELA E-
+2087383,"CARLOS RAUL",ACOSTA MORA,LUIS DE GRANADA Y STA ROSA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,481829,"el valor es demasiado largo para el tipo character varying(2)","2097984,LOURDES SOLEDAD,DIAZ VAZQUEZ,03-01-1977,F,"PINDO 2625 C DOMINGO M DE
+2097985,"MARIANO",GENES CABRERA,,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,504149,"el valor es demasiado largo para el tipo character varying(2)","2146322,RODRIGO RAMIRO,RAMIREZ CORONEL,10-20-1981,M,"AVDA MCAL LOPES CASI WALDINO RAMON
+2146323,"ANIBAL",OJEDA GOMEZ,Bº STA TERESA TABACALERA,5,5,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,514521,"el valor es demasiado largo para el tipo character varying(2)","2167993,MYRIAN CONCEPCION,AMARILLA MENDOZA,11-12-1974,F,"PINDO NO 2669 C AMADOR DE
+2167994,"CESAR ANIBAL",ORTELLADO BOGADO,CMTE MOLAS NÑ1645,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,519646,"el valor es demasiado largo para el tipo character varying(2)","2178458,SANDRA INES,DUARTE AGUILERA,04-21-1986,F,"CERRO CORA NO 660 C ANTEQUERA BO 
+2178459,"ALCIDES ROBERTO",CENTURION,BAÑADO TACUMBU,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,519829,"el valor es demasiado largo para el tipo character varying(2)","2178837,MARIANA CONCEPCION,MORINIGO,04-19-1977,F,"DR PELLON Y 4TA B VIRGEN DE LOS
+217884,"ANTONIA",CARRILLO DE VILLAGRA,VICTOR HUGO 1578 BO VELLA VISTA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,529171,"el valor es demasiado largo para el tipo character varying(2)","219779,FRANCISCA ISABEL,MIRANDA,11-19-1941,F,"25 DE AGOSTO N 2084 BARRIO
+2197790,"SEBERIANO",CARDOZO PAREDES,CIA TACURU,3,3,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,534367,"el valor es demasiado largo para el tipo character varying(2)","2208509,SANDRA EDILTRUDIS,SOSA FLORENTIN,06-23-1975,F,"SAN FRANCISCO 725 C SAN RAFAEL
+2208512,"LIDIA DANIELA",GONZALEZ MARTINEZ,B° PERPETUO SOCORRO CIA 11,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,534601,"el valor es demasiado largo para el tipo character varying(2)","2209018,CARMEN PATRICIA,FOJO BETTI,01-17-1975,F,"MONTEVIDEO N 278 ESQ PALMA BARRIO LA
+2209020,"ROSSANA MARIA JOSE",ESTIGARRIBIA LOPEZ,CELSA ESPERATTI C-KUBICHEK3230,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,545081,"el valor es demasiado largo para el tipo character(1)","223 PALMA",17,17,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,595121,"el valor es demasiado largo para el tipo character varying(2)","2331518,FRANCISCA ISABEL,MONGES ESCOBAR,10-12-1977,F,"RUTA RAMAL AREGUA C-GABRIEL
+2331519,"CATALINA",ORTELLADO DE ORTIZ,SANTA CECILIA Bº SAN MIGUEL,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,597872,"el valor es demasiado largo para el tipo character varying(2)","2337076,CARLOS JAVIER,FLORES RUIZ,12-22-1975,M,"AVDA VONKPOLESKY
+2337077,"ESTELA MARY",ALMADA LOPEZ,ALVAREZ SILVA 762,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,607072,"el valor es demasiado largo para el tipo character varying(2)","2354878,ALEJANDRO JOSE,LOPEZ FRANCO,05-16-1987,M,"E AYALA 953 C GRAL
+2354879,"FAUSTO AGUSTIN",GUILLEN PAREDES,A BARBERO C-S OVELAR,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,618085,"el valor es demasiado largo para el tipo character varying(2)","2376639,MARIA BEATRIZ,JARA GONZALEZ,02-27-1976,F,"CARAGUATAY 3666 B-
+2376647,"ARMANDO LUIS",SERRANO MIRANDA,12 DE OCTUBRE C JUAN APBLO III,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,643126,"el valor es demasiado largo para el tipo character varying(2)","2428025,CRISTIAN MARCELO,VALLEJOS MEZA,08-24-1977,M,"CALLE ALFEREZ SILVA BO LA
+2428027,"ELADIO",FIGUEREDO GAETTE,AVDA CACIQUE LAMBARE C JUAN DE AYOLAS Nº 3337,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,663331,"el valor es demasiado largo para el tipo character varying(2)","2470222,CRISTHIAN ARIEL,RIQUELME CESPEDES,06-05-1980,M,"PARAISO NO 2735 C AMADOR DE
+2470224,"FRANCISCO",RIVEROS,,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,664578,"el valor es demasiado largo para el tipo character varying(2)","2472752,LEONEL,BENITEZ GONZALEZ,11-25-1977,M,"C DEL ESTE KM 12 CNEL FRANCO
+2472753,"ONDINA MARLENE",ROJAS DE PRANTTE,,21,21,12,12"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,670130,"el valor es demasiado largo para el tipo character varying(2)","2484347,CARLOS JOSE,VOLLING JARA,01-21-1986,M,"DEL ROSARIO C-MOLEON
+2484348,"CHRISTIAN AMERICO",ORTEGA AÑAZCO,ACUÑA DE FIGUEROA 174 C FDO DE LA MORA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,671255,"el valor es demasiado largo para el tipo character varying(2)","2486603,FELIX RAMON,ORTIZ TRINIDAD,09-21-1983,M,"EJERCITO CHAQUEÑO 392 C-SAN
+2486605,"FANNY JACQUELINE",ORTIZ TRINIDAD,B°LERIDA-SAN LORENZO,23,23,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,671590,"el valor es demasiado largo para el tipo character varying(2)","2487330,MARSIA CAROLINA,ORTIZ SOLIZ,08-04-1976,F,"AVDA VONKPOLESKY
+2487331,"MARIA DEL CARMEN",RIVEROS ZARATE,,3,3,15,15"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,704159,"el valor es demasiado largo para el tipo character varying(2)","2558807,OSMAR HEVER,REYES GIMENEZ,10-31-1976,M,"HEROES DEL 70 C CAMPO JORDAN BO SAN
+2558808,"JUANA BAUTISTA",RIVAS DE GALEANO,,11,11,1,1"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,712579,"el valor es demasiado largo para el tipo character varying(2)","2575504,JOSE WILDE,ESPINOLA CANO,01-09-1983,M,"SANTA TERESA C CAPITAN INSFRAN RUTA
+2575507,"ANGELICA",DUARTE,CALLE CORTA MBOCAYATY,0,0,4,4"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,769768,"el valor es demasiado largo para el tipo character varying(2)","268840,RAFAELA,ORREGO BERNAL,08-11-1944,F,"CALLE TOBATI 1033 E ROLON VIERA Y
+2688400,"SILVIA",FERNANDEZ CABRAL,,27,27,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,778494,"el valor es demasiado largo para el tipo character(1)","2794",29,29,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,778495,"el valor es demasiado largo para el tipo character(1)","2794",29,29,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,790003,"el valor es demasiado largo para el tipo character varying(2)","2821510,ELVIRA,BRITEZ,01-25-1967,F,"CALLE F"",9,9,7,7
+2821512,"MATILDE FLORENTINA",IRALA DE ROJAS,,37,37,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,808289,"el valor es demasiado largo para el tipo character varying(2)","2856146,SILVIA CLAVELINA,ESTECHE PAIVA,09-14-1978,F,"BARRIO CERRADO PILAR DEL
+2856147,"JAIMIE",NUÑEZ VELAZQUEZ,AMADOR DE MONTOYA,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,819364,"el valor es demasiado largo para el tipo character varying(2)","2877982,IRIS EDITH,CUBILLA ROMERO,10-23-1983,F,"OCTAVA 962 E COLON Y
+2877983,"RICHAR FRANCISCO",MEDINA CUBILLA,BO JOSE LEANDRO OVIEDO,31,31,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,824247,"el valor es demasiado largo para el tipo character varying(2)","2887768,LILIAN ELIZABETH,GONZALEZ VEGA,07-06-1979,F,"WASHINGTON NRO 332 MARIANO ROQUE
+2887771,"PAOLA SHARON ANN",LERCH DURE,LUQUE CÑIA 11 * YKAE,0,0,8,8"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,851754,"el valor es demasiado largo para el tipo character varying(2)","2941069,HUGO ALFREDO,ACOSTA,03-23-1978,M,"CERRO CORA 1191 ESQ NVA 
+2941071,"IVANA PATRICIA",VAZQUEZ ESTIGARRIBIA,,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,852634,"el valor es demasiado largo para el tipo character varying(2)","2942714,EDUARDO ARTURO,GILL GOIBURU,05-09-1990,M,"CALLE 1 C EMETERIO MIRANDA
+2942717,"MIRIAN BEATRIZ",MASQUEDA DE RIOS,Bº REMANSO_ TACUARA C PASO MEDIN,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,865279,"el valor es demasiado largo para el tipo character varying(2)","2965904,MARIA CELESTE,MARTINEZ ARIAS,09-19-1979,F,"JOVENES POR LA DEMOCRACIA C EUGENIO
+2965906,"MARCOS",TORALES SOSA,TTE MOLAS C GRAL CABALLERO,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,872200,"el valor es demasiado largo para el tipo character varying(2)","2979097,MARIA AUXILIADORA,ALDERETE DE GIMENEZ,03-24-1972,F,"CAAGUAZU N 570 BARRIO SAN
+2979098,"NINFA NOEMI",ALFONSO BENITEZ,KM 15 CAMPO VERDE,17,17,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,872367,"el valor es demasiado largo para el tipo character varying(2)","2979419,ROMINA MARIEL,BENITEZ SARUBBI,04-02-1991,F,"TACUARA 4050-B SAN
+2979420,"GUSTAVO",CABALLERO HAMAGASHIRA,LAS MERCEDES LOMA PYTA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,875422,"el valor es demasiado largo para el tipo character varying(2)","2985296,DAVINA MATILDE,RIOS ROLON,12-13-1980,F,"CUIDAD DEL ESTE KM 4 1-2 BARRIO SAN
+2985298,"LISANDRA RAQUEL",ROTELA PIÑANEZ,PALMA,35,35,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,876748,"el valor es demasiado largo para el tipo character varying(2)","2987811,ELIGIO SIMON,RAMOS CACERES,10-08-1962,M,"CALLE F"",9,9,7,7
+2987814,"EUGENIA ELIZABETH",LEON RIVEROS,BO LA INOCENCIA,37,37,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,883565,"el valor es demasiado largo para el tipo character varying(2)","3000898,VIVIANA ESTHER,FLECHA FIORE,08-05-1981,F,"PARAISO NO 2735 C AMADOR DE MONTOYA -
+3000901,"GILBERTO",BOGADO OTAZU,BO JUVENTUD,5,5,15,15"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,889292,"el valor es demasiado largo para el tipo character varying(2)","3011758,JAVIER,OCAMPO CABRERA,10-29-1979,M,"15DE MAYO 1728 C ANDRE
+3011759,"GUSTAVO RAMON",ESPINOLA COLMAN,BO SAN ISIDRO,31,31,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,910160,"el valor es demasiado largo para el tipo character varying(2)","3177325,MARIA JOAO,RODRIGUES DA SILVA SOARES,04-04-1956,F,"ANDALUCIA CASI PASEO DE
+3177336,"ROSALBA",PALACIOS JARA,BO SAN GERARDO-C 15 DE AGOSTO C LAS R,0,0,13,13"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,920339,"el valor es demasiado largo para el tipo character varying(2)","3196860,MARIA LAURA,PORTILLO ALFONZO,02-27-1979,F,"CAP INSFRAN CASI CALLE CORTA -
+3196861,"EMILIO RODRIGO",WIEGERT,CNEL OVIEDO SILVIO PETTIROSSI 3150,0,0,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,921951,"el valor es demasiado largo para el tipo character(1)","32",9,9,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,923247,"el valor es demasiado largo para el tipo character varying(2)","3202541,JOSE MIKHAIL,HERRERO DE LORENZI,07-27-1990,M,"PASEO DEL SOLAR
+3202542,"ALBERTO DAVID",MENDOZA OVIEDO,B° STA ROSA STMA TRINIDAD,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,926116,"el valor es demasiado largo para el tipo character varying(2)","3208474,ANDRES AUGUSTO,BARRIOS GONZALEZ MAYA,09-30-1989,M,"PARAGUARI
+3208475,"CINTHIA FRANCISCA",OJEDA ZARZA,BO FRACCION PRIMAVERA,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,946099,"el valor es demasiado largo para el tipo character varying(2)","3246638,RODRIGO FABIAN,RAMIREZ MARTINEZ,04-12-1987,M,"INGA CASI
+3246641,"JAVIER ROBERTO",RECALDE PEREIRA,CHILE N°836 C HUMAITA B° LA ENCARNACION,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,950063,"el valor es demasiado largo para el tipo character varying(2)","3254634,EICHI RUBEN,SASANUMA GONZALEZ,03-14-1985,M,"CAPIATA RUTA 1 KM
+3254635,"EDUARDO DANIEL",NUÑEZ ROJAS,OBRERO,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,997638,"el valor es demasiado largo para el tipo character varying(2)","3351103,MILCIADES EUGENIO,RECALDE,01-01-1980,M,"AVDA NANAWA C ITA
+3351105,"MARIO MILAN",BENITEZ DIAZ,SAN JOSE C VIRGEN CAACUPE,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1000666,"el valor es demasiado largo para el tipo character varying(2)","3357746,ANDREA CAROLINA,BARBOZA FIGUEREDO,09-14-1981,F,"CLAUDIA ARRUA C TTE RIVAS NRO
+3357752,"GUMERCINDA",MARTINEZ DE CAÑIZA,CIA ITAIPYTE,27,27,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1002474,"el valor es demasiado largo para el tipo character varying(2)","3361816,ENEDINA MARIA,DOS SANTOS COSTA,06-13-1963,F,"Bº SAN FRANCISCO MINGA PORA"",19,19,10,10
+3361817,"ALBINA",RIOS AGUIRRE,Bº LOURDES,9,9,8,8"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1014966,"el valor es demasiado largo para el tipo character varying(2)","3386620,JUANA CONCEPCION,RUIZ DE PESOA,06-24-1980,F,"CALLE INDIA JULIANA
+3386621,"PATRICIA",GONZALEZ ALCARAZ,RIO DE JANEIRO Y C DE ARECAYA C DEL MONT,23,23,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1021923,"el valor es demasiado largo para el tipo character varying(2)","3399916,MIRTHA GRACIELA,AVILA,06-12-1974,F,"Bº S ROQUE Aº PORA"",5,5,7,7
+3399917,"MARIA AGUEDA",MARIN VILLALBA,BO C ROSADO,3,3,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1024486,"el valor es demasiado largo para el tipo character varying(2)","3405204,LAIZA RUTH,ROMERO ADORNO,09-08-1982,F,"CAMINO A PIQUETE CUE -FACCION
+3405205,"FIDEL",BENITEZ,Bº FATIMA,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1027741,"el valor es demasiado largo para el tipo character varying(2)","3411494,CYNTHIA CAROLINA,VELAZQUEZ CABRERA,03-27-1990,F,"LEOPARDI Y TERCERA BARRIO ITA
+3411497,"ALBERTO SEBASTIAN",BOVEDA MARTINEZ,8 DE DICIEMBRE,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1037736,"el valor es demasiado largo para el tipo character varying(2)","3430635,JOSE EDUARDO,EISENKOLBL GOMEZ,03-19-1979,M,"DC MORRA N 721 C LILLIO BARRIO
+3430636,"OSVALDO ANDRES",CAZAL MARTINEZ,TUYUTI Y AYALA VELAZQUEZ S-N,19,19,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1059545,"el valor es demasiado largo para el tipo character varying(2)","3472975,JOSE LUIS,MIGUELEZ CARBALLO,06-06-1979,M,"CURUPAYTY 1615 C PANCHITO
+3472976,"HECTOR",MARTINEZ ACUÑA,,30,30,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1066705,"el valor es demasiado largo para el tipo character varying(2)","3487063,DERLIS ARISTIDES,SERNA ROMAN,01-08-1986,M,"MAYAS 924ESC TTE
+3487065,"VICTOR DANIEL",GONZALEZ NUÑEZ,SD SN,25,25,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1067450,"el valor es demasiado largo para el tipo character varying(2)","3488551,MELISA MABEL,MONACO BENITEZ,06-29-1993,F,"FRANCISCO SOLANO LOPEZ C-
+3488555,"MARIA DEL ROSARIO",LOVERA,MARIANO R ALONSO,19,19,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1072059,"el valor es demasiado largo para el tipo character varying(2)","3497522,ROSA LILIANA,ARGÜELLO CORREA,11-21-1980,F,"INDIA JULIANA N 4870 C PADRE BUENA
+3497524,"LAURA CAROLINA",AGUERO,BO MBOCAYATY CALLE SIN NOMBRE,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1140084,"el valor es demasiado largo para el tipo character varying(2)","3628683,JOEL FERNANDO,FILIPIGH,07-23-1991,M,"TTE MOLAS C-MANUEL ORTIZ
+3628684,"MARCELA ARACELI",BENITEZ LEON,OROITE 859-B°SAN PABLO,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1140941,"el valor es demasiado largo para el tipo character varying(2)","3630306,MIRNA ANDREA,LIMOUSIN MIRANDA,08-31-1993,F,"OROITE C PASO DDE PATRIA
+3630308,"VANESSA SOLEDAD",LIMOUSIN MIRANDA,QUYQUYHO S-N,19,19,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1152424,"el valor es demasiado largo para el tipo character varying(2)","3651707,GISSELL VICTORIA,LOPEZ JARA,02-07-1993,F,"MCAL ESTIGARRIBIA C-
+3651710,"JUAN CARLOS",OVELAR MOLINAS,GENARO ROMERO 554 STMA TRINIDAD,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1169772,"el valor es demasiado largo para el tipo character varying(2)","3683549,GUSTAVO INOCENTE,ORTIZ BARUA,09-30-1982,M,"EDISON NAZARENO CASI STO DOMINGO -
+368355,"MARIA DEL CARMEN LOURDES",GRANER DE MASI,BO CAMPO GRANDE RIGOBERTO FONTANO MEZA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1199304,"el valor es demasiado largo para el tipo character varying(2)","3740258,DINA AURORA,GIMENEZ RAMIREZ,03-10-1983,F,"CERRO CORA C TRANSCHACO BO SAN
+3740260,"ROQUE ORLANDO",VERA SALINAS,SAN ROQUE,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1221909,"el valor es demasiado largo para el tipo character varying(2)","3784505,OSVALDO SANTIAGO,ACUÑA NUÑEZ,02-24-1984,M,"CAMPO JORDAN C CECILIO A LOPEZ,BO 
+3784507,"MARIA ASUNCION",BOBADILLA,CAAGUAZU SAN JUAQUIN,27,27,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1223194,"el valor es demasiado largo para el tipo character varying(2)","3786912,LUCY ROSALBA,BENITEZ FERREIRA,03-21-1983,F,"10 DE AGOSTO 677 ENTRE CORONEL
+3786914,"MARIA ANA",ACUÑA CABAÑAS,CNIA PATIÑO,9,9,6,6"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1229048,"el valor es demasiado largo para el tipo character varying(2)","3797948,MARCOS DARIO,FERNANDEZ CABAÑAS,06-18-1983,M,"CARRETERA DE LOPEZ CASI TOBATI -
+3797949,"ANGEL MARIA",CORONEL ESTIGARRIBIA,Bº MBACHIO AV LA BURRERITA Nº 1967,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1243435,"el valor es demasiado largo para el tipo character varying(2)","3824577,CRISTINA ELIZABETH,SOSA SERVIAN,09-08-1983,F,"FDO DE LA MORA B ITA
+3824579,"NOELIA",MACIEL,EDELIRA KM 26,17,17,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1244035,"el valor es demasiado largo para el tipo character varying(2)","3825733,MARA EDELIRA,SANTACRUZ AYALA,04-19-1988,F,"GRAL GARAY C TTE FERNANDO
+3825734,"NORA ADRIANA",SANTACRUZ AYALA,MCAL ESTIGARRIBIA,19,19,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1244368,"el valor es demasiado largo para el tipo character varying(2)","3826421,ANA MERCEDES,CORONEL SANABRIA,06-16-1983,F,"CAACUPE COMPAÑIA
+3826425,"RAMON IGNACIO",DE ISASA QUIÑONEZ,NTRA SRA ASUNCION CAPIATA,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1247158,"el valor es demasiado largo para el tipo character varying(2)","3831509,MONICA MARIA INES,BENITEZ ARRUA,12-15-1992,F,"DE LA CONQUISTA Y CNEL
+383151,"CESAR ARNALDO",ESTIGARRIBIA CABALLERO,TTE ROSS E PILAR Y ENCARN 1148,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1251425,"el valor es demasiado largo para el tipo character varying(2)","3839452,JULIETA,VEGA VALIENTE,02-21-1986,F,"NESTOR ROMERO VALDOVINOS 671
+3839453,"MARLENE NOEMI",SAMUDIO CAREAGA,COL INDEPENDENCIA ** MELGAREJO,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1294513,"el valor es demasiado largo para el tipo character varying(2)","3923285,GUIDO ISAAC,CROSA MORA,01-11-1985,M,"SAN ROQUE 31 VILLA
+3923286,"HEBERT EDITO",RUIZ DIAZ MARTINEZ,CAP FIGARI C ROQUE GONZALEZ DE SANTACR,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1311120,"el valor es demasiado largo para el tipo character varying(2)","3955787,ALBERTO DANIEL,VELILLA RODRIGUEZ,02-03-1986,M,"BA KENNEDY CALLE MCAL
+3955792,"SANTIAGO TADEO",GIMENEZ ALARCON,ACARAY C-MCAL LOPEZ *FDO DE LA MORA,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1311652,"el valor es demasiado largo para el tipo character varying(2)","3956905,IVAN ENRIQUE,PFANNL MORINIGO,05-11-1992,M,"SAN ROQUE GONZALEZ
+3956907,"CESAR MARTIN",QUINTEROS CABALLERO,GRAL CABALLERO Y LAS FLORES ** S LORENZO,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1318414,"el valor es demasiado largo para el tipo character varying(2)","3970789,CLARA ELIZABETH,BENITEZ DE BAEZ,08-16-1984,F,"CRISTOBAL COLON 858 C RCA
+3970792,"SIRLEY SOLEDAD",LOPEZ AYALA,BO SAN VICENTE CALLE MAYOR ARGUELLO,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1326874,"el valor es demasiado largo para el tipo character varying(2)","3987325,NATALICIO DE JESUS,AGUERO MENDOZA,12-25-1982,M,"SAN FRANCISCO C MA
+3987326,"CELBA MARIA",TORALES MIRANDA,C#IA SAN JOSE CARAPEGUA,5,5,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1328050,"el valor es demasiado largo para el tipo character varying(2)","398966,LUIS MARIA,ALARCON RIOS,03-30-1954,M,"PEDRO VILLA MAYOR ENTRE MAYOR VERA Y
+3989660,"MELISSA STEPHANIE",JARA LUGO,YPACARAI C NTRA SEÑORA DE LA ASUNCION,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1329956,"el valor es demasiado largo para el tipo character varying(2)","3993225,SONIA ELIZABETH,SAMUDIO,03-31-1986,F,"DR PELLON SAN
+3993226,"CHRISTIAN HUGO DAVID",FERNANDEZ GALEANO,,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1342857,"el valor es demasiado largo para el tipo character varying(2)","401803,MIRTA ELOISA,PRIETO RUIZ,05-15-1952,F,"GUIDO SPANO Y 23 DE OTUBRE
+4018032,"VICTOR MANUEL",AVEIRO VERA,BARRIO SAN JOSE CALLE SAN LORENZO,29,29,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1357038,"el valor es demasiado largo para el tipo character varying(2)","4044119,ADRIAN CHUNG IL,PAREDES SCHIEFELBEIN,09-24-1994,M,"BARRIO MARIA
+404412,"BRUNO",MIGLIORE MONELLO,DR BOETNER SACRAMENTO 106,5,5,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1357225,"el valor es demasiado largo para el tipo character varying(2)","4044476,ERITA,BRIZUELA BENITEZ,09-16-1953,F,"Bº ITA ANGUA"",0,0,7,7
+4044477,"SUSANA",LEDEZMA MIRANDA,B° VIRGEN DEL ROSARIO,9,9,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1367443,"el valor es demasiado largo para el tipo character varying(2)","4063013,MILCIADES HERNAN,MARTINEZ LEDESMA,12-08-1992,M,"SANTA ANA C CACIQUE
+4063014,"REINALDO",CUEVAS GIMENEZ,CIA YOYBY,5,5,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1371326,"el valor es demasiado largo para el tipo character varying(2)","4069908,JOSE DEL PILAR,MARTINEZ CACERES,10-12-1965,M,"Bº MANZANA E"",25,25,5,5
+4069910,"TORIBIO",CAÑIZA MARTINEZ,CÑIA CABALLERO ALVAREZ,27,27,4,4"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1373411,"el valor es demasiado largo para el tipo character varying(2)","4073869,JOSE ANIBAL,BENITEZ CABRERA,11-26-1945,M,"CALLE E 12"",9,9,7,7
+4073870,"CARLOS ALBERTO",AGUILERA,B° CAP MIRANDA C 7,9,9,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1386691,"el valor es demasiado largo para el tipo character(1)","41",15,15,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1446060,"el valor es demasiado largo para el tipo character varying(2)","4219372,VALENTINA,MENDOZA MENDOZA,02-14-1989,F,"MAURICI CARDOZO OCAMPOS C-
+4219373,"ALBA ASUNCION",BAEZ LUGO,CNIA ÑUA I 1º,13,13,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1454172,"el valor es demasiado largo para el tipo character varying(2)","4234553,DOMINGO GUZMAN,LUGO BAEZ,08-04-1985,M,B,MONGELOS",2,2,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1469468,"el valor es demasiado largo para el tipo character varying(2)","426497,MARIA AURORA,VALIENTE DE VEGA,08-13-1950,F,"NESTOR ROMERO VALDOVINO 671 Y GRAL
+4264971,"SILVIA",RODRIGUEZ,BO SAN CAYETANO,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1474774,"el valor es demasiado largo para el tipo character varying(2)","4275874,DORA CAROLINA,FLEITAS GIMENEZ,08-30-1993,F,"ALFREDO BOZZANO ENTRE PATRICIO
+4275877,"ALDO RUBEN",AVEIRO SOLIS,Bº STA BERNARDITA 4TA CÑIA Nº314,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1499264,"el valor es demasiado largo para el tipo character varying(2)","4326768,HUGO JAVIER,AVALOS SANABRIA,11-08-1986,M,"16 PTDA Y
+4326769,"SYRLEY ADRIANA",MENDEZ SAUCEDO,CAPIATA-KM 17 RUTA 2 B°STA SILVIA,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1507154,"el valor es demasiado largo para el tipo character varying(2)","4342683,CARLOS ANGEL,ROJAS SANCHEZ,12-01-1990,M,"VICTOR CACERES C PIRIBEBUY B LAGUNA
+4342684,"ZUNILDA MABEL",GOMEZ CASTILLO,CANDELARIA Y CAPITAN GRAU,BARRIO TABLAD,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1512102,"el valor es demasiado largo para el tipo character varying(2)","4352303,JORGE NICOLAS,ENCINA OZUNA,07-21-1992,M,"TTE GUGGIARI CASI SANCHEZ BENITEZ -
+4352304,"ESTELA LILIANA",VALDEZ,CAL CABOL AMARILLA Nº 790,19,19,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1512319,"el valor es demasiado largo para el tipo character varying(2)","435271,PORCIANO MANUEL,ENCINA CAZAFU,11-24-1937,M,"MANUEL DOMINGUEZ C SARGENTO SILVA -
+4352710,"SIRLEY LORENA",VAZQUEZ YRALA,2DO BARRIO BELLA VISTA,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1524764,"el valor es demasiado largo para el tipo character varying(2)","4376348,LAURA TERESITA,ALCARAZ INSFRAN,10-31-1987,F,"MONTEVIDEO N 732 C HAEDO BARRIO
+4376349,"ROLANDO DAVID",FLEITAS ALVAREZ,2 DE MAYO,15,15,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1534096,"el valor es demasiado largo para el tipo character varying(2)","4394576,VICENTE ANASTACIO,MONTANIA VILLALBA,01-22-1984,M,"TOBATI C-
+4394577,"DOMICIANA",FERNANDEZ AVALOS,CIA ZAGUAZU,27,27,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1537806,"el valor es demasiado largo para el tipo character varying(2)","4402007,RODRIGO ALBERTO,ZARZA GONZALEZ,01-29-1995,M,"ROGELIO BENITEZ 461 C BOQUERON -SAN
+4402009,"MARIO RAMON",BENITEZ,CÑIA COSTA DULCE,9,9,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1539958,"el valor es demasiado largo para el tipo character varying(2)","4406496,MARIA SUSANA,CUELLA BARBOZA,10-06-1985,F,"LEONIDA ESCOBAR Y AVDA
+4406499,"EVER ALBERTO",CHILENO VERA,SAN AGUSTIN,33,33,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1548001,"el valor es demasiado largo para el tipo character varying(2)","4423597,FABIO ARIEL,LOPEZ LOPEZ,12-22-1988,M,"ACOSTA ÑU 715 C ITA PIRU BA VALLE
+4423599,"LUIS ARNALDO",GIMENEZ ACUÑA,KM 30 MONDAY BO SAN JORGE,7,7,12,12"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1548026,"el valor es demasiado largo para el tipo character varying(2)","4423643,NICOLE MICAELA,NUÑEZ NUÑEZ,04-19-1994,F,"CRUZ DEL DEFENSOR 1826 CASI JOSE
+4423644,"JUANA SOLEDAD",PEREZ SOSA,TACUARINDY,5,5,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1569674,"el valor es demasiado largo para el tipo character varying(2)","4467912,FRANCISCA,MELGAREJO DE CANTERO,10-17-1983,F,"COL SAN ISIDRO 1º B"",13,13,10,10
+4467914,"GLADYS GEORGINA",NOGUERA PAREDES,COL ARA POTI LOS CEDRALES A PARANA,13,13,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1574129,"el valor es demasiado largo para el tipo character varying(2)","4477004,JUAN FRANCISCO,ZAVALA,03-30-1992,M,"BO ARECAYA M R A CALLE RESEDÁ NO 
+4477008,"VICTOR ASUNCION",BARRIOS MENDOZA,Bª RICARDO BRUGADA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1591992,"el valor es demasiado largo para el tipo character varying(2)","4513384,ROMINA GISSELLE,PALACIOS VERA,12-02-1990,F,"YBYRAPYTA C -PASO DE PATRIA
+4513385,"SIXTO EMILIO",ARA PENAYO,MORA CUE CALLE RUTA LUQUE LIMPIO,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1597517,"el valor es demasiado largo para el tipo character varying(2)","4523815,GONZALO JAVIER,VILLANUEVA RODRIGUEZ,04-09-1986,M,"CAPITAN LOMBARDO C-8DE
+4523816,"ROLANDO FABIAN",GILL MALDONADO,B° VIRGEN DEL ROSARIO,5,5,15,15"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1606354,"el valor es demasiado largo para el tipo character varying(2)","4540295,EDGAR RAMON,ALVARENGA PEREIRA,04-28-1994,M,"CALLE HERNANDARIAS -
+4540296,"LEDA ROCIO",CORONEL CORONEL,PUERTO FONCIERE,8,8,1,1"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1631026,"el valor es demasiado largo para el tipo character varying(2)","4590111,FELICIA MERCEDES,SILVA,05-19-1982,F,"JULIANA INSFRAN N 3833 BARRIO
+4590112,"CYNTHIA CAROLINA",MONGES,LAGUNA SATY,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1647482,"el valor es demasiado largo para el tipo character varying(2)","4625337,ANDREA SOLEDAD,LEGUIZAMON AQUINO,01-06-1992,F,"3 DE MAYO CASI PANCHITO LOPEZ NO 
+4625338,"JUNIOR MATEO",SANABRIA RUIZ,MOMPOX Y COMUNEROS,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1648165,"el valor es demasiado largo para el tipo character varying(2)","4626770,MARIA DEL PILAR,ESPINOZA RAMIREZ,08-22-1987,F,"NSTRA SEÑORA C NICANOR
+4626771,"IVAN GABRIEL",ALVARENGA GUZMAN,R DE FRANCIA BO INMACULADA CONCEPCION,13,13,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1655588,"el valor es demasiado largo para el tipo character varying(2)","4643526,NATHALIA CAROLINA,DIAZ PAIVA,11-28-1990,F,"VILLA SALVADOR CAACUPEMI
+4643527,"SHIRLEY NOELIA",ZARATE GOMEZ,SGTO LEGUIZAMON C MADAME LYNCH,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1665865,"el valor es demasiado largo para el tipo character varying(2)","4668049,ANDRES,GONZALEZ FRETES,02-04-1992,M,"AZARA ESQ 101
+4668051,"LINO",BARRIOS,B°CENTRO-JUAN MANUEL FRUTOS,9,9,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1675748,"el valor es demasiado largo para el tipo character varying(2)","4690664,MIGUEL GUSTAVO,AMARILLA ALMADA,04-08-1990,M,"LIMPIO 29 DE SEPTIEMBRE C-
+4690666,"MARIA JULIA",IRALA CATEURA,CARRETERA DE LOPEZ YAMAMBAY,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1682320,"el valor es demasiado largo para el tipo character varying(2)","4705937,HECTOR ROLANDO,DURE GIMENEZ,06-28-1994,M,"CALLE VAPOR CUE Bº SAN
+4705939,"MARIA IRENE",GODOY LEIVA,ARROYO HONDO,11,11,12,12"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1682554,"el valor es demasiado largo para el tipo character varying(2)","4706425,LETICIA ROSANA,ESTEVE DE BAREIRO,08-30-1989,F,"B PITIANTUTA FDO DE LA
+4706430,"WILDO ULISES",LEZCANO CARVALLO,BARRIO INMACULADA,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1691433,"el valor es demasiado largo para el tipo character varying(2)","4726833,LUZ MARINA,CABALLERO CACERES,06-18-1983,F,"RUTA MSCAL ESTIGARRIBA KM 22-30
+4726834,"ARISTIDES",OZUNA MEDINA,CÑIA GRAL AQUINO,7,7,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1698142,"el valor es demasiado largo para el tipo character varying(2)","4741775,JOSE DELANIEVE,ESPINOZA ALFONSO,08-05-1984,M,"BARRIO LOS
+4741779,"AIDA JUANITA",OVIEDO,BO VILLA REDENCION,0,0,1,1"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1698748,"el valor es demasiado largo para el tipo character varying(2)","474304,CALIXTO,ECHEVERRIA GIMENEZ,12-09-1951,M,"COLONIA BERNARDINO CABALLERO
+4743041,"CANDIDA",RODAS LOPEZ,Bº STA ANA,0,0,2,2"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1706674,"el valor es demasiado largo para el tipo character(1)","4761",3,3,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1713078,"el valor es demasiado largo para el tipo character varying(2)","4774807,EVER IGNACIO,PALACIOS,07-31-1989,M,"AVD DE LA VICTORIA Y DE LAS
+4774808,"CINTIA MERCEDES",GARCIA GIMENEZ,B° SAN PEDRO,21,21,2,2"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1714413,"el valor es demasiado largo para el tipo character varying(2)","4777787,FIORELLA GISELLE,BOGARIN RAMIREZ,02-18-1995,F,"EUROPA 105 C 3 DE
+4777789,"CELESTE CAROLINA",AMARILLA DE OZUNA,BO COSTA AZUL AVDA COSTA AZUL S-N,15,15,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1714879,"el valor es demasiado largo para el tipo character varying(2)","4778842,CLAUDIA,GARCIA CARDOZO,03-24-1990,F,"BO BERNARDINO
+4778849,"MARIA ELENA",GARCIA,BøSAN BLAS-CNEL BOGADO,15,15,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1725603,"el valor es demasiado largo para el tipo character varying(2)","4803811,DIANA FATIMA,FERNANDEZ ROMERO,04-13-1993,F,"CONCEPCION 809 B CERRITO
+4803814,"CLAUDIO",GONZALEZ MELGAREJO,AENT NIÑO JESUS BO SAN BLAS,25,25,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1731843,"el valor es demasiado largo para el tipo character varying(2)","4817555,BASILISA,FERREIRA ORTEGA,11-17-1986,F,"BARRIO CENTRO CENTENO Y
+4817558,"CLAUDIA LORENA",ESCOBAR ENCISO,LA RESIDENTA C MCAL LOPEZ S-N,3,3,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1732639,"el valor es demasiado largo para el tipo character varying(2)","4819216,SEBASTIANA,CHILAVERT ENCINA,03-29-1988,F,"QUEBRADA DEL SOL II LA
+4819217,"TANYA VIVIANA",REY SERVIN,B SANTO DOMINGO CALLE SAN PABLO Y PETER,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1732973,"el valor es demasiado largo para el tipo character varying(2)","4819853,ARMANDO ELIEZER,AGUILAR FLEITAS,03-20-1989,M,"TAPUA C-TEOFILO
+4819855,"ELVIO ANDINO",OVELAR AYALA,,21,21,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1744718,"el valor es demasiado largo para el tipo character varying(2)","484563,FRANCISCO,MARTINEZ,10-04-1948,M,"14 DE MAYO Y 13
+4845630,"HUGO IVAN",TILLERIA SITZMANN,AVDA GASPAR R DE FRANCIA,41,41,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1746436,"el valor es demasiado largo para el tipo character varying(2)","4849402,WILLIAN RAUL,ALEGRE DURE,12-02-1990,M,"SATURIOS RIO C-
+4849403,"KLARA ADELA",HONIG GOMEZ,21 DE SETIEMBRE Nº 1125 C MADRES PARAGU,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1754268,"el valor es demasiado largo para el tipo character varying(2)","4867247,PAULINA,SOSA,06-22-1984,F,"GRECIA 1245EUROPA
+4867248,"MARIA KARINA",ESPINOLA GONZALEZ,BO SAN FRANCISCO 3,35,35,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1775796,"el valor es demasiado largo para el tipo character varying(2)","4914597,NINFA,BRIZUELA CUENCA,08-22-1991,F,"COL LUZ
+4914598,"FELICIA",LOPEZ FLORES,CIA 8VA ENC M,12,12,14,14"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1781346,"el valor es demasiado largo para el tipo character varying(2)","4927105,LILIANA,LEGUIZAMON COLMAN,08-09-1990,F,"COLONIA TOMPSON NRO 360 FRACCION
+4927107,"DERLIS RAMON",CACERES MENDEZ,TTE WANDO ORREGO 357 11 CIA YKAA,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1798432,"el valor es demasiado largo para el tipo character varying(2)","4966338,DIANA LUCINA,TRINIDAD BARBOZA,01-10-1992,F,"AVELINO MARTINEZ C-
+4966343,"LORENA STEFANI",OVELAR ECHEVERRIA,KM 16 MINGA GUAZU,17,17,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1806106,"el valor es demasiado largo para el tipo character varying(2)","4985575,CRISTHIAN RAUL,SORIA MILTOS,02-01-1994,M,"GRAL ROMERO Y
+4985577,"JUAN GABRIEL",SANCHEZ ESCOBAR,B°SAN MIGUEL-SAN LORENZO,27,27,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1812183,"el valor es demasiado largo para el tipo character(1)","4TO BAR",17,17,11,MM,,,"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1823401,"el valor es demasiado largo para el tipo character varying(2)","5027420,GLORIA BEATRIZ,VILLARREAL CANTERO,06-30-1992,F,"CAPIATA KM 21 RUTA
+5027421,"JULIA ANTONIA",NEGRETTE GALEANO,BO OBRERO,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1877128,"el valor es demasiado largo para el tipo character varying(2)","5162616,ESTELA BEATRIZ,ESTIGARRIBIA MOREL,03-27-1993,F,"ITAUGUA KM
+5162617,"PAULO ROBERTO",LOPEZ CHAVES,DIST LA RECOLETA B° SANTA MARIA,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1882155,"el valor es demasiado largo para el tipo character varying(2)","5176507,EMILIO RAUL,JARA SALDIVAR,03-12-1993,M,"CAÑADA SAN RAFAEL CONAVI
+5176509,"VICTOR HUGO",ORTIZ,GRAL ROA C RAMONA MARTINEZ,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1921559,"el valor es demasiado largo para el tipo character varying(2)","527856,BONIFACIO RAMON,BELATTI ZELAYA,06-05-1957,M,"BORIS DE DOFF NRO 5675 LOMA
+5278560,"LILIANA ELIZABETH",ALVAREZ,CIA YCAREY,27,27,3,3"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1947228,"el valor es demasiado largo para el tipo character varying(2)","5348827,EDGAR,PORTILLO BERNAL,10-02-1988,M,"Bº MANZ_ E"",25,25,5,5
+5348828,"NESTOR RAMON",VILLALBA CHAMORRO,1°DE MAYO-CAAGUAZU,5,5,13,13"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1948680,"el valor es demasiado largo para el tipo character varying(2)","5353224,RICHARD JAVIER,GONZALEZ ARZAMENDIA,08-04-1994,M,"CNEL ABDON PALACIO Y
+5353225,"CESAR GREGORIO",MENDEZ ORUE,17 PYTAS C CHILE,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1952461,"el valor es demasiado largo para el tipo character varying(2)","5364266,GABRIELA DEL CARMEN,ROMERO VERA,08-21-1992,F,"RCA ARGENTINA Y MONTEVIDEO BO 
+5364268,"SANDRA MARIBEL",BOBADILLA OJEDA,Bº VIRGEN DEL CARMEN,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1956062,"el valor es demasiado largo para el tipo character varying(2)","5373237,ATILIO ROLANDO,FLEITAS ORTEGA,07-29-1994,M,"KM 5,5 BO LA
+5373238,"DIEGO ROQUE",DE SALES LEMES,SAN ALBERTO,27,27,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1957868,"el valor es demasiado largo para el tipo character varying(2)","5378222,ELIANA BEATRIZ,VAZQUEZ PEREZ,03-09-1995,F,"BA LAS GARZAS CALLE AVDA LOS
+5378229,"PABLO RUBEN",BENITEZ CASCO,CARMEN DEL PARANA-ITAPUA,13,13,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1961795,"el valor es demasiado largo para el tipo character varying(2)","539008,JUAN DOMINGO,IMAS DEL PUERTO,03-28-1944,M,"CORRALES 235 ZONA NORTE -
+5390083,"RIGOBERTO",BAREIRO BRITEZ,ISLA BOGADO -LUQUE,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,1989755,"el valor es demasiado largo para el tipo character varying(2)","5476273,MAURO,LEZCANO DELVALLE,03-14-1993,M,"CIA GUAZU YGUA "",49,49,7,7
+5476274,"TERESA SOLEDAD",ACOSTA MARTINEZ,LA PAZ ITAPUA,33,33,7,7"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2027395,"el valor es demasiado largo para el tipo character varying(2)","5595091,MIGUEL ANGEL,CORONEL OVIEDO,06-10-1994,M,"CADETA BOQUERON C MOISES BERTONI 765
+5595094,"MIRYAN ROSANA",DUARTE GAONA,SANTA RITA-ALTO PARANA,31,31,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2063960,"el valor es demasiado largo para el tipo character varying(2)","5726052,VENEZIA MACCARENA,SANTANDER ESPINOLA,07-13-1994,F,"AVDA SAJONIA ENTRE ECUADOR Y
+5726058,"MARIA FERNANDA",INSFRAN RAMIREZ,B° SANTA RITA CAPIATA,1,1,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2082451,"el valor es demasiado largo para el tipo character varying(2)","5790157,MARIELA ELIZABETH,CENTURION BARRETO,04-09-1994,F,"PITIANTUTA CASI LAURA
+5790161,"MIRIAM SOLEDAD",FIGUEREDO BRAVO,FDO DE LA MORA CALLE ID NACIONAL C-,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2084688,"el valor es demasiado largo para el tipo character varying(2)","5798404,OFELIA,MONGELOS LOPEZ,12-15-1987,F,"ELSA ESCALANTE Y YATAITY
+5798405,"DIEGO ADRIAN",MALDONADO,ITAUGUA COMPAÑIA CAÑADAMI,9,9,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2157084,"el valor es demasiado largo para el tipo character varying(2)","6051270,LIZ TERESA,RAMIREZ,10-16-1991,F,"MANUEL ORTIZ GUERRERO Y BUENOS
+6051275,"FATIMA ELIZABETH",CRISTALDO ESPINOLA,CAMPO VIA C-1º DE MARZO 867 LAMBARE,13,13,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2180207,"el valor es demasiado largo para el tipo character varying(2)","6134596,RAFAEL,FERREIRA RAMOS,04-26-1990,M,"KM 24 RUTA 1 J AGUSTO
+6134597,"HUGO ALCIDES",FRANCO SANTACRUZ,col san juan,13,13,14,14"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2191768,"el valor es demasiado largo para el tipo character varying(2)","617948,ELBA MIRNA,BURGOS DE CARDOZO,10-14-1959,F,"KM 16 RUTA 2 AUTODROMO RUBEN DUMOT 
+6179482,"GERMAN GONZALO",VALDEZ BOGARIN,BªOBRERO-PILAR,0,0,12,12"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2249724,"el valor es demasiado largo para el tipo character varying(2)","6503422,ELBA,PEREZ,01-28-1996,F,"THOMPSON-VILLA AMISTAD YPANE N° 223 "",35,35,11,11
+6503427,"CHRISTIAN NICOLAS",CUEVAS ARMOA,ZARATE ISLA,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2280365,"el valor es demasiado largo para el tipo character varying(2)","664031,FRANCISCO APARICIO,DELGADO,09-17-1959,M,"BRUNO GUGGIARI E-
+6640315,"NELLY PAOLA",GAUTO AYALA,LOS CEDRALES,13,13,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2323649,"el valor es demasiado largo para el tipo character varying(2)","684422,OSCAR OSMAR,GONZALEZ HERNANDEZ,11-07-1963,M,"AVIADORES DEL CHACO NO 523 C-
+684423,"FORTUNATA",MARTINEZ,LA CANDELARIA C E E U U 154,0,0,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2333987,"el valor es demasiado largo para el tipo character varying(2)","689569,BEATRIZ MARGOT,LOPEZ DE GENTZEN,06-30-1964,F,"SANTA CLARA C FLORENCIO M SOSA
+6895699,"DALILA DAHIANA",RIVERO SOSA,SANTANI,33,33,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2350498,"el valor es demasiado largo para el tipo character varying(2)","6980407,ELOSANTO,GOMEZ,11-01-1994,M,"CIA GUAYABITY ASENT ROSA MISTICA M "",9,9,11,11
+6980409,"NANCY",DELVALLE ESPINOLA,SAN MIGUEL,17,17,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2350520,"el valor es demasiado largo para el tipo character varying(2)","6980615,ISAIAS SAMUEL,FARIÑA PANIAGUA,05-12-1994,M,"36 PROYECTADAS Y
+6980619,"JUAN ANTONIO",ESCURRA PEREIRA,CIUDAD DEL ESTE,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2359339,"el valor es demasiado largo para el tipo character varying(2)","7033726,MARTA CARINA,NUÑEZ DA ROSA,10-07-1994,F,"CHOFERES DEL CHACO BARRIO
+7033746,"MIRTA ELIZABETH",LOPEZ GONZALEZ,25 DE DICIEMBRE Bº SAN MIGUEL,1,1,2,2"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2370909,"el valor es demasiado largo para el tipo character varying(2)","710439,OSCAR ALBERTO,LOPEZ LARREA,02-21-1963,M,"BRASIL 554 E AZARA Y CERRO
+7104402,"DERLIS DAVID",GOMEZ SILGUERO,PDTE FRANCO-SANTA ROSA,25,25,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2417461,"el valor es demasiado largo para el tipo character varying(2)","743154,TEOTISTA ISABEL,SANCHEZ SOTO,11-10-1962,F,"AVDA RODRIGUEZ DE FRANCIA Y DE LA
+7431558,"BENITA",ESPINOLA BENITEZ,SAN PABLO SAN PEDRO,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2420599,"el valor es demasiado largo para el tipo character varying(2)","745655,GLORIA BEATRIZ,ARRUA DE ZARATE,12-26-1968,F,"KM 97 SAN IGNACIO DE
+7456563,"LUIS ALBERTO",SORIA RODRIGUEZ,STA ROSA,11,11,8,8"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2424951,"el valor es demasiado largo para el tipo character varying(2)","748981,LUISA PRIMITIVA,LAUPICHLER DE OLMEDO,11-27-1962,F,"ALEJANDRO VILLAMAYOR 2582 C-
+7489810,"MARCOS",BAEZ ORTIGOZA,CHINO KUE,9,9,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2455927,"el valor es demasiado largo para el tipo character varying(2)","781379,MIGUEL ANGEL,NIELLA QUESADA,06-01-1966,M,"TATAYIBA C-TACURU
+7813804,"FABIOLA NOEMI",FERREIRA GOMEZ,MINGA GUAZU KM 15 MONDAY,17,17,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2470297,"el valor es demasiado largo para el tipo character varying(2)","800823,MARIA YOLANDA,SOSA ZANI,10-08-1963,F,"CNEL SILVIO GARAY ESQ MBUYAPEY FDO DE
+8008242,"RODY",FLORES DIAZ,CAPIIBARY,5,5,2,2"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2479757,"el valor es demasiado largo para el tipo character varying(2)","814433,GUSTAVO ALFREDO,OCAMPOS CARDOZO,06-12-1963,M,"FULGENCIO R MORENO 1749 BARRIO
+814435,"LEANDRA",CORONEL DE CENTURION,,33,33,5,5"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2495836,"el valor es demasiado largo para el tipo character varying(2)","843652,NORMA ELIZABETH,ARNOLD DE ALTAMIRANO,11-14-1965,F,"GUARANIES C MED DEL CHACO N
+843653,"JUAN BAUTISTA",COLLAR NOGUERA,,0,0,10,10"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2506074,"el valor es demasiado largo para el tipo character varying(2)","864505,ALBERTO,CABALLERO TOLEDO,01-14-1965,M,"JUAN PABLO SOTELO C-
+864509,"SILVINA",VILLAVERDE AGUERO,BO LUIS A HERRERA CALLE CNEL CABRERA N,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2515830,"el valor es demasiado largo para el tipo character varying(2)","885800,OLGA BEATRIZ,MERELES DE CABALLERO,06-17-1970,F,"FACUNDO MACHAIN C-RI6 BA LOS
+885801,"MARCO ANTONIO",MERELES GREGOR,I FRANCISCO C WILLIAM R 445,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2526528,"el valor es demasiado largo para el tipo character varying(2)","912095,ELIZABETH MARIA CRISTINA,BENITEZ VALL,02-04-1966,F,"YVAPOVO C LOS PINOS-B ALTO
+912097,"JULIO CESAR",PAIVA KRAUSE,GRAL CABALLERO 413,3,3,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2527139,"el valor es demasiado largo para el tipo character varying(2)","913414,JUAN,VILLALBA AMARILLA,08-29-1945,M,"BARRIO CAPITAN MIRANDA RUTA 6 CALLE "",9,9,7,7
+913415,"HECTOR DESIDERIO",ROMERO PALACIOS,PADRE GONZALO 1827,0,0,0,0"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2531150,"el valor es demasiado largo para el tipo character varying(2)","921941,MARIA TERESA MELANIA,RIVAS LAGRAVE,07-31-1970,F,"CUIDAD DE SAN
+921944,"JOSE ALBERTO",REYES BENITEZ,GRAL DIAZ C CARRUA 1240,17,17,11,11"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2531451,"el valor es demasiado largo para el tipo character varying(2)","922510,ANNA MARIA,KOCH DE CARDOZO,03-15-1948,F,"NUEVA ASUNCION C SATIAGO LEGUIZAMON B"",3,3,11,11
+922512,"ARNULFO",TALAVERA ARCE,BO PUEBLO,19,19,9,9"
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv,2561239,"el valor es demasiado largo para el tipo character varying(2)","993357,FATIMA ZORAIDA,MENDOZA,05-13-1966,F,"BA MCAL ESTIGRRIBIA CALLE ALAS
+993359,"MARIA DINA",GONZALEZ DE DOMINGUEZ,YERNDAGUE CALLEJON,23,23,11,11"
+D:\PADRONES\csvs\cedulas\wpadron_UNACE_w1252.csv,153079,"el valor es demasiado largo para el tipo character varying(2)","2563931,WILFRIDO,CARDOZO BOGADO,"MANZANA "D" ETAPA VIII LOTE 13, BO ",ENCARNACION,0,ENCARNACION"

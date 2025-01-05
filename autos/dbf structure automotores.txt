@@ -1,0 +1,455 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+= RESTART: D:\IA provechar\GabrielaFragancias\scripts\DBF to SQL\dbf estructure.py
+File: D:/PADRONES/Automotores\actualiza.dbf
+Size: 2809 bytes
+MD5: 2a8151bfd5618a2719376902c0746e94
+Number of records: 102
+Columns:
+  - fecha
+    Type: D
+    Length: 8
+  - tabla
+    Type: C
+    Length: 15
+
+
+File: D:/PADRONES/Automotores\autocol.dbf
+Size: 1005 bytes
+MD5: 1a307974e8c6523a169a9d238991a647
+Number of records: 34
+Columns:
+  - codigo
+    Type: N
+    Length: 4
+  - xxx
+    Type: C
+    Length: 3
+  - color
+    Type: C
+    Length: 10
+
+
+File: D:/PADRONES/Automotores\autocolor.dbf
+Size: 1005 bytes
+MD5: 1a307974e8c6523a169a9d238991a647
+Number of records: 34
+Columns:
+  - codigo
+    Type: N
+    Length: 4
+  - xxx
+    Type: C
+    Length: 3
+  - color
+    Type: C
+    Length: 10
+
+
+File: D:/PADRONES/Automotores\autotip.dbf
+Size: 6833 bytes
+MD5: 520840b02a5db9a7024a92af02f4b063
+Number of records: 230
+Columns:
+  - codigo
+    Type: N
+    Length: 5
+  - xxx
+    Type: C
+    Length: 3
+  - tipovehic
+    Type: C
+    Length: 19
+
+
+File: D:/PADRONES/Automotores\autov1.dbf
+Size: 36018953 bytes
+MD5: e23db52a436040783402a7cd48fc9a4f
+Number of records: 72616
+Columns:
+  - clave
+    Type: N
+    Length: 7
+  - marca
+    Type: N
+    Length: 5
+  - modelo
+    Type: N
+    Length: 4
+  - tipovehi
+    Type: N
+    Length: 5
+  - coddep1
+    Type: N
+    Length: 6
+  - coddep2
+    Type: N
+    Length: 6
+  - nrochapa
+    Type: C
+    Length: 9
+  - fecrecep
+    Type: N
+    Length: 10
+  - nrochasis
+    Type: C
+    Length: 20
+  - nromotor
+    Type: C
+    Length: 20
+  - nroprovid
+    Type: C
+    Length: 8
+  - remitido
+    Type: C
+    Length: 25
+  - remitida
+    Type: C
+    Length: 25
+  - fchremi
+    Type: N
+    Length: 10
+  - notaremi
+    Type: N
+    Length: 5
+  - entregado
+    Type: C
+    Length: 25
+  - tipodocu
+    Type: C
+    Length: 6
+  - cedula
+    Type: N
+    Length: 10
+  - actanro
+    Type: N
+    Length: 6
+  - color
+    Type: C
+    Length: 27
+  - situacion
+    Type: C
+    Length: 10
+  - observa
+    Type: C
+    Length: 25
+  - denuncia
+    Type: C
+    Length: 25
+  - fchdenu
+    Type: N
+    Length: 10
+  - notadenu
+    Type: N
+    Length: 6
+  - fchent
+    Type: N
+    Length: 10
+  - tiporobo
+    Type: C
+    Length: 6
+  - titulov
+    Type: C
+    Length: 1
+  - codientr
+    Type: N
+    Length: 4
+  - separti
+    Type: C
+    Length: 100
+  - hora
+    Type: C
+    Length: 5
+  - usuario
+    Type: C
+    Length: 4
+  - fechagra
+    Type: N
+    Length: 10
+  - horagra
+    Type: N
+    Length: 10
+  - tel_dente
+    Type: C
+    Length: 30
+
+
+File: D:/PADRONES/Automotores\cap001.dbf
+Size: 111478675 bytes
+MD5: 818353b665609c4499179f1bcefcdf49
+Number of records: 318507
+Columns:
+  - cidcap
+    Type: N
+    Length: 11
+  - orden
+    Type: N
+    Length: 5
+  - clave
+    Type: N
+    Length: 9
+  - causa
+    Type: C
+    Length: 50
+  - unidad
+    Type: N
+    Length: 11
+  - fecnota
+    Type: N
+    Length: 11
+  - nronota
+    Type: N
+    Length: 9
+  - compete
+    Type: N
+    Length: 3
+  - turno
+    Type: N
+    Length: 5
+  - circun
+    Type: N
+    Length: 7
+  - lugarh
+    Type: C
+    Length: 15
+  - juez
+    Type: C
+    Length: 30
+  - secreta
+    Type: C
+    Length: 30
+  - interino
+    Type: N
+    Length: 5
+  - fechagra
+    Type: N
+    Length: 11
+  - usuario
+    Type: C
+    Length: 4
+  - horagra
+    Type: N
+    Length: 11
+  - estado
+    Type: C
+    Length: 4
+  - observa
+    Type: C
+    Length: 30
+  - radio
+    Type: C
+    Length: 10
+  - fecradio
+    Type: N
+    Length: 11
+  - unidainf
+    Type: N
+    Length: 11
+  - nobre
+    Type: C
+    Length: 20
+  - guardi
+    Type: C
+    Length: 4
+  - horagua
+    Type: N
+    Length: 11
+  - creden
+    Type: N
+    Length: 9
+  - situ
+    Type: C
+    Length: 1
+  - tipose
+    Type: C
+    Length: 2
+  - nrose
+    Type: N
+    Length: 9
+
+
+File: D:/PADRONES/Automotores\color.dbf
+Size: 1004 bytes
+MD5: 5391161ce27c76f7511187b4e4ac2786
+Number of records: 34
+Columns:
+  - codigo
+    Type: N
+    Length: 4
+  - xxx
+    Type: C
+    Length: 3
+  - color
+    Type: C
+    Length: 10
+
+
+File: D:/PADRONES/Automotores\dependencias.dbf
+Size: 19457 bytes
+MD5: b12c2d407eb89d01a0a2923f2b1f1af8
+Number of records: 434
+Columns:
+  - codigo
+    Type: N
+    Length: 8
+  - descri
+    Type: C
+    Length: 35
+
+
+File: D:/PADRONES/Automotores\histocons.dbf
+Size: 30856 bytes
+MD5: c1c42c553f9cdef331c27bdf7c76abe9
+Number of records: 333
+Columns:
+  - id
+    Type: N
+    Length: 4
+  - usuario
+    Type: C
+    Length: 10
+  - tipocons
+    Type: C
+    Length: 20
+  - nroced
+    Type: N
+    Length: 8
+  - clave
+    Type: N
+    Length: 10
+  - situacion
+    Type: C
+    Length: 10
+  - depend
+    Type: C
+    Length: 20
+  - fecha
+    Type: T
+    Length: 8
+
+
+File: D:/PADRONES/Automotores\nacionalidades.dbf
+Size: 6953 bytes
+MD5: 0c9e1ee2fdceae6e0cdd660098126587
+Number of records: 206
+Columns:
+  - clave
+    Type: N
+    Length: 6
+  - descri
+    Type: C
+    Length: 25
+
+
+File: D:/PADRONES/Automotores\poli01.dbf
+Size: 1864520475 bytes
+MD5: 844e84b973376cabc12aef2445c3e150
+Number of records: 4502706
+Columns:
+  - nroced
+    Type: N
+    Length: 11
+  - nropro
+    Type: N
+    Length: 11
+  - apelli
+    Type: C
+    Length: 30
+  - nombre
+    Type: C
+    Length: 30
+  - ic
+    Type: C
+    Length: 17
+  - estado
+    Type: N
+    Length: 3
+  - fechanac
+    Type: N
+    Length: 11
+  - sexo
+    Type: N
+    Length: 3
+  - profesion
+    Type: N
+    Length: 7
+  - lugnac
+    Type: C
+    Length: 20
+  - nacio
+    Type: N
+    Length: 7
+  - nompad
+    Type: C
+    Length: 20
+  - nommad
+    Type: C
+    Length: 20
+  - nomconj
+    Type: C
+    Length: 30
+  - domicilio
+    Type: C
+    Length: 40
+  - nropropen
+    Type: N
+    Length: 11
+  - ubicacion
+    Type: N
+    Length: 5
+  - usuario
+    Type: C
+    Length: 4
+  - fechagra
+    Type: N
+    Length: 11
+  - situacion
+    Type: N
+    Length: 3
+  - fechaimp
+    Type: N
+    Length: 11
+
+
+File: D:/PADRONES/Automotores\tipo.dbf
+Size: 6665 bytes
+MD5: 3174816f9a97bd460235508bc4c6774f
+Number of records: 224
+Columns:
+  - codigo
+    Type: N
+    Length: 5
+  - xxx
+    Type: C
+    Length: 3
+  - tipovehic
+    Type: C
+    Length: 19
+
+
+File: D:/PADRONES/Automotores\usuarios.dbf
+Size: 643 bytes
+MD5: 55677971ddf2c857e7f8265cc7d691bc
+Number of records: 1
+Columns:
+  - codigo
+    Type: C
+    Length: 10
+  - contra
+    Type: C
+    Length: 15
+  - nombre
+    Type: C
+    Length: 40
+  - apellido
+    Type: C
+    Length: 40
+  - depe
+    Type: C
+    Length: 40
+  - fechacar
+    Type: D
+    Length: 8
+
+

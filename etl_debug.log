@@ -1,0 +1,191 @@
+2024-12-06 11:44:48,070 - INFO: Iniciando proceso ETL con archivo: ruta/a/tu/archivo.dbf
+2024-12-06 13:08:42,870 - INFO: Iniciando proceso ETL para archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 13:08:43,812 - ERROR: Error en procesamiento por chunks: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(3).py", line 100, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 13:08:43,837 - ERROR: Error en proceso ETL: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(3).py", line 40, in run_etl
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(3).py", line 100, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 13:58:34,200 - INFO: Iniciando proceso ETL para archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 13:58:34,670 - ERROR: Error en procesamiento por chunks: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(2).py", line 100, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 13:58:34,691 - ERROR: Error en proceso ETL: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(2).py", line 40, in run_etl
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(2).py", line 100, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 14:01:31,420 - INFO: Iniciando proceso ETL para archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 14:01:31,487 - ERROR: Error en procesamiento por chunks: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(1).py", line 102, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 14:01:31,491 - ERROR: Error en proceso ETL: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(1).py", line 39, in run_etl
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-chunked-script(1).py", line 102, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 14:14:00,708 - INFO: Procesando archivo: D:/PADRONES/csvs/Cédulas/CI-2024.csv
+2024-12-06 14:14:07,952 - ERROR: Error en procesamiento por chunks: Error tokenizing data. C error: Expected 1 fields in line 407, saw 2
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(2).py", line 113, in process_file_in_chunks
+    for chunk in pd.read_csv(file_path, encoding='latin1', chunksize=chunk_size):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1843, in __next__
+    return self.get_chunk()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1985, in get_chunk
+    return self.read(nrows=size)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "parsers.pyx", line 850, in pandas._libs.parsers.TextReader.read_low_memory
+  File "parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 1 fields in line 407, saw 2
+
+2024-12-06 14:14:12,805 - ERROR: Error en proceso ETL: Error tokenizing data. C error: Expected 1 fields in line 407, saw 2
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(2).py", line 38, in run_etl
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(2).py", line 113, in process_file_in_chunks
+    for chunk in pd.read_csv(file_path, encoding='latin1', chunksize=chunk_size):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1843, in __next__
+    return self.get_chunk()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1985, in get_chunk
+    return self.read(nrows=size)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "parsers.pyx", line 850, in pandas._libs.parsers.TextReader.read_low_memory
+  File "parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 1 fields in line 407, saw 2
+
+2024-12-06 14:20:08,719 - INFO: Procesando archivo: D:/PADRONES/csvs/Cédulas/CI-2024.csv
+2024-12-06 14:20:08,967 - WARNING: Falló parsing con encoding latin1: read_csv() got an unexpected keyword argument 'error_bad_lines'
+2024-12-06 14:20:08,967 - WARNING: Falló parsing con encoding utf-8: read_csv() got an unexpected keyword argument 'error_bad_lines'
+2024-12-06 14:20:08,967 - WARNING: Falló parsing con encoding ISO-8859-1: read_csv() got an unexpected keyword argument 'error_bad_lines'
+2024-12-06 14:20:08,967 - INFO: Total de registros procesados: 0
+2024-12-06 14:22:05,217 - INFO: Procesando archivo: D:/PADRONES/csvs/Cédulas/CI-2024.csv
+2024-12-06 14:22:05,273 - ERROR: Error en procesamiento de D:/PADRONES/csvs/Cédulas/CI-2024.csv: Expected 1 fields in line 407, saw 2
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 92, in process_file_in_chunks
+    for chunk in pd.read_csv(file_path, encoding='latin1', chunksize=chunk_size, engine='python'):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1843, in __next__
+    return self.get_chunk()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1985, in get_chunk
+    return self.read(nrows=size)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 288, in read
+    alldata = self._rows_to_cols(content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 1063, in _rows_to_cols
+    self._alert_malformed(msg, row_num + 1)
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 781, in _alert_malformed
+    raise ParserError(msg)
+pandas.errors.ParserError: Expected 1 fields in line 407, saw 2
+2024-12-06 14:22:05,376 - ERROR: Error en proceso ETL: Expected 1 fields in line 407, saw 2
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 33, in select_and_process_files
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 92, in process_file_in_chunks
+    for chunk in pd.read_csv(file_path, encoding='latin1', chunksize=chunk_size, engine='python'):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1843, in __next__
+    return self.get_chunk()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1985, in get_chunk
+    return self.read(nrows=size)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 288, in read
+    alldata = self._rows_to_cols(content)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 1063, in _rows_to_cols
+    self._alert_malformed(msg, row_num + 1)
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\python_parser.py", line 781, in _alert_malformed
+    raise ParserError(msg)
+pandas.errors.ParserError: Expected 1 fields in line 407, saw 2
+2024-12-06 14:22:22,858 - INFO: Procesando archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 14:22:22,936 - ERROR: Error en procesamiento de D:/PADRONES/csvs/dbfs/poli03.dbf: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 67, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 14:22:22,952 - ERROR: Error en proceso ETL: 'VfpTable' object has no attribute 'records'
+Traceback (most recent call last):
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 33, in select_and_process_files
+    process_file_in_chunks(file_path, connection_str, chunk_size, has_header)
+  File "C:\Users\Administrador\Downloads\etl-cedulas-script(3).py", line 67, in process_file_in_chunks
+    records = list(table.records)
+                   ^^^^^^^^^^^^^
+  File "C:\Users\Administrador\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbf\tables.py", line 3242, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'VfpTable' object has no attribute 'records'
+2024-12-06 14:24:50,545 - INFO: Procesando archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 14:38:48,107 - INFO: Procesando archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
+2024-12-06 19:51:21,285 - INFO: Procesando archivo: D:/PADRONES/csvs/dbfs/poli03.dbf
