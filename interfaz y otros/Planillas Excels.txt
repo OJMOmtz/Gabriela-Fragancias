@@ -1,0 +1,2025 @@
+Python 3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+=============== RESTART: D:\Gabriela Fragancias\office_process.py ==============
+
+Warning (from warnings module):
+  File "C:\Users\Orlando J Martínez O\AppData\Local\Programs\Python\Python38\lib\site-packages\openpyxl\styles\stylesheet.py", line 237
+    warn("Workbook contains no default style, apply openpyxl's default")
+UserWarning: Workbook contains no default style, apply openpyxl's default
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 1':
+    None  None                       None  None    Nombre_Perf ID_Ma
+0   None   NaN                 ID_Perfume   NaN           None  None
+1   None   NaN                       None   NaN            ume   rca
+2   None   1.0       Adidas Active Bodies   1.0           None  None
+3   None   2.0            Adidas Adipower   1.0           None  None
+4   None   3.0           Adidas Adventure   1.0           None  None
+5   None   4.0         Adidas After Sport   1.0  Adidas Active  None
+6   None   NaN                       None   NaN           None     1
+7   None   NaN    Adidas Champions League   NaN         Bodies  None
+8   None   5.0                       None   1.0           None  None
+9   None   NaN          Champions Edition   NaN           None  None
+10  None   6.0  Team Five Special Edition   1.0           None  None
+11  None   7.0                   Ice Dive   1.0           None  None
+12   ...   NaN                       None   NaN            ...   ...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 2':
+    NaN  NaN  6.0            NaN    NaN
+0   NaN  NaN    1           None    NaN
+1   NaN  NaN    4           None    NaN
+2   NaN  NaN    2           None    NaN
+3   NaN  NaN    2    [URL imagen    NaN
+4   1.0  1.0    3  Adidas Active  100.0
+5   NaN  NaN    1  Bodies 100ml]    NaN
+6   NaN  NaN    4           None    NaN
+7   NaN  NaN    8           None    NaN
+8   NaN  NaN    2           None    NaN
+9   NaN  NaN    1           None    NaN
+10  NaN  NaN    7           None    NaN
+11  NaN  NaN    3           None    NaN
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 3':
+                      NaN  ...   NaN
+0                    None  ...  None
+1                    None  ...  None
+2                    None  ...  None
+3                    None  ...  None
+4                     ...  ...   ...
+5  Explicación de la 3NF:  ...  None
+6                       •  ...  None
+7                       •  ...  None
+8                    None  ...  None
+
+[9 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 4':
+Empty DataFrame
+Columns: [gemini-1.5-pro-exp-0827]
+Index: []
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 5':
+                                   Tabla 1: Marca
+0                        Clave Primaria: ID_Marca
+1                       +---------+-------------+
+2                               | ID_Marca| Marca
+3                       +---------+-------------+
+4                                    | 1 | Adidas
+5                       +---------+-------------+
+6                               Tabla 2: Producto
+7                     Clave Primaria: ID_Producto
+8   Clave Foránea: ID_Marca (referencia a Tabla 1
+9           +-----------+------------+----------+
+10               | ID_Producto| Nombre | ID_Marca
+
+La hoja 'Page 6' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 7':
+   ID_Perfume                      Nombre_Perfume  ID_Marca
+0           1           Cuba Paris Prestige Black       1.0
+1           2            Cuba Paris Prestige Gold       1.0
+2           3            Cuba Paris Prestige Pink       1.0
+3           4             Cuba Paris Prestige Red       1.0
+4           5           Cuba Paris Prestige White       1.0
+5           6            English Laundry Arrogant       1.0
+6           7  English Laundry Cambridge Knight 1       NaN
+7           8        English Laundry Notting Hill       1.0
+8           9         English Laundry Oxford Bleu       1.0
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 8':
+                                                   •  ...    None
+0                                               None  ...  clave.
+1                               Ejemplo de consulta:  ...    None
+2  Para obtener toda la información de un perfume...  ...    None
+3  Prestige Black", se podrían unir las tres tabl...  ...    None
+4                                             SELECT  ...    None
+5                                               None  ...    None
+6                                               None  ...    None
+7                                               None  ...    None
+8                                               None  ...    None
+9                                               None  ...    None
+
+[10 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 9':
+                                   Tabla 1: Marca
+0                        Clave Primaria: ID_Marca
+1              +---------+----------------------+
+2                               | ID_Marca| Marca
+3              +---------+----------------------+
+4                     | 1 | Air-Val International
+5              +---------+----------------------+
+6                               Tabla 2: Producto
+7                     Clave Primaria: ID_Producto
+8   Clave Foránea: ID_Marca (referencia a Tabla 1
+9        +-----------+---------------+----------+
+10               | ID_Producto| Nombre | ID_Marca
+
+La hoja 'Page 10' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 11':
+        ID_Perfume Nombre_Perfume ID_Marca  ...       None
+0                                        1  ...       None
+1                                        2  ...       None
+2                                        3  ...       None
+3                                        4  ...       None
+4                                        5  ...       None
+5                  3. Tabla "Presentacion"  ...       None
+6  ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+7                                     None  ...       None
+
+[8 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 12':
+  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+0                                           WHERE                                               None
+1                     p.Nombre_Perfume = 'Siete';                                               None
+2                                           Nota:                                               None
+3                                               •  Esta estructura es un ejemplo y puede ser adap...
+4                                            None                                       específicas.
+5                                               •  La tabla "Perfume" podría incluir información ...
+6                                            None  lanzamiento, la familia olfativa, las notas de...
+7                                               •  La tabla "Presentacion" podría incluir informa...
+8                                            None                  (spray, roll-on), el precio, etc.
+9                                               •  Es importante destacar que obtener la informac...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 13':
+                                ID_Perfume  ...       None
+0                                        1  ...       None
+1                                        2  ...       None
+2                                        3  ...       None
+3                                        4  ...       None
+4                                        5  ...       None
+5                                      ...  ...       None
+6                  3. Tabla "Presentacion"  ...       None
+7  ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+
+[8 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 14':
+              Perfume p ON m.ID_Marca = p.ID_Marca                                               None
+0                                             JOIN                                               None
+1  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+2                                            WHERE                                               None
+3         p.Nombre_Perfume = 'Alta Moda Real Man';                                               None
+4                                            Nota:                                               None
+5                                                •  Esta estructura es un ejemplo y puede ser adap...
+6                                             None                                       específicas.
+7                                                •  La tabla "Perfume" podría incluir información ...
+8                                             None  lanzamiento, la familia olfativa, las notas de...
+9                                                •  La tabla "Presentacion" podría incluir informa...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 15':
+                                   Tabla 1: Marca
+0                        Clave Primaria: ID_Marca
+1                         +---------+-----------+
+2                               | ID_Marca| Marca
+3                         +---------+-----------+
+4                                 | 1 | Alta Moda
+5                         +---------+-----------+
+6                               Tabla 2: Producto
+7                     Clave Primaria: ID_Producto
+8   Clave Foránea: ID_Marca (referencia a Tabla 1
+9        +-----------+---------------+----------+
+10               | ID_Producto| Nombre | ID_Marca
+
+La hoja 'Page 16' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 17':
+  2. Tabla "Perfume"  ...      None
+0         ID_Perfume  ...  ID_Marca
+1                  1  ...         1
+2                  2  ...         1
+3                  3  ...         1
+4                  4  ...         2
+5                  5  ...         2
+6                  6  ...         3
+7                  7  ...      None
+
+[8 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 18':
+                                 Ejemplo de consulta:
+0   Para obtener toda la información de un perfume...
+1   Animale", se podrían unir las tres tablas usan...
+2                                              SELECT
+3                                     m.Nombre_Marca,
+4                                   p.Nombre_Perfume,
+5                                    pr.Codigo_Barra,
+6                                      pr.Imagen_URL,
+7                                        pr.Tamaño_ml
+8                                                FROM
+9                                             Marca m
+10                                               JOIN
+11               Perfume p ON m.ID_Marca = p.ID_Marca
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 19':
+                                   Tabla 1: Marca
+0                        Clave Primaria: ID_Marca
+1                     +---------+---------------+
+2                               | ID_Marca| Marca
+3                     +---------+---------------+
+4                             | 1 | Animale Group
+5                     +---------+---------------+
+6                               Tabla 2: Producto
+7                     Clave Primaria: ID_Producto
+8   Clave Foránea: ID_Marca (referencia a Tabla 1
+9        +-----------+---------------+----------+
+10               | ID_Producto| Nombre | ID_Marca
+
+La hoja 'Page 20' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 21':
+  ID_Perfume              Nombre_Perfume ID_Marca
+0          1                     Diavolo        1
+1          2               Diavolo Donna        1
+2          3              Blue Seduction        1
+3          4  Blue Seduction for Women 1     None
+4          5                  The Secret        1
+5          6           The Golden Secret        1
+6          7                      Spirit        1
+7          8            Spirit for Women        1
+8        ...                         ...      ...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 22':
+     None                                  m.Nombre_Marca,
+0    None                                p.Nombre_Perfume,
+1    None                                 pr.Codigo_Barra,
+2    None                                   pr.Imagen_URL,
+3    None                                     pr.Tamaño_ml
+4    FROM                                             None
+5    None                                          Marca m
+6    JOIN                                             None
+7    None             Perfume p ON m.ID_Marca = p.ID_Marca
+8    JOIN                                             None
+9    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+10  WHERE                                             None
+11   None                    p.Nombre_Perfume = 'Diavolo';
+12  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 23':
+                    +---------+----------------+
+0                              Tabla 2: Producto
+1                    Clave Primaria: ID_Producto
+2  Clave Foránea: ID_Marca (referencia a Tabla 1
+3       +-----------+---------------+----------+
+4               | ID_Producto| Nombre | ID_Marca
+5       +-----------+---------------+----------+
+6                        | 1 | Blue Seduction| 1
+7                     | 2 | Her Golden Secret| 1
+8                     | 3 | Radiant Seduction| 1
+9       +-----------+---------------+----------+
+
+La hoja 'Page 24' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 25':
+                                ID_Perfume  ...       None
+0                                        1  ...       None
+1                                        2  ...       None
+2                                        3  ...       None
+3                                        4  ...       None
+4                                        5  ...       None
+5                                      ...  ...       None
+6                  3. Tabla "Presentacion"  ...       None
+7  ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+
+[8 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 26':
+              Perfume p ON m.ID_Marca = p.ID_Marca                                               None
+0                                             JOIN                                               None
+1  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+2                                            WHERE                                               None
+3              p.Nombre_Perfume = 'Aramis Aramis';                                               None
+4                                            Nota:                                               None
+5                                                •  Esta estructura es un ejemplo y puede ser adap...
+6                                             None                                       específicas.
+7                                                •  La tabla "Perfume" podría incluir información ...
+8                                             None  lanzamiento, la familia olfativa, las notas de...
+9                                                •  La tabla "Presentacion" podría incluir informa...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 27':
+              | ID_Producto| Nombre | ID_Marca                                      None
+0                                         None  +-----------+---------------+----------+
+1                                         None                   | 1 | Blue Seduction| 1
+2                                         None                | 2 | Her Golden Secret| 1
+3                                         None                | 3 | Radiant Seduction| 1
+4                                         None  +-----------+---------------+----------+
+5                                         None                 Tabla 3: Códigos de Barra
+6                                         None            Clave Primaria: ID_CodigoBarra
+7                   Clave Foránea: ID_Producto                     (referencia a Tabla 2
+8   +--------------+-------------+-----------+                                      None
+9   | ID_CodigoBarra| CodigoBarra| ID_Producto                                      None
+10  +--------------+-------------+-----------+                                      None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 28':
+                                            primaria
+0  A continuación, presento la lista de perfumes ...
+1                                     Tabla 1: Marca
+2                           Clave Primaria: ID_Marca
+3                               +---------+--------+
+4                                  | ID_Marca| Marca
+5                               +---------+--------+
+6                                       | 1 | Aramis
+7                               +---------+--------+
+8                                  Tabla 2: Producto
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 29':
+  una clave primaria, y las tablas relacionadas tienen claves foráneas que hacen referencia a
+0  las claves primarias de otras tablas. Además, ...                                         
+1  completamente de la clave primaria en su respe...                                         
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 30':
+                ID_Perfume            Nombre_Perfume ID_Marca
+0                        1         Azzaro Pour Homme        1
+1                        2             Azzaro Chrome        1
+2                        3             Azzaro Wanted        1
+3                        4    Azzaro Wanted by Night        1
+4                        5  Azzaro The Most Wanted 1     None
+5                        6          Azzaro Pour Elle        1
+6                        7        Azzaro Chrome Aqua        1
+7                      ...                       ...      ...
+8  3. Tabla "Presentacion"                      None     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 31':
+     None                                p.Nombre_Perfume,
+0    None                                 pr.Codigo_Barra,
+1    None                                   pr.Imagen_URL,
+2    None                                     pr.Tamaño_ml
+3    FROM                                             None
+4    None                                          Marca m
+5    JOIN                                             None
+6    None             Perfume p ON m.ID_Marca = p.ID_Marca
+7    JOIN                                             None
+8    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+9   WHERE                                             None
+10   None          p.Nombre_Perfume = 'Azzaro Pour Homme';
+11  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 32':
+                               Tabla 2: Producto
+0                    Clave Primaria: ID_Producto
+1  Clave Foránea: ID_Marca (referencia a Tabla 1
+2       +-----------+---------------+----------+
+3               | ID_Producto| Nombre | ID_Marca
+4       +-----------+---------------+----------+
+5                     | 1 | Azzaro Pour Homme| 1
+6                        | 2 | Azzaro Chrome | 1
+7                | 3 | Azzaro Naughty Leather| 1
+8       +-----------+---------------+----------+
+9                      Tabla 3: Códigos de Barra
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 33':
+  ID_Marca Nombre_Marca                                None      None
+0                     1                            Benetton      None
+1    2. Tabla "Perfume"                                None      None
+2            ID_Perfume                      Nombre_Perfume  ID_Marca
+3                     1     Benetton Colors de Benetton Man         1
+4                     2   Benetton Colors de Benetton Woman         1
+5                     3    Benetton Colors de Benetton Pink         1
+6                     4   Benetton Colors de Benetton Black         1
+7                     5  Benetton Colors de Benetton Yellow         1
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 34':
+                                                   •  ...    None
+0                                                  •  ...    None
+1                                               None  ...    None
+2                                                  •  ...    None
+3                                               None  ...  clave.
+4                               Ejemplo de consulta:  ...    None
+5  Para obtener toda la información de un perfume...  ...    None
+6  de Benetton Man", se podrían unir las tres tab...  ...    None
+7                                             SELECT  ...    None
+8                                               None  ...    None
+
+[9 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 35':
+   None  ... La tabla debe cumplir con las reglas de la Segunda Forma Normal (2NF)
+0   2.0  ...                                               None                   
+1   NaN  ...                                           primaria                   
+2   NaN  ...  A continuación, presento la lista de perfumes ...                   
+3   NaN  ...                                     Tabla 1: Marca                   
+4   NaN  ...                           Clave Primaria: ID_Marca                   
+5   NaN  ...                             +---------+----------+                   
+6   NaN  ...                                  | ID_Marca| Marca                   
+7   NaN  ...                             +---------+----------+                   
+8   NaN  ...                                     | 1 | Benetton                   
+
+[9 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 36':
+             +---------+---------------+-----------+
+0  Esta estructura en 3NF cumple con las reglas m...
+1  una clave primaria, y las tablas relacionadas ...
+2  las claves primarias de otras tablas. Además, ...
+3  completamente de la clave primaria en su respe...
+4                            Beyoncé Perfumes en 3NF
+5  Para presentar la información en 3NF (Tercera ...
+6                                   1. Tabla "Marca"
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 37':
+                              Explicación de la 3NF:  ...    None
+0                                                  •  ...    None
+1                                                  •  ...    None
+2                                               None  ...    None
+3                                                  •  ...    None
+4                                               None  ...  clave.
+5                               Ejemplo de consulta:  ...    None
+6  Para obtener toda la información de un perfume...  ...    None
+7   unir las tres tablas usando las claves foráneas:  ...    None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 38':
+   Beyoncé, junto con sus códigos de barra e imágenes. Presentaré el resultado final en la  ...                                               None
+0                                                NaN                                        ...                         Tercera Forma Normal (3NF)
+1                                                NaN                                        ...  Antes de comenzar, es importante comprender la...
+2                                                NaN                                        ...  La tabla debe cumplir con las reglas de la Seg...
+3                                                2.0                                        ...                                               None
+4                                                NaN                                        ...                                           primaria
+5                                                NaN                                        ...  A continuación, presento la lista de perfumes ...
+6                                                NaN                                        ...                                     Tabla 1: Marca
+7                                                NaN                                        ...                           Clave Primaria: ID_Marca
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 39':
+                                  | 1 | heat.jpg | 1
+0                                | 2 | pulse.png | 2
+1                                | 3 | rise.jpeg | 3
+2            +---------+---------------+-----------+
+3  Esta estructura en 3NF cumple con las reglas m...
+4  una clave primaria, y las tablas relacionadas ...
+5  las claves primarias de otras tablas. Además, ...
+6  completamente de la clave primaria en su respe...
+7                          Boucheron Perfumes en 3NF
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 40':
+                      None  ...    None
+0                     None  ...    None
+1                        5  ...     100
+2                     None  ...    None
+3                     None  ...    None
+4                        6  ...     100
+5                     None  ...  100ml]
+6                      ...  ...     ...
+7   Explicación de la 3NF:  ...    None
+8                        •  ...    None
+9                        •  ...    None
+10                    None  ...    None
+
+[11 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 41':
+                                                None  ...                                               None
+0                                                  •  ...                                               None
+1                                               None  ...                                               None
+2           Espero que esta información te sea útil.  ...                                               None
+3  Claro, actuaré como un data scientist y desarr...  ...                                               None
+4  Boucheron, junto con sus códigos de barra e im...  ...                                               None
+5                                               None  ...                                               None
+6                                               None  ...                                                3NF
+7                                               None  ...  La tabla debe cumplir con las reglas de la Seg...
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 42':
+         +--------------+-------------+-----------+
+0                                  Tabla 4: Imágene
+1                         Clave Primaria: ID_Imagen
+2  Clave Foránea: ID_Producto (referencia a Tabla 2
+3       +---------+-------------------+-----------+
+4                 | ID_Imagen| Imagen | ID_Producto
+5       +---------+-------------------+-----------+
+6                       | 1 | place_vendome.jpg | 1
+7                              | 2 | quatre.png | 2
+8                             | 3 | jaipur.jpeg | 3
+9       +---------+-------------------+-----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 43':
+    None  None           None   [URL imagen Curious   None
+0    1.0   1.0  0737052944144                  None  100.0
+1    NaN   NaN           None                100ml]    NaN
+2    NaN   NaN           None   [URL imagen Curious    NaN
+3    2.0   1.0  0737052944137                  None   50.0
+4    NaN   NaN           None                 50ml]    NaN
+5    NaN   NaN           None   [URL imagen Fantasy    NaN
+6    3.0   2.0  0737052941017                  None  100.0
+7    NaN   NaN           None                100ml]    NaN
+8    NaN   NaN           None   [URL imagen Fantasy    NaN
+9    4.0   2.0  0737052941000                  None   50.0
+10   NaN   NaN           None                 50ml]    NaN
+11   NaN   NaN           None  [URL imagen Midnight    NaN
+12   5.0   3.0  0737052941119                  None  100.0
+13   NaN   NaN           None        Fantasy 100ml]    NaN
+14   NaN   NaN           None  [URL imagen Midnight    NaN
+15   6.0   3.0  0737052941102                  None   50.0
+16   NaN   NaN           None         Fantasy 50ml]    NaN
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 44':
+                                           • La tabla "Presentacion" podría incluir información adicional como el tipo de envase
+0                                       None                     (spray, etc.), el precio, etc.                                 
+1                                          •  Es importante destacar que obtener la informac...                                 
+2                                       None  imágenes para todos los perfumes de Britney Sp...                                 
+3                                       None  investigación exhaustiva en diferentes fuentes...                                 
+4                                       None  estar descontinuados o ser difíciles de encont...                                 
+5                                          •  Los códigos de barra proporcionados son ejempl...                                 
+6                                       None  todas las regiones. Se recomienda verificar lo...                                 
+7                                       None                                         productos.                                 
+8                                          •  Las imágenes URL son ejemplos y deben ser reem...                                 
+9                                       None                     las imágenes correspondientes.                                 
+10  Espero que esta información te sea útil.                                               None                                 
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 45':
+                      Clave Primaria: ID_CodigoBarra
+0   Clave Foránea: ID_Producto (referencia a Tabla 2
+1         +--------------+-------------+-----------+
+2         | ID_CodigoBarra| CodigoBarra| ID_Producto
+3         +--------------+-------------+-----------+
+4                              | 1 | 456789012345| 1
+5                              | 2 | 567890123456| 2
+6                              | 3 | 678901234567| 3
+7         +--------------+-------------+-----------+
+8                                   Tabla 4: Imágene
+9                          Clave Primaria: ID_Imagen
+10  Clave Foránea: ID_Producto (referencia a Tabla 2
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 46':
+                                        5.0  ...        NaN
+0                                         6  ...       None
+1                                         7  ...       None
+2                                       ...  ...       None
+3                   3. Tabla "Presentacion"  ...       None
+4   ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+5                                      None  ...       None
+6                                         1  ...        100
+7                                      None  ...       None
+8                                      None  ...       None
+9                                         2  ...         50
+10                                     None  ...       None
+
+[11 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 47':
+  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+0                                           WHERE                                               None
+1        p.Nombre_Perfume = 'Bvlgari Pour Homme';                                               None
+2                                           Nota:                                               None
+3                                               •  Esta estructura es un ejemplo y puede ser adap...
+4                                            None                                       específicas.
+5                                               •  La tabla "Perfume" podría incluir información ...
+6                                            None  lanzamiento, la familia olfativa, las notas de...
+7                                               •  La tabla "Presentacion" podría incluir informa...
+8                                            None                     (spray, etc.), el precio, etc.
+9                                               •  Es importante destacar que obtener la informac...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 48':
+                    | ID_Producto| Nombre | ID_Marca
+0           +-----------+---------------+----------+
+1                             | 1 | Bvlgari Aqva | 1
+2                              | 2 | Bvlgari Man | 1
+3                             | 3 | Bvlgari Omnia| 1
+4           +-----------+---------------+----------+
+5                          Tabla 3: Códigos de Barra
+6                     Clave Primaria: ID_CodigoBarra
+7   Clave Foránea: ID_Producto (referencia a Tabla 2
+8         +--------------+-------------+-----------+
+9         | ID_CodigoBarra| CodigoBarra| ID_Producto
+10        +--------------+-------------+-----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 49':
+                ID_Perfume               Nombre_Perfume ID_Marca
+0                        1             Burberry for Men        1
+1                        2      Burberry London for Men        1
+2                        3        Burberry Brit for Men        1
+3                        4       Burberry Touch for Men        1
+4                        5           Burberry for Women        1
+5                        6  Burberry London for Women 1     None
+6                        7      Burberry Brit for Women        1
+7                      ...                          ...      ...
+8  3. Tabla "Presentacion"                         None     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 50':
+     None                                p.Nombre_Perfume,
+0    None                                 pr.Codigo_Barra,
+1    None                                   pr.Imagen_URL,
+2    None                                     pr.Tamaño_ml
+3    FROM                                             None
+4    None                                          Marca m
+5    JOIN                                             None
+6    None             Perfume p ON m.ID_Marca = p.ID_Marca
+7    JOIN                                             None
+8    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+9   WHERE                                             None
+10   None           p.Nombre_Perfume = 'Burberry for Men';
+11  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 51':
+                            +---------+---------+
+0                                  | 1 | Burberry
+1                           +---------+---------+
+2                               Tabla 2: Producto
+3                     Clave Primaria: ID_Producto
+4   Clave Foránea: ID_Marca (referencia a Tabla 1
+5        +-----------+---------------+----------+
+6                | ID_Producto| Nombre | ID_Marca
+7        +-----------+---------------+----------+
+8                         | 1 | Burberry Touch| 1
+9                         | 2 | Burberry Brit | 1
+10                      | 3 | Burberry Weekend| 1
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 52':
+                     1. Tabla "Marca"         None  None
+0               ID_Marca Nombre_Marca         None   NaN
+1                                   1     Cacharel   NaN
+2                  2. Tabla "Perfume"         None   NaN
+3  ID_Perfume Nombre_Perfume ID_Marca         None   NaN
+4                                   1  Anaïs Anaïs   1.0
+5                                   2       LouLou   1.0
+6                                   3         Eden   1.0
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 53':
+   SELECT                                             None
+0    None                                  m.Nombre_Marca,
+1    None                                p.Nombre_Perfume,
+2    None                                 pr.Codigo_Barra,
+3    None                                   pr.Imagen_URL,
+4    None                                     pr.Tamaño_ml
+5    FROM                                             None
+6    None                                          Marca m
+7    JOIN                                             None
+8    None             Perfume p ON m.ID_Marca = p.ID_Marca
+9    JOIN                                             None
+10   None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+11  WHERE                                             None
+12   None                p.Nombre_Perfume = 'Anaïs Anaïs';
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 54':
+                                   Tabla 1: Marca
+0                        Clave Primaria: ID_Marca
+1                          +---------+----------+
+2                               | ID_Marca| Marca
+3                          +---------+----------+
+4                                  | 1 | Cacharel
+5                          +---------+----------+
+6                               Tabla 2: Producto
+7                     Clave Primaria: ID_Producto
+8   Clave Foránea: ID_Marca (referencia a Tabla 1
+9        +-----------+---------------+----------+
+10               | ID_Producto| Nombre | ID_Marca
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 55':
+                        Cadillac Perfumes en 3NF                                     None
+0  Para presentar la información en 3NF (Tercera  Forma Normal), necesitamos tres tablas:
+1                               1. Tabla "Marca"                                     None
+2                          ID_Marca Nombre_Marca                                     None
+3                                              1                                 Cadillac
+4                             2. Tabla "Perfume"                                     None
+5             ID_Perfume Nombre_Perfume ID_Marca                                     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 56':
+     None                                p.Nombre_Perfume,
+0    None                                 pr.Codigo_Barra,
+1    None                                   pr.Imagen_URL,
+2    None                                     pr.Tamaño_ml
+3    FROM                                             None
+4    None                                          Marca m
+5    JOIN                                             None
+6    None             Perfume p ON m.ID_Marca = p.ID_Marca
+7    JOIN                                             None
+8    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+9   WHERE                                             None
+10   None           p.Nombre_Perfume = 'Cadillac for Him';
+11  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 57':
+                                       4.0  ...        NaN
+0                                        5  ...       None
+1                                        6  ...       None
+2                                        7  ...       None
+3                                      ...  ...       None
+4                  3. Tabla "Presentacion"  ...       None
+5  ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+6                                     None  ...       None
+7                                        1  ...        125
+8                                     None  ...       None
+
+[9 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 58':
+                Perfume p ON m.ID_Marca = p.ID_Marca                                               None
+0                                               JOIN                                               None
+1    Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+2                                              WHERE                                               None
+3  p.Nombre_Perfume = 'Calvin Klein Obsession for...                                               None
+4                                              Nota:                                               None
+5                                                  •  Esta estructura es un ejemplo y puede ser adap...
+6                                               None                                       específicas.
+7                                                  •  La tabla "Perfume" podría incluir información ...
+8                                               None  lanzamiento, la familia olfativa, las notas de...
+9                                                  •  La tabla "Presentacion" podría incluir informa...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 59':
+       Clave Foránea: ID_Marca (referencia a Tabla 1
+0           +-----------+---------------+----------+
+1                   | ID_Producto| Nombre | ID_Marca
+2           +-----------+---------------+----------+
+3                                 | 1 | Eternity | 1
+4                                   | 2 | CK One | 1
+5                                | 3 | Obsession | 1
+6           +-----------+---------------+----------+
+7                          Tabla 3: Códigos de Barra
+8                     Clave Primaria: ID_CodigoBarra
+9   Clave Foránea: ID_Producto (referencia a Tabla 2
+10        +--------------+-------------+-----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 60':
+        ID_Perfume Nombre_Perfume ID_Marca  ...       None
+0                                        1  ...       None
+1                  3. Tabla "Presentacion"  ...       None
+2  ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+3                                     None  ...       None
+4                                        1  ...        100
+5                                     None  ...       None
+6                   Explicación de la 3NF:  ...       None
+7                                     None  ...       None
+
+[8 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 61':
+                                                   • La imagen URL es un ejemplo y debe ser reemplazada con la URL real de la
+0                                               None                            imagen correspondiente.                      
+1           Espero que esta información te sea útil.                                               None                      
+2  Desafortunadamente, no he podido encontrar inf...                                               None                      
+3  llamada "Carlotta Zuofun". Es posible que se t...                                               None                      
+4                                               None       conocida de la cual no hay datos disponibles                      
+5                                               None  Sin embargo, puedo proporcionar una estructura...                      
+6                                               None  almacenar información sobre marcas de perfumes...                      
+7                                               None                                           imágenes                      
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 62':
+                            Clave Primaria: ID_Imagen
+0    Clave Foránea: ID_Producto (referencia a Tabla 2
+1             +---------+---------------+-----------+
+2                   | ID_Imagen| Imagen | ID_Producto
+3             +---------+---------------+-----------+
+4                             | 1 | producto_x.jpg| 1
+5                             | 2 | producto_y.png| 2
+6                            | 3 | producto_z.jpeg| 3
+7             +---------+---------------+-----------+
+8   Esta estructura en 3NF cumple con las reglas m...
+9   utilizada para almacenar información sobre cua...
+10  se actualicen los datos en las tablas correspo...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 63':
+                      3    ...   100
+0                       4  ...    60
+1                    None  ...  None
+2                       5  ...   100
+3                    None  ...  None
+4                    None  ...  None
+5                       6  ...    50
+6                    None  ...  None
+7                     ...  ...   ...
+8  Explicación de la 3NF:  ...  None
+9                       •  ...  None
+
+[10 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 64':
+                                                   • Los códigos de barra proporcionados son ejemplos y pueden no ser precisos para
+0                                               None  todas las regiones. Se recomienda verificar lo...                            
+1                                               None                                         productos.                            
+2                                                  •  Las imágenes URL son ejemplos y deben ser reem...                            
+3                                               None                     las imágenes correspondientes.                            
+4           Espero que esta información te sea útil.                                               None                            
+5  Claro, actuaré como un data scientist y desarr...                           los perfumes que produce                            
+6  Carolina Herrera, junto con sus códigos de bar...                                               None                            
+7                                               None                   en la Tercera Forma Normal (3NF)                            
+8                                               None  Antes de comenzar, es importante comprender la...                            
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 65':
+                               | 3 | 678901234567| 3
+0         +--------------+-------------+-----------+
+1                                   Tabla 4: Imágene
+2                          Clave Primaria: ID_Imagen
+3   Clave Foránea: ID_Producto (referencia a Tabla 2
+4            +---------+---------------+-----------+
+5                  | ID_Imagen| Imagen | ID_Producto
+6            +---------+---------------+-----------+
+7                               | 1 | ch_212.jpg | 1
+8                               | 2 | ch_men.png | 2
+9                            | 3 | good_girl.jpeg| 3
+10           +---------+---------------+-----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 66':
+    ID_Presentacion ID_Perfume Codigo_Barra  ...  Tamaño_ml
+0                                       NaN  ...        NaN
+1                                       1.0  ...      100.0
+2                                       NaN  ...        NaN
+3                                       NaN  ...        NaN
+4                                       2.0  ...       50.0
+5                                       NaN  ...        NaN
+6                                       NaN  ...        NaN
+7                                       3.0  ...      100.0
+8                                       NaN  ...        NaN
+9                                       NaN  ...        NaN
+10                                      4.0  ...      100.0
+
+[11 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 67':
+   Nota:                                               None
+0      •  Esta estructura es un ejemplo y puede ser adap...
+1   None                                       específicas.
+2      •  La tabla "Perfume" podría incluir información ...
+3   None  lanzamiento, la familia olfativa, las notas de...
+4      •  La tabla "Presentacion" podría incluir informa...
+5   None  (spray, etc.), el precio, la concentración (Ea...
+6      •  Es importante destacar que obtener la informac...
+7   None  imágenes para todos los perfumes de Cartier pu...
+8   None  exhaustiva en diferentes fuentes, ya que algun...
+9   None       descontinuados o ser difíciles de encontrar.
+10     •  Los códigos de barra proporcionados son ejempl...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 68':
+                             | 2 | Cartier Santos| 1
+0                       | 3 | Cartier Déclaration| 1
+1           +-----------+---------------+----------+
+2                          Tabla 3: Códigos de Barra
+3                     Clave Primaria: ID_CodigoBarra
+4   Clave Foránea: ID_Producto (referencia a Tabla 2
+5         +--------------+-------------+-----------+
+6         | ID_CodigoBarra| CodigoBarra| ID_Producto
+7         +--------------+-------------+-----------+
+8                              | 1 | 789012345678| 1
+9                              | 2 | 890123456789| 2
+10                             | 3 | 901234567890| 3
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 69':
+                         4          Allure  ...      None          None
+0                        5          Chance  ...      None          None
+1                        6  Bleu de Chanel  ...      None          None
+2                        7       Gabrielle  ...      None          None
+3                      ...             ...  ...      None          None
+4  3. Tabla "Presentacion"            None  ...      None          None
+5           ID_Presentacio       ID_Perfum  ...  Tamaño_m  Concentracio
+6                     None            None  ...      None          None
+7                        n               e  ...         l             n
+8                     None            None  ...      None          None
+
+[9 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 70':
+                              Explicación de la 3NF:  ...                      None
+0                                                  •  ...                      None
+1                                                  •  ...                      None
+2                                               None  ...                      None
+3                                                  •  ...  atributo que no es clave
+4                                               None  ...                      None
+5                               Ejemplo de consulta:  ...                      None
+6  Para obtener toda la información de un perfume...  ...                      None
+7  podrían unir las tres tablas usando las claves...  ...                      None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 71':
+            Espero que esta información te sea útil.  ...                                        None
+0  Claro, actuaré como un data scientist y desarr...  ...                                        None
+1  Chanel, junto con sus códigos de barra e imáge...  ...                                        None
+2                                               None  ...                  Tercera Forma Normal (3NF)
+3                                               None  ...  importante comprender las reglas de la 3NF
+4                                               None  ...                                        None
+5                                                  2  ...                                        None
+6                                               None  ...                                    primaria
+7                                               None  ...                                        None
+
+[8 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 72':
+             +---------+---------------+-----------+
+0                  | ID_Imagen| Imagen | ID_Producto
+1            +---------+---------------+-----------+
+2                            | 1 | chanel_no5.jpg| 1
+3                     | 2 | coco_mademoiselle.png| 2
+4                              | 3 | chance.jpeg | 3
+5            +---------+---------------+-----------+
+6  Esta estructura en 3NF cumple con las reglas m...
+7  una clave primaria, y las tablas relacionadas ...
+8  las claves primarias de otras tablas. Además, ...
+9  completamente de la clave primaria en su respe...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 73':
+                                                   • 2NF: No hay dependencias parciales de clave. Es decir, todos los atributos que no
+0                                               None  son clave dependen de la clave principal compl...                               
+1                                                  •  3NF: No hay dependencias transitivas. Es decir...                               
+2                                               None          depende de otro atributo que no es clave.                               
+3                               Ejemplo de consulta:                                               None                               
+4  Para obtener toda la información de un perfume...                                               None                               
+5  Caramel", se podrían unir las tres tablas usan...                                               None                               
+6                                             SELECT                                               None                               
+7                                               None                                    m.Nombre_Marca,                               
+8                                               None                                  p.Nombre_Perfume,                               
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 74':
+   Sin embargo, puedo proporcionar una estructura de base de datos en 3NF genérica para
+0   almacenar información sobre marcas de perfumes...                                  
+1                                            imágenes                                  
+2                                      Tabla 1: Marca                                  
+3                            Clave Primaria: ID_Marca                                  
+4                              +---------+----------+                                  
+5                                   | ID_Marca| Marca                                  
+6                              +---------+----------+                                  
+7                                       | 1 | Marca A                                  
+8                                       | 2 | Marca B                                  
+9                                       | 3 | Marca C                                  
+10                             +---------+----------+                                  
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 75':
+  utilizada para almacenar información sobre cualquier marca                      de perfumes, siempre y cuando
+0                                               None          se actualicen los datos en las tablas correspo...
+1                              Chloé Perfumes en 3NF                                                       None
+2  Para presentar la información en 3NF (Tercera ...                                                       None
+3                                   1. Tabla "Marca"                                                       None
+4                              ID_Marca Nombre_Marca                                                       None
+5                                                  1                                                      Chloé
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 76':
+                              Explicación de la 3NF:  ...                      None
+0                                                  •  ...                      None
+1                                                  •  ...                      None
+2                                               None  ...                      None
+3                                                  •  ...  atributo que no es clave
+4                                               None  ...                      None
+5                               Ejemplo de consulta:  ...                      None
+6  Para obtener toda la información de un perfume...  ...                      None
+7  Parfum", se podrían unir las tres tablas usand...  ...                      None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 77':
+             Claro, actuaré como un data scientist y  ... desarrollaré una lista de los perfumes que produce
+0  Chloé, junto con sus códigos de barra e imágen...  ...                                               None
+1                                               None  ...                         Tercera Forma Normal (3NF)
+2                                               None  ...  Antes de comenzar, es importante comprender la...
+3                                               None  ...  La tabla debe cumplir con las reglas de la Seg...
+4                                                  2  ...                                               None
+5                                               None  ...                                           primaria
+6                                               None  ...  A continuación, presento la lista de perfumes ...
+7                                               None  ...                                     Tabla 1: Marca
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 78':
+             +---------+---------------+-----------+
+0                            | 1 | chloe_edp.jpg | 1
+1                      | 2 | chloe_love_story.png| 2
+2                         | 3 | chloe_nomade.jpeg| 3
+3            +---------+---------------+-----------+
+4  Esta estructura en 3NF cumple con las reglas m...
+5  una clave primaria, y las tablas relacionadas ...
+6  las claves primarias de otras tablas. Además, ...
+7  completamente de la clave primaria en su respe...
+8                     Christian Dior Perfumes en 3NF
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 79':
+      2    1          None       Eau de     50           None
+0   NaN  NaN             5         None    NaN       Toilette
+1   NaN  NaN          None     Toilette    NaN           None
+2   NaN  NaN          None        50ml]    NaN           None
+3   NaN  NaN          None  [URL imagen    NaN           None
+4   NaN  NaN  334890100210  J'adore Eau    NaN           None
+5   3.0  2.0          None         None  100.0  Eau de Parfum
+6   NaN  NaN             1    de Parfum    NaN           None
+7   NaN  NaN          None       100ml]    NaN           None
+8   NaN  NaN          None  [URL imagen    NaN           None
+9   NaN  NaN  334890138550  Sauvage Eau    NaN         Eau de
+10  4.0  3.0          None         None  100.0           None
+11  NaN  NaN             3  de Toilette    NaN       Toilette
+12  NaN  NaN          None       100ml]    NaN           None
+13  NaN  NaN          None  [URL imagen    NaN           None
+14  NaN  NaN  334890100040   Poison Eau    NaN         Eau de
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 80':
+  Nota:                                               None
+0     •  Esta estructura es un ejemplo y puede ser adap...
+1  None                                       específicas.
+2     •  La tabla "Perfume" podría incluir información ...
+3  None  lanzamiento, la familia olfativa, las notas de...
+4  None                                               etc.
+5     •  La tabla "Presentacion" podría incluir informa...
+6  None                     (spray, etc.), el precio, etc.
+7     •  Es importante destacar que obtener la informac...
+8  None  imágenes para todos los perfumes de Christian ...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 81':
+                    | ID_Producto| Nombre | ID_Marca
+0           +-----------+---------------+----------+
+1                                | 1 | Miss Dior | 1
+2                               | 2 | Dior Homme | 1
+3                                  | 3 | J'adore | 1
+4           +-----------+---------------+----------+
+5                          Tabla 3: Códigos de Barra
+6                     Clave Primaria: ID_CodigoBarra
+7   Clave Foránea: ID_Producto (referencia a Tabla 2
+8         +--------------+-------------+-----------+
+9         | ID_CodigoBarra| CodigoBarra| ID_Producto
+10        +--------------+-------------+-----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 82':
+  ID_Perfume Nombre_Perfume ID_Marca              None  None
+0                                  1    Un Air d'Amour     1
+1                                  2  Fleur de Cristal     1
+2                                  3        Gold Woman     1
+3                                  4      Just for You     1
+4                                  5       L'amour Fou     1
+5                                  6           Vampire     1
+6                                ...               ...   ...
+7            3. Tabla "Presentacion"              None  None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 83':
+                                       pr.Tamaño_ml                                               None
+0                                              FROM                                               None
+1                                           Marca m                                               None
+2                                              JOIN                                               None
+3              Perfume p ON m.ID_Marca = p.ID_Marca                                               None
+4                                              JOIN                                               None
+5   Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+6                                             WHERE                                               None
+7              p.Nombre_Perfume = 'Un Air d'Amour';                                               None
+8                                             Nota:                                               None
+9                                                 •  Esta estructura es un ejemplo y puede ser adap...
+10                                             None                                       específicas.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 84':
+                          +---------+----------+
+0                              Tabla 2: Producto
+1                    Clave Primaria: ID_Producto
+2  Clave Foránea: ID_Marca (referencia a Tabla 1
+3       +-----------+---------------+----------+
+4               | ID_Producto| Nombre | ID_Marca
+5       +-----------+---------------+----------+
+6                           | 1 | Producto X | 1
+7                           | 2 | Producto Y | 2
+8                           | 3 | Producto Z | 3
+9       +-----------+---------------+----------+
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 85':
+                  1.0  ...       NaN
+0  2. Tabla "Perfume"  ...      None
+1          ID_Perfume  ...  ID_Marca
+2                   1  ...         1
+3                   2  ...         1
+4                   3  ...         1
+5                   4  ...         1
+6                   5  ...         1
+7                   6  ...      None
+
+[8 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 86':
+     None                                  m.Nombre_Marca,
+0    None                                p.Nombre_Perfume,
+1    None                                 pr.Codigo_Barra,
+2    None                                   pr.Imagen_URL,
+3    None                                     pr.Tamaño_ml
+4    FROM                                             None
+5    None                                          Marca m
+6    JOIN                                             None
+7    None             Perfume p ON m.ID_Marca = p.ID_Marca
+8    JOIN                                             None
+9    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+10  WHERE                                             None
+11   None                      p.Nombre_Perfume = 'Happy';
+12  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 87':
+                                             None  ...      None
+0                                            None  ...      None
+1                                            None  ...      None
+2                                            None  ...      None
+3                                            None  ...      None
+4                                            None  ...      None
+5                                            None  ...      None
+6                                            None  ...      None
+7                     Clave Primaria: ID_Producto  ...      None
+8   Clave Foránea: ID_Marca (referencia a Tabla 1  ...      None
+9        +-----------+---------------+----------+  ...      None
+10                        | ID_Producto| Nombre |  ...  ID_Marca
+
+[11 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 88':
+                 llamada "Cofinluxe". Es posible que se trate de un nombre ficticio o una marca poco
+0                                               None    conocida de la cual no hay datos disponibles
+1  Sin embargo, puedo proporcionar una estructura...                                            None
+2  almacenar información sobre marcas de perfumes...                                            None
+3                                               None                                        imágenes
+4                                               None                                  Tabla 1: Marca
+5                                               None                        Clave Primaria: ID_Marca
+6                                               None                          +---------+----------+
+7                                               None                               | ID_Marca| Marca
+8                                               None                          +---------+----------+
+9                                               None                                   | 1 | Marca A
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 89':
+                            | 3 | producto_z.jpeg| 3
+0            +---------+---------------+-----------+
+1  Esta estructura en 3NF cumple con las reglas m...
+2  utilizada para almacenar información sobre cua...
+3  se actualicen los datos en las tablas correspo...
+4                               Cuba Perfumes en 3NF
+5  Para presentar la información en 3NF (Tercera ...
+6                                   1. Tabla "Marca"
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 90':
+                     None  ...                      None
+0                       6  ...                       100
+1                    None  ...                      None
+2                     ...  ...                       ...
+3  Explicación de la 3NF:  ...                      None
+4                       •  ...                      None
+5                       •  ...                      None
+6                    None  ...                      None
+7                       •  ...  atributo que no es clave
+8                    None  ...                      None
+
+[9 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 91':
+                                                   • Las imágenes URL son ejemplos y deben ser reemplazadas con las URLs reales de
+0                                               None                     las imágenes correspondientes.                           
+1           Espero que esta información te sea útil.                                               None                           
+2  Desafortunadamente, Cuba no es una marca de pe...                                               None                           
+3  información disponible sobre perfumes producid...                                               None                           
+4                                               None                                       relacionadas                           
+5                                               None  Sin embargo, puedo proporcionar una estructura...                           
+6                                               None  almacenar información sobre marcas de perfumes...                           
+7                                               None                                           imágenes                           
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 92':
+                                                 None                          Clave Primaria: ID_Imagen
+0                                                None   Clave Foránea: ID_Producto (referencia a Tabla 2
+1                                                None            +---------+---------------+-----------+
+2                                                None                  | ID_Imagen| Imagen | ID_Producto
+3                                                None            +---------+---------------+-----------+
+4                                                None                            | 1 | producto_x.jpg| 1
+5                                                None                            | 2 | producto_y.png| 2
+6                                                None                           | 3 | producto_z.jpeg| 3
+7                                                None            +---------+---------------+-----------+
+8   Esta estructura en 3NF cumple con las reglas m...                                               None
+9   utilizada para almacenar información sobre cua...                      de perfumes, siempre y cuando
+10                                               None  se actualicen los datos en las tablas correspo...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 93':
+                      ...  ...   ...
+0  Explicación de la 3NF:  ...  None
+1                       •  ...  None
+2                       •  ...  None
+3                    None  ...  None
+4                       •  ...  None
+5                    None  ...  None
+6    Ejemplo de consulta:  ...  None
+
+[7 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 94':
+                                          •  ...                                               None
+0                                      None  ...                                               None
+1  Espero que esta información te sea útil.  ...                                               None
+2   Claro, actuaré como un data scientist y  ...                                               None
+3                                      None  ...                                               None
+4                                      None  ...                                               None
+5                                      None  ...                                               None
+6                                      None  ...  La tabla debe cumplir con las reglas de la Seg...
+7                                      None  ...  Todos los atributos no clave deben ser complet...
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 95':
+                            Clave Primaria: ID_Imagen
+0    Clave Foránea: ID_Producto (referencia a Tabla 2
+1             +---------+---------------+-----------+
+2                   | ID_Imagen| Imagen | ID_Producto
+3             +---------+---------------+-----------+
+4                            | 1 | curve_crush.jpg| 1
+5                            | 2 | curve_chill.png| 2
+6                            | 3 | curve_soul.jpeg| 3
+7             +---------+---------------+-----------+
+8   Esta estructura en 3NF cumple con las reglas m...
+9   una clave primaria, y las tablas relacionadas ...
+10  las claves primarias de otras tablas. Además, ...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 96':
+    None  None             1         None   None  Toilette
+0    NaN   NaN          None       125ml]    NaN      None
+1    NaN   NaN          None  [URL imagen    NaN      None
+2    NaN   NaN  761170034227         None    NaN    Eau de
+3    2.0   1.0          None   Cool Water   75.0      None
+4    NaN   NaN             4         None    NaN  Toilette
+5    NaN   NaN          None        75ml]    NaN      None
+6    NaN   NaN          None  [URL imagen    NaN      None
+7    NaN   NaN  761170034241   Cool Water    NaN    Eau de
+8    3.0   2.0          None         None  100.0      None
+9    NaN   NaN             0        Woman    NaN  Toilette
+10   NaN   NaN          None       100ml]    NaN      None
+11   NaN   NaN  761170082652  [URL imagen    NaN    Eau de
+12   4.0   3.0          None         None  100.0      None
+13   NaN   NaN             6  Echo 100ml]    NaN  Toilette
+14   NaN   NaN          None  [URL imagen    NaN      None
+15   NaN   NaN  761170034244         None    NaN    Eau de
+16   5.0   4.0          None    Hot Water  110.0      None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 97':
+   Nota:                                               None
+0      •  Esta estructura es un ejemplo y puede ser adap...
+1   None                                       específicas.
+2      •  La tabla "Perfume" podría incluir información ...
+3   None  lanzamiento, la familia olfativa, las notas de...
+4   None                                               etc.
+5      •  La tabla "Presentacion" podría incluir informa...
+6   None                     (spray, etc.), el precio, etc.
+7      •  Es importante destacar que obtener la informac...
+8   None  imágenes para todos los perfumes de Davidoff, ...
+9   None  ediciones limitadas, puede requerir una invest...
+10  None                                           fuentes.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 98':
+   3. Tabla "Presentacion"       None  ...      None          None
+0           ID_Presentacio  ID_Perfum  ...  Tamaño_m  Concentracio
+1                     None       None  ...      None          None
+2                        n          e  ...         l             n
+3                     None       None  ...      None          None
+4                     None       None  ...      None        Eau de
+5                        1          1  ...        75          None
+6                     None       None  ...      None      Toilette
+7                     None       None  ...      None          None
+8                     None       None  ...      None          None
+9                     None       None  ...      None        Eau de
+10                       2          1  ...       125          None
+11                    None       None  ...      None      Toilette
+12                    None       None  ...      None          None
+13                    None       None  ...      None          None
+14                    None       None  ...      None        Eau de
+
+[15 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 99':
+                                      pr.Tamaño_ml,                                               None
+0                                  pr.Concentracion                                               None
+1                                              FROM                                               None
+2                                           Marca m                                               None
+3                                              JOIN                                               None
+4              Perfume p ON m.ID_Marca = p.ID_Marca                                               None
+5                                              JOIN                                               None
+6   Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+7                                             WHERE                                               None
+8              p.Nombre_Perfume = 'Only The Brave';                                               None
+9                                             Nota:                                               None
+10                                                •  Esta estructura es un ejemplo y puede ser adap...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 100':
+                         4     The One for Men  ...      None          None
+0                        5          Pour Femme  ...      None          None
+1                        6  K by Dolce&Gabbana  ...      None          None
+2                        7  Q by Dolce&Gabbana  ...      None          None
+3                      ...                 ...  ...      None          None
+4  3. Tabla "Presentacion"                None  ...      None          None
+5           ID_Presentacio           ID_Perfum  ...  Tamaño_m  Concentracio
+6                        n                   e  ...         l             n
+7                     None                None  ...      None          None
+
+[8 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 101':
+                              Explicación de la 3NF:  ...    None
+0                                                  •  ...    None
+1                                                  •  ...    None
+2                                               None  ...    None
+3                                                  •  ...    None
+4                                               None  ...  clave.
+5                               Ejemplo de consulta:  ...    None
+6  Para obtener toda la información de un perfume...  ...    None
+7  podrían unir las tres tablas usando las claves...  ...    None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 102':
+        Espero que esta información te sea útil.                                     None
+0                    Donna Karan Perfumes en 3NF                                     None
+1  Para presentar la información en 3NF (Tercera  Forma Normal), necesitamos tres tablas:
+2                               1. Tabla "Marca"                                     None
+3                          ID_Marca Nombre_Marca                                     None
+4                                              1                              Donna Karan
+5                             2. Tabla "Perfume"                                     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 103':
+   None None                        None    [URL imagen   None           None
+0   NaN  NaN                        None       DKNY Eau    NaN           None
+1   4.0  3.0                022548100404           None  100.0  Eau de Parfum
+2   NaN  NaN                        None      de Parfum    NaN           None
+3   NaN  NaN                        None         100ml]    NaN           None
+4   NaN  NaN                        None    [URL imagen    NaN           None
+5   NaN  NaN                        None  Red Delicious    NaN           None
+6   5.0  4.0         022548713502 Eau de           None  100.0  Eau de Parfum
+7   NaN  NaN                        None         Parfum    NaN           None
+8   NaN  NaN                        None         100ml]    NaN           None
+9   NaN  NaN                        None    [URL imagen    NaN           None
+10  NaN  NaN                        None         Golden    NaN           None
+11  6.0  5.0  022548714504 Delicious Eau           None  100.0  Eau de Parfum
+12  NaN  NaN                        None      de Parfum    NaN           None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 104':
+    None                                       específicas.
+0      •  La tabla "Perfume" podría incluir información ...
+1   None  lanzamiento, la familia olfativa, las notas de...
+2   None                                               etc.
+3      •  La tabla "Presentacion" podría incluir informa...
+4   None                     (spray, etc.), el precio, etc.
+5      •  Es importante destacar que obtener la informac...
+6   None  imágenes para todos los perfumes de Donna Kara...
+7   None  y ediciones limitadas, puede requerir una inve...
+8   None                                           fuentes.
+9      •  Los códigos de barra proporcionados son ejempl...
+10  None  todas las regiones. Se recomienda verificar lo...
+11  None                                         productos.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 105':
+    None  None           None                    100ml]  None
+0   None  None           None  [URL imagen Ducati Fight  None
+1      2     2  8008970056024                      None   100
+2   None  None           None             for Me 100ml]  None
+3   None  None           None  [URL imagen Ducati Fight  None
+4      3     3  8008970056031                      None   100
+5   None  None           None     for Me Extreme 100ml]  None
+6   None  None           None      [URL imagen Ducati 1  None
+7      4     4  8008970056048                      None   100
+8   None  None           None                    100ml]  None
+9   None  None           None        [URL imagen Ducati  None
+10     5     5  8008970056055                      None   100
+11  None  None           None              Homme 100ml]  None
+12  None  None           None  [URL imagen Ducati Light  None
+13     6     6  8008970056062                      None   100
+14  None  None           None            Essence 100ml]  None
+15   ...   ...            ...                       ...   ...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 106':
+                                           • La tabla "Presentacion" podría incluir información adicional como el tipo de envase
+0                                       None  (spray, etc.), el precio, la concentración (Ea...                                 
+1                                          •  Es importante destacar que obtener la informac...                                 
+2                                       None  imágenes para todos los perfumes de Ducati, in...                                 
+3                                       None  ediciones limitadas, puede requerir una invest...                                 
+4                                       None                                           fuentes.                                 
+5                                          •  Los códigos de barra proporcionados son ejempl...                                 
+6                                       None  todas las regiones. Se recomienda verificar lo...                                 
+7                                       None                                         productos.                                 
+8                                          •  Las imágenes URL son ejemplos y deben ser reem...                                 
+9                                       None                     las imágenes correspondientes.                                 
+10  Espero que esta información te sea útil.                                               None                                 
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 107':
+   None None          None   [URL imagen   None      None
+0   NaN  NaN  370005410152   S.T. Dupont    NaN    Eau de
+1   2.0  1.0          None          None   50.0      None
+2   NaN  NaN             1    Pour Homme    NaN  Toilette
+3   NaN  NaN          None         50ml]    NaN      None
+4   NaN  NaN          None   [URL imagen    NaN      None
+5   NaN  NaN  370005410204   S.T. Dupont    NaN    Eau de
+6   3.0  2.0          None          None  100.0      None
+7   NaN  NaN             0  Essence Pure    NaN  Toilette
+8   NaN  NaN          None        100ml]    NaN      None
+9   NaN  NaN          None   [URL imagen    NaN      None
+10  NaN  NaN  370005410250   S.T. Dupont    NaN    Eau de
+11  4.0  3.0          None          None  100.0      None
+12  NaN  NaN             7     Passenger    NaN  Toilette
+13  NaN  NaN          None        100ml]    NaN      None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 108':
+                                              JOIN  ...         None
+0  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume  ...         None
+1                                            WHERE  ...         None
+2     p.Nombre_Perfume = 'S.T. Dupont Pour Homme';  ...         None
+3                                            Nota:  ...         None
+4                                                •  ...         None
+5                                             None  ...         None
+6                                                •  ...         None
+7                                             None  ...  perfumista,
+8                                             None  ...         None
+9                                                •  ...         None
+
+[10 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 109':
+   3. Tabla "Presentacion"       None  ...      None           None
+0           ID_Presentacio  ID_Perfum  ...  Tamaño_m   Concentracio
+1                     None       None  ...      None           None
+2                        n          e  ...         l              n
+3                     None       None  ...      None           None
+4                     None       None  ...      None           None
+5                     None       None  ...      None           None
+6                        1          1  ...       100  Eau de Parfum
+7                     None       None  ...      None           None
+8                     None       None  ...      None           None
+9                     None       None  ...      None           None
+10                    None       None  ...      None           None
+11                    None       None  ...      None           None
+12                       2          1  ...        50  Eau de Parfum
+
+[13 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 110':
+   SELECT                                             None
+0    None                                  m.Nombre_Marca,
+1    None                                p.Nombre_Perfume,
+2    None                                 pr.Codigo_Barra,
+3    None                                   pr.Imagen_URL,
+4    None                                    pr.Tamaño_ml,
+5    None                                 pr.Concentracion
+6    FROM                                             None
+7    None                                          Marca m
+8    JOIN                                             None
+9    None             Perfume p ON m.ID_Marca = p.ID_Marca
+10   JOIN                                             None
+11   None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+12  WHERE                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 111':
+                ID_Perfume           Nombre_Perfume ID_Marca
+0                        1           White Diamonds        1
+1                        2                  Passion        1
+2                        3             Black Pearls        1
+3                        4      Diamonds and Rubies        1
+4                        5  Diamonds and Emeralds 1     None
+5                        6                 Gardenia        1
+6                        7              Violet Eyes        1
+7                      ...                      ...      ...
+8  3. Tabla "Presentacion"                     None     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 112':
+                      None  ...      None
+0                     None  ...      None
+1                     None  ...    Eau de
+2                        6  ...      None
+3                     None  ...  Toilette
+4                     None  ...      None
+5                     None  ...      None
+6                      ...  ...       ...
+7   Explicación de la 3NF:  ...      None
+8                        •  ...      None
+9                        •  ...      None
+10                    None  ...      None
+
+[11 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 113':
+                                                None  ...                 None
+0                                                  •  ...                 None
+1                                               None  ...  barra reales en los
+2                                               None  ...                 None
+3                                                  •  ...                 None
+4                                               None  ...                 None
+5           Espero que esta información te sea útil.  ...                 None
+6                     Emanuel Ungaro Perfumes en 3NF  ...                 None
+7  Para presentar la información en 3NF (Tercera ...  ...                 None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 114':
+   None None             0    de Parfum   None           None
+0   NaN  NaN          None        90ml]    NaN           None
+1   NaN  NaN          None  [URL imagen    NaN           None
+2   NaN  NaN          None   Apparition    NaN           None
+3   NaN  NaN  334613700450         None    NaN           None
+4   4.0  3.0          None       Eau de  100.0  Eau de Parfum
+5   NaN  NaN             3         None    NaN           None
+6   NaN  NaN          None       Parfum    NaN           None
+7   NaN  NaN          None       100ml]    NaN           None
+8   NaN  NaN          None  [URL imagen    NaN           None
+9   NaN  NaN          None        Fruit    NaN           None
+10  NaN  NaN          None      d'Amour    NaN           None
+11  NaN  NaN  334613700860         None    NaN         Eau de
+12  5.0  4.0          None  Green Apple  100.0           None
+13  NaN  NaN             6         None    NaN       Toilette
+14  NaN  NaN          None       Eau de    NaN           None
+15  NaN  NaN          None     Toilette    NaN           None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 115':
+  Nota:  ...                             None
+0     •  ...                             None
+1  None  ...                             None
+2     •  ...                             None
+3  None  ...  corazón y fondo, el perfumista,
+4  None  ...                             None
+5     •  ...                             None
+6  None  ...                             None
+7     •  ...                             None
+8  None  ...                             None
+
+[9 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 116':
+              None       None  ... 3. Tabla "Presentacion"                   None
+0   ID_Presentacio  ID_Perfum  ...                Tamaño_m                   None
+1             None       None  ...                    None          Concentracion
+2                n          e  ...                       l                   None
+3             None       None  ...                    None         [Concentración
+4                1          1  ...                [Tamaño]                   None
+5             None       None  ...                    None                      ]
+6             None       None  ...                    None         [Concentración
+7                2          1  ...                [Tamaño]                   None
+8             None       None  ...                    None                      ]
+9              ...        ...  ...                     ...                    ...
+10            None       None  ...                    None  Explicación de la 3NF
+
+[11 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 117':
+                ID_Perfume                      Nombre_Perfume ID_Marca
+0                        1                        Acqua di Gio        1
+1                        2                      Acqua di Gioia        1
+2                        3     Emporio Armani Because It’s You        1
+3                        4  Emporio Armani Stronger With You 1     None
+4                        5                   Emporio Armani He        1
+5                        6                  Emporio Armani She        1
+6                        7             Emporio Armani Diamonds        1
+7                      ...                                 ...      ...
+8  3. Tabla "Presentacion"                                None     None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 118':
+                      None  None             5     With You  None  Toilette
+0                     None  None          None       Eau de  None      None
+1                     None  None          None     Toilette  None      None
+2                     None  None          None       100ml]  None      None
+3                     None  None          None  [URL imagen  None      None
+4                     None  None          None      Emporio  None      None
+5                     None  None  360552118100    Armani He  None    Eau de
+6                        6     5          None         None   100      None
+7                     None  None             8       Eau de  None  Toilette
+8                     None  None          None     Toilette  None      None
+9                     None  None          None       100ml]  None      None
+10                     ...   ...           ...          ...   ...       ...
+11  Explicación de la 3NF:  None          None         None  None      None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 119':
+                                       None                     (spray, etc.), el precio, etc.
+0                                         •  Es importante destacar que obtener la informac...
+1                                      None  imágenes para todos los perfumes de Emporio Ar...
+2                                      None  variaciones y ediciones limitadas, puede reque...
+3                                      None                                diferentes fuentes.
+4                                         •  Los códigos de barra proporcionados son ejempl...
+5                                      None  todas las regiones. Se recomienda verificar lo...
+6                                      None                                         productos.
+7                                         •  Las imágenes URL son ejemplos y deben ser reem...
+8                                      None                     las imágenes correspondientes.
+9  Espero que esta información te sea útil.                                               None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 120':
+   None None          None   Parfum 75ml]  None           None
+0   NaN  NaN          None    [URL imagen   NaN           None
+1   NaN  NaN          None         Escada   NaN           None
+2   NaN  NaN  401170073810     Especially   NaN           None
+3   2.0  2.0          None           None  75.0  Eau de Parfum
+4   NaN  NaN             1     Escada Eau   NaN           None
+5   NaN  NaN          None      de Parfum   NaN           None
+6   NaN  NaN          None          75ml]   NaN           None
+7   NaN  NaN          None    [URL imagen   NaN           None
+8   NaN  NaN  401170081390  Escada Joyful   NaN           None
+9   3.0  3.0          None           None  50.0  Eau de Parfum
+10  NaN  NaN             7         Eau de   NaN           None
+11  NaN  NaN          None   Parfum 50ml]   NaN           None
+12  NaN  NaN          None    [URL imagen   NaN           None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 121':
+     None                                p.Nombre_Perfume,
+0    None                                 pr.Codigo_Barra,
+1    None                                   pr.Imagen_URL,
+2    None                                    pr.Tamaño_ml,
+3    None                                 pr.Concentracion
+4    FROM                                             None
+5    None                                          Marca m
+6    JOIN                                             None
+7    None             Perfume p ON m.ID_Marca = p.ID_Marca
+8    JOIN                                             None
+9    None  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume
+10  WHERE                                             None
+11   None           p.Nombre_Perfume = 'Escada Magnetism';
+12  Nota:                                             None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 122':
+                         2        Pleasures  ...      None          None
+0                        3      White Linen  ...      None          None
+1                        4          Knowing  ...      None          None
+2                        5      Modern Muse  ...      None          None
+3                        6  Beautiful Belle  ...      None          None
+4                        7   Bronze Goddess  ...      None          None
+5                      ...              ...  ...      None          None
+6  3. Tabla "Presentacion"             None  ...      None          None
+7           ID_Presentacio             None  ...  Tamaño_m  Concentracio
+
+[8 rows x 7 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 123':
+                              Explicación de la 3NF:  ...                      None
+0                                                  •  ...                      None
+1                                                  •  ...                      None
+2                                               None  ...                      None
+3                                                  •  ...  atributo que no es clave
+4                                               None  ...                      None
+5                               Ejemplo de consulta:  ...                      None
+6  Para obtener toda la información de un perfume...  ...                      None
+7  podrían unir las tres tablas usando las claves...  ...                      None
+
+[8 rows x 3 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 124':
+            Espero que esta información te sea útil.  ...                                               None
+0                                               None  ...                       Estelle Ewen Perfumes en 3NF
+1  No se ha encontrado información sobre una marc...  ...                                               None
+2                                               None  ...                                        posible que
+3                                               None  ...  El nombre esté mal escrito: Verifica la ortogr...
+4                                                  •  ...                                               None
+5                                               None  ...                 pueden tener poca presencia online
+6                                               None  ...                                               None
+7                                               None  ...                        un área geográfica limitada
+
+[8 rows x 4 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 125':
+                                                 ...  ...   None
+0                                               None  ...   None
+1                                               None  ...   None
+2                                                  •  ...   None
+3                                               None  ...   None
+4                                                  •  ...   None
+5                                               None  ...  clave
+6  Recuerda reemplazar los campos entre corchetes...  ...   None
+7                                               None  ...   None
+
+[8 rows x 8 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 126':
+   3. Tabla "Presentacion"       None  ...      None          None
+0           ID_Presentacio  ID_Perfum  ...  Tamaño_m  Concentracio
+1                     None       None  ...      None          None
+2                        n          e  ...         l             n
+3                     None       None  ...      None          None
+4                     None       None  ...      None        Eau de
+5                        1          1  ...       100          None
+6                     None       None  ...      None      Toilette
+7                     None       None  ...      None          None
+8                     None       None  ...      None          None
+9                     None       None  ...      None        Eau de
+10                       2          2  ...        90          None
+11                    None       None  ...      None      Toilette
+12                    None       None  ...      None          None
+13                    None       None  ...      None          None
+14                    None       None  ...      None        Eau de
+
+[15 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 127':
+                                              JOIN                                               None
+0  Presentacion pr ON p.ID_Perfume = pr.ID_Perfume                                               None
+1                                            WHERE                                               None
+2               p.Nombre_Perfume = 'Versace Eros';                                               None
+3                                            Nota:                                               None
+4                                                •  Esta estructura es un ejemplo y puede ser adap...
+5                                             None                                       específicas.
+6                                                •  La tabla "Perfume" podría incluir información ...
+7                                             None  lanzamiento, la familia olfativa, las notas de...
+8                                             None                                               etc.
+9                                                •  La tabla "Presentacion" podría incluir informa...
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 128':
+         None                      None    1. Tabla "Marca"
+0        None     ID_Marca Nombre_Marca                None
+1        None                         1               Fandi
+2        None                      None  2. Tabla "Perfume"
+3  ID_Perfume            Nombre_Perfume            ID_Marca
+4           1  [Nombre del perfume 1] 1                None
+5           2  [Nombre del perfume 2] 1                None
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 129':
+  ID_Marca Nombre_Marca                              None      None
+0                     1                           Ferrari      None
+1    2. Tabla "Perfume"                              None      None
+2            ID_Perfume                    Nombre_Perfume  ID_Marca
+3                     1            Scuderia Ferrari Black         1
+4                     2              Scuderia Ferrari Red         1
+5                     3  Scuderia Ferrari Light Essence 1      None
+6                     4              Ferrari Essence Musk         1
+7                     5             Ferrari Bright Neroli         1
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 130':
+                      None  ...      None
+0                     None  ...      None
+1                     None  ...    Eau de
+2                        6  ...      None
+3                     None  ...  Toilette
+4                     None  ...      None
+5                      ...  ...       ...
+6   Explicación de la 3NF:  ...      None
+7                        •  ...      None
+8                        •  ...      None
+9                     None  ...      None
+10                       •  ...      None
+
+[11 rows x 6 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 131':
+                                                None todas las regiones. Se recomienda verificar los códigos de barra reales en los
+0                                               None                                         productos.                            
+1                                                  •  Las imágenes URL son ejemplos y deben ser reem...                            
+2                                               None                     las imágenes correspondientes.                            
+3           Espero que esta información te sea útil.                                               None                            
+4                               Ford Perfumes en 3NF                                               None                            
+5  Aunque Ford es principalmente conocido por sus...                                               None                            
+6  fragancias. Para presentar la información en 3...                                               None                            
+7                                       tres tablas:                                               None                            
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 132':
+                      ...  ...   ...
+0  Explicación de la 3NF:  ...  None
+1                       •  ...  None
+2                       •  ...  None
+3                    None  ...  None
+4                       •  ...  None
+5                    None  ...  None
+6    Ejemplo de consulta:  ...  None
+
+[7 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 133':
+                                                   • Las imágenes URL son ejemplos y deben ser reemplazadas con las URLs reales de
+0                                               None                     las imágenes correspondientes.                           
+1           Espero que esta información te sea útil.                                               None                           
+2                                               None  Para desarrollar una base de datos normalizada...                           
+3  contenga información sobre perfumes de diversa...                                               None                           
+4  y sus atributos. En este caso, las entidades p...                       Perfume, Marca y Imagen (que                           
+5                                               None  puede estar representada como un enlace a una ...                           
+6  continuación, se presenta un modelo de datos s...                                               None                           
+7                                               None                         organizarse la información                           
+8                                               None                                     Modelo de Dato                           
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 134':
+   10         Guess  1234567890132
+0  11   Guy Laroche  1234567890133
+1  12       Halston  1234567890134
+2  13     Hugo Boss  1234567890135
+3  14          INCC  1234567890136
+4  15  Interparfums  1234567890137
+5  16  Issey Miyake  1234567890138
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 135':
+   34                Loewe  1234567890156
+0  35      Lolita Lempicka  1234567890157
+1  36          Marc Jacobs  1234567890158
+2  37    Marina De Bourbon  1234567890159
+3  38  Master of New Brand  1234567890160
+4  39            Maubossin  1234567890161
+5  40               Mavive  1234567890162
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 136':
+   58 P&G Prestige Beauté  1234567890180
+0  59       Pablo Picasso  1234567890181
+1  60         Pacha Ibiza  1234567890182
+2  61    Pacific Creation  1234567890183
+3  62        Paco Rabanne  1234567890184
+4  63             Parfums  1234567890185
+5  64       Paris Elysees  1234567890186
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 137':
+   82      Ted Lapidus  1234567890204
+0  83  Terre De Hermès  1234567890205
+1  84   Thierry Mugler  1234567890206
+2  85         Tom Ford  1234567890207
+3  86   Tommy Hilfiger  1234567890208
+4  87             Tous  1234567890209
+5  88  Ulric de Varens  1234567890210
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 138':
+                                                 2.0  ...    NaN
+0                                                  3  ...   None
+1                                                  4  ...   None
+2                                               None  ...  sigue
+3  Continuemos completando la tabla de Perfume y ...  ...   None
+4  se pueden presentar en una base de datos o en ...  ...   None
+5                                               None  ...   None
+
+[6 rows x 5 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 139':
+   17                   Eternity  72       http://example.com/eternity.jpg
+0  18  Narciso Rodriguez for Her  48        http://example.com/narciso.jpg
+1  19                  1 Million  84       http://example.com/1million.jpg
+2  20                   Invictus  84       http://example.com/invictus.jpg
+3  21             Bright Crystal  77  http://example.com/brightcrystal.jpg
+4  22                 Flowerbomb  96     http://example.com/flowerbomb.jpg
+5  23                      Angel   9          http://example.com/angel.jpg
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 140':
+                             Imagen_URL VARCHAR(255),
+0   FOREIGN KEY (ID_Marca) REFERENCES Marca(ID_Marca)
+1                                                  );
+2                       Ejemplo de Inserción de Datos
+3   Aquí tienes un ejemplo de cómo insertar alguno...
+4   INSERT INTO Marca (ID_Marca, Nombre, Codigo_Ba...
+5                   (1, 'Fujiyama', '1234567890123'),
+6             (2, 'Gilles Cantuel', '1234567890124'),
+7             (3, 'Giorgio Armani', '1234567890125'),
+8      (4, 'Giorgio Beverly Hills', '1234567890126'),
+9           (5, 'Give Back Brands', '1234567890127'),
+10                  (6, 'Givenchy', '1234567890128'),
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 141':
+    8411114079707  Air-Val International         Colonia Fresca PJMasks
+0    663350062403  Air-Val International         Colonia Fresca Minions
+1   8411114079660  Air-Val International     Colonia Fresca Super Wings
+2    663350073560  Air-Val International                     Paw Patrol
+3    663350059830  Air-Val International                    Barbie Pack
+4    663350065725  Air-Val International                    Real Madrid
+5    663350050530  Air-Val International                         Barbie
+6    663350073362  Air-Val International                   FC Barcelona
+7   8411114073866  Air-Val International                   Rayo McQueen
+8    663350057850  Air-Val International  Eau de Toilette in Minion Box
+9    663350062847  Air-Val International               Minions Alcancía
+10   663350009736  Air-Val International                         Minnie
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 142':
+    8411061636329  Antonio Banderas         Blue Seduction (Tester)
+0   8411061701041  Antonio Banderas                      The Secret
+1   8411061722794  Antonio Banderas      The Golden Secret (Tester)
+2   8411061820117  Antonio Banderas              Queen of Seduction
+3   8411061860441  Antonio Banderas           Her Secret Temptation
+4   8411061738009  Antonio Banderas                      Her Secret
+5   8411061771907  Antonio Banderas                         Diavolo
+6   8411061876817  Antonio Banderas           Her Golden Secret Kit
+7   8411061701034  Antonio Banderas                      The Secret
+8   8411061722756  Antonio Banderas               The Golden Secret
+9   8411061860533  Antonio Banderas  The Secret Temptation (tester)
+10  8411061921081  Antonio Banderas                 Miami Seduction
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 143':
+       783320913228             Bulgari      Aqva for Men
+0     5045252667392  Burberry Fragances  Burberry for Men
+1     5045254676101  Burberry Fragances        Baby Touch
+2     5045252667453  Burberry Fragances  Burberry for Men
+3     3360373000074            Cacharel           Lou Lou
+4   45X123400T12339            Cadillac    Cadillac Black
+5     3607348556700        Calvin Klein     Eternity Aqua
+6       88300105519        Calvin Klein  Eternity for Men
+7     3607343811835        Calvin Klein               One
+8        8018737922        Calvin Klein          Eternity
+9       88300162505        Calvin Klein          Euphoria
+10      88300101306        Calvin Klein          Eternity
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 144':
+    8411061831304  Carolina Herrera        212 Vip Men NYC Kit
+0   8411061853160  Carolina Herrera                212 Men NYC
+1   8411061061107  Carolina Herrera  Carolina Herrera New York
+2   8411061865460  Carolina Herrera                   212 Sexy
+3   8411061819838  Carolina Herrera                  Good Girl
+4   8411061607152  Carolina Herrera                       CHHC
+5   8411061865439  Carolina Herrera                   212 Sexy
+6   8411061723777  Carolina Herrera            212 VIP Men NYC
+7   8411061781197  Carolina Herrera               212 VIP Rosé
+8   8411061711804  Carolina Herrera                212 VIP NYC
+9   8411061723760  Carolina Herrera                212 VIP Men
+10  8411061081600  Carolina Herrera            Herrera for Men
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 145':
+     719346065399    EA Fragrances               Britney Spears Fantasy
+0    719346159357    EA Fragrances  Britney Spears Fantasy Twist 2 in 1
+1    719346145879    EA Fragrances       Britney Spears Cosmic Radiance
+2    719346633772    EA Fragrances       Britney Spears Fantasy Kit 100
+3    719346065405    EA Fragrances               Britney Spears Fantasy
+4    719346601887    EA Fragrances   Britney Spears Fantasy Anniversary
+5    719346198592    EA Fragrances           Britney Spears Fantasy kit
+6     85805114435  Elizabeth Arden                             Red Door
+7     85805390402  Elizabeth Arden                           5th Avenue
+8     85805558420  Elizabeth Arden                             Red Door
+9   6291103661791            Emper                               Chifon
+10  6291103661784            Emper                                 SaGa
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 146':
+    3274870373268     Givenchy            ange ou démon
+0   3274870352362     Givenchy        Very Irresistible
+1   3274872372153     Givenchy               L'Interdit
+2   7640111494324         Grès                 Cabotine
+3   7640163970692         Grès  Cabotine Kit (3 piezas)
+4   7640111492030         Grès     Cabotine Kit 100 200
+5   7640111494027         Grès                 Cabotine
+6   7640163970708         Grès    Cabotine kit 2 piezas
+7   7640171193458         Grès             Cabotine kit
+8   3360372009436  Guy Laroche             Drakkar Noir
+9    737052352060    Hugo Boss            Bottled Night
+10  3595471021021         INCC    Mercedes Benz for Men
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 147':
+    5425017736431  New Brand Perfumes   Prestige 4 Women Delicious
+0   5425017734314  New Brand Perfumes      Prestige Gold for Women
+1   5425039220161  New Brand Perfumes  Prestige Invincible for Men
+2   5425017735113  New Brand Perfumes    Prestige Ego Gold for Men
+3   5425017735151  New Brand Perfumes          Fluo Pink for Women
+4   5425017731016  New Brand Perfumes   Prestige Extasia for Women
+5   5425017734468  New Brand Perfumes            In Love for Women
+6   5425017735137  New Brand Perfumes    Prestige Velvet for Women
+7   5425017735076  New Brand Perfumes   Prestige Princess Dreaming
+8   5425017730620  New Brand Perfumes                      Forever
+9   5425039220338  New Brand Perfumes                  Fashionista
+10   802822001650  New Brand Perfumes                K'men for Men
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 148':
+    3349668508488  Paco Rabanne          Lady Million
+0   3349668513970  Paco Rabanne       Ultraviolet kit
+1   3349668508471  Paco Rabanne          Lady Million
+2   3349666007921  Paco Rabanne             1 Million
+3   3349668111541  Paco Rabanne  XS Excess pour Homme
+4   3349666002506  Paco Rabanne              Black XS
+5   3349668508587  Paco Rabanne          Lady Million
+6   3349668568093  Paco Rabanne               Olympea
+7   3349668535484  Paco Rabanne       1 Million Privé
+8   3349668528660  Paco Rabanne               Olympea
+9   6944348501871       Parfums      1 Million Dollar
+10  6915924304964       Parfums          777 VVIP men
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx', hoja 'Page 149':
+    6949063982721  Sex in the City       Olympea (crema)
+0   6949063982707  Sex in the City  212 Vip Rose (Crema)
+1   6949063982745  Sex in the City      212 Sexy (crema)
+2   8411061823033          Shakira                 Dance
+3   8411061810606          Shakira            Love Rock!
+4   8411061697290          Shakira           S (Clásico)
+5   8411061722176          Shakira           Eau Florale
+6   8411061697283          Shakira           S (Clásico)
+7   8411061876039          Shakira        Dance Diamonds
+8   8411061769249          Shakira            Elixir kit
+9   8411061741696          Shakira                Elixir
+10  8411061916964          Shakira                 Dream
+
+La hoja 'Page 150' en el archivo Excel 'D:\Gabriela Fragancias\2024\Adidas Perfumes en 3NF_page001.xlsx' está vacía.
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\2024\pagares pendientes gabriela fragancias.xlsx', hoja 'Hoja1':
+     None                  None  ...  None       None
+0     NaN                  None  ...  None        NaT
+1     NaN   PAGARES PENDIENTES   ...  None        NaT
+2     NaN  GABRIELA FRAGANCIAS   ...  None        NaT
+3     NaN                C.I.Nº  ...  None        NaT
+4     NaN               6267293  ...  None        NaT
+5     NaN               5497024  ...  None        NaT
+6     NaN               5588106  ...  None        NaT
+7     NaN               5096029  ...  None        NaT
+8     NaN               6818363  ...  None        NaT
+9     NaN               5880361  ...  None        NaT
+10    NaN               4559426  ...  None        NaT
+11    NaN               4247147  ...  None        NaT
+12    NaN               6689231  ...  None        NaT
+13    NaN               4521864  ...  None        NaT
+14    NaN                  None  ...  None        NaT
+15    NaN                  None  ...  None        NaT
+16  196.0               6267293  ...  None 2018-05-31
+17   80.0               5497024  ...  None        NaT
+18  208.0               5588106  ...  None 2018-03-09
+19   78.0               5096029  ...  None 2021-07-12
+20   61.0               6818363  ...  None 2021-06-25
+21   16.0               5880361  ...  None 2017-10-26
+22  167.0               4559426  ...  None 2020-10-08
+23  180.0               4247147  ...  None        NaT
+24    3.0               6689231  ...  None 2020-02-24
+25  160.0               4521864  ...  None 2018-01-11
+26    NaN                  None  ...  None        NaT
+27    NaN                  None  ...  None        NaT
+28    3.0               6689231  ...  None 2020-02-24
+29   16.0               5880361  ...  None 2017-10-26
+30   61.0               6818363  ...  None 2021-06-25
+31   78.0               5096029  ...  None 2021-07-12
+32   80.0               5497024  ...  None        NaT
+33  160.0               4521864  ...  None 2018-01-11
+34  167.0               4559426  ...  None 2020-10-08
+35  180.0               4247147  ...  None        NaT
+36  196.0               6267293  ...  None 2018-05-31
+37  208.0               5588106  ...  None 2018-03-09
+
+[38 rows x 18 columns]
+
+Datos del archivo Excel 'D:\Gabriela Fragancias\Datos\2023\CLIENTE.xls', hoja 'Export':
+     AI_CLIENTE ID_GRUPO_CLIENTE  ID_CIUDAD  ... LATITUD1 LONGITUD1 FEC_NAC
+0         346.0              8.0       56.0  ...                           
+1         347.0              8.0       55.0  ...                           
+2         348.0              8.0       55.0  ...                           
+3         349.0              8.0       56.0  ...                           
+4         350.0              8.0       55.0  ...                           
+..          ...              ...        ...  ...      ...       ...     ...
+894       341.0              8.0       55.0  ...                           
+895       342.0              8.0       55.0  ...                           
+896       343.0              8.0       55.0  ...                           
+897       344.0              8.0       55.0  ...                           
+898       345.0              8.0       56.0  ...                           
+
+[899 rows x 33 columns]
+Traceback (most recent call last):
+  File "D:\Gabriela Fragancias\office_process.py", line 205, in <module>
+    conn.close()
+NameError: name 'conn' is not defined
+>>> 

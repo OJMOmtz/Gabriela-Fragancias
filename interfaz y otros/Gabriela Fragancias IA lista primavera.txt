@@ -1,0 +1,544 @@
+Carolina Herrera 212 Men NYC
+Infografía:
+
+Notas de salida: Limón, hojas verdes
+Notas de corazón: Gardenia, pimienta
+Notas de fondo: Sándalo, almizcle
+Diseño: Codificación de colores por familias olfativas:
+(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <rect width="400" height="500" fill="#f0f0f0" />
+  
+  <text x="200" y="40" font-family="Fira Sans Book" font-size="24" font-weight="bold" text-anchor="middle">
+    Notas Olfativas: Chanel N°5
+  </text>
+  
+  <circle cx="200" cy="150" r="100" fill="#ffe6e6" stroke="#ffcccc" stroke-width="2" />
+  <text x="200" y="155" font-family="Colatera Soft" font-size="16" text-anchor="middle">Notas de Salida</text>
+  <text x="200" y="175" font-family="Fira Sans Book" font-size="14" text-anchor="middle">Aldehydes, Neroli, Ylang-Ylang</text>
+  
+  <circle cx="200" cy="300" r="80" fill="#ffcccc" stroke="#ffb3b3" stroke-width="2" />
+  <text x="200" y="305" font-family="Colatera Soft" font-size="16" text-anchor="middle">Notas de Corazón</text>
+  <text x="200" y="325" font-family="Fira Sans Book" font-size="14" text-anchor="middle">Jazmín, Rosa, Lirio del Valle</text>
+  
+  <circle cx="200" cy="430" r="60" fill="#ffb3b3" stroke="#ff9999" stroke-width="2" />
+  <text x="200" y="435" font-family="Colatera Soft" font-size="16" text-anchor="middle">Notas de Fondo</text>
+  <text x="200" y="455" font-family="Fira Sans Book" font-size="14" text-anchor="middle">Sándalo, Vainilla, Musgo</text>
+  
+  <text x="10" y="490" font-family="Bree Regular" font-size="12" fill="#666">
+    Gabriela Fragancias: (0972) 260891 - (0986) 794774
+  </text>
+</svg>)
+Amaderados: Marrón
+Frescos: Verde
+Concentración de los perfumes:
+Eau de Toilette (EDT)
+Para: Hombre, urbano
+Uso: Casual, diario
+Duración: 6-8 horas
+Estilo: Energético, moderno
+Concentración: EDT
+Texto:
+
+Título: "La esencia de la ciudad"
+Descripción: "Carolina Herrera 212 Men NYC captura la energía y frescura del hombre moderno. Ideal para el día a día en la ciudad, con notas amaderadas y frescas."
+Llamada a la acción: "Conquista la ciudad con 212 Men NYC. WhatsApp: (0972) 260891 - (0986) 794774."
+Historia: Carolina Herrera presentó 212 Men NYC en 1999, inspirado en la vida dinámica de Nueva York y el hombre cosmopolita.
+
+Año de creación: 1999
+
+Perfumero: Alberto Morillas
+
+Descripción: Moderna y urbana, 212 Men NYC es ideal para hombres que viven en un entorno dinámico.
+
+Composición Olfativa:
+
+Notas de salida: Limón, hojas verdes
+Notas de corazón: Gardenia, pimienta
+Notas de fondo: Sándalo, almizcle
+Público Objetivo: Hombres entre 25 y 40 años, que buscan una fragancia fresca y moderna para el día a día.
+
+Presentaciones y Pesos:
+
+50 ml en spray
+100 ml en spray
+
+Adidas
+Team Five Special Edition
+Ice Dive
+Ágata Ruiz de la Prada
+Oh La La!
+Love Love Love
+Air-Val International
+Colonia Corporal Barbie
+Colonia Corporal Sofia the First
+Colonia Fresca Cars
+Colonia Fresca Super Wings
+Finding Dory
+Colonia Corporal Minnie
+Colonia Fresca PJMasks
+Colonia Fresca Minions
+Paw Patrol
+Barbie Pack
+Real Madrid
+Barbie
+FC Barcelona
+Rayo McQueen
+Eau de Toilette in Minion Box
+Minions Alcancía
+Minnie
+Alta Moda
+Eternal Dreams
+Sweet Dreams
+Animale Group
+Animale for Men
+Animale for Women
+Animale Black
+Love Animale
+Animale Intense
+Antonio Banderas
+Blue Seduction
+Spirit for Men (promo)
+Spirit for Men
+Spirit for Women
+Mediterráneo
+Diavolo
+Her Golden Secret
+The Golden Secret
+Blue Seduction for Women
+King of Seduction
+Seduction in Black
+Antonio (Tester)
+Spirit for Men (After Shave)
+Her Golden Secret Kit
+The Secret Temptation
+Play in Black Seduction
+King of Seduction Absolute
+Blue Seduction (Tester)
+The Secret
+The Golden Secret (Tester)
+Queen of Seduction
+Her Secret Temptation
+Her Secret
+The Secret Temptation (Tester)
+Miami Seduction
+Queen of Seduction Kit
+Play in Black Seduction (Tester)
+The Golden Secret (Tester)
+Power of Seduction
+Blue Seduction for Women
+Spirit for Men
+Spirit for Women Kit
+Her Secret Temptation Kit
+Blue Seduction Kit
+The Golden Secret Kit
+Mediterráneo Kit
+Blue Seduction Wave
+Azzaro
+Azzaro pour Homme
+Club N° 1
+Chrome
+Wanted
+Visit
+Benetton
+United Dreams
+Bulgari
+Man
+Aqva for Men
+Burberry Fragances
+Burberry for Men
+ACTUA COMO DATA SCIENTIST Y EXPERTO EN MARKETING VIRAL. EN BASE A ESTE EJEMPLO COMPLETA LA SIGUIIENTE LISTA:
+Burberry for Men
+Infografía:
+
+Notas de salida: Bergamota, lavanda
+Notas de corazón: Jazmín, sándalo
+Notas de fondo: Cedro, almizcle
+Diseño: Codificación de colores por familias olfativas:
+Aromáticos: Verde
+Amaderados: Marrón
+Concentración de los perfumes:
+Eau de Toilette (EDT)
+Para: Hombre, elegante
+Uso: Diario, formal
+Duración: 6-8 horas
+Estilo: Clásico, masculino
+Concentración: EDT
+Texto:
+
+Título: "La esencia de Burberry"
+Descripción: "Burberry for Men es la fragancia para el hombre elegante que busca un aroma clásico y sofisticado, ideal para el día a día."
+Llamada a la acción: "Siente el lujo con Burberry for Men. WhatsApp: (0972) 260891 - (0986) 794774."
+
+Baby Touch
+Cacharel
+Lou Lou
+Cadillac
+Cadillac Black
+Calvin Klein
+Eternity Aqua
+Eternity for Men
+One
+Eternity
+Euphoria
+Escape
+Be
+One Shock
+One Red Edition
+Eternity Moment
+
+ACTUA COMO DATA SCIENTIST Y EXPERTO EN MARKETING VIRAL. EN BASE A ESTE EJEMPLO COMPLETA LA SIGUIIENTE LISTA:
+Carlotta Zuofun
+Brand Collection N° 001
+Brand Collection N° 005
+Brand Collection N° 008
+Carolina Herrera
+212 Men NYC
+212 Men Sexy
+212 NYC
+212 Sexy
+212 Sexy Men
+212 VIP Men
+212 VIP Men NYC
+212 VIP NYC
+212 VIP Party Fever
+212 VIP Rosé
+212 Vip Men NYC Kit
+CHHC
+CHHC Men
+CHHC Men Privé
+CHHC Privée
+Carolina Herrera New York
+Good Girl
+Herrera for Men
+Chanel
+N° 5
+Chance
+Bleu
+Allure Homme Sport
+Coco Mademoiselle
+Chic 'N Glam Perfumes
+Elixir for Women
+Ò de la Vie for Women
+Blue Diamond for Women
+Pink Diamond for Women
+Christian Dior
+J'Adore
+Miss Dior
+Christine Darvin
+Aubana
+Cofinluxe
+Taxi
+Dolce & Gabbana
+The One
+Rojo
+Light Blue
+Pour Homme
+
+ACTUA COMO DATA SCIENTIST Y EXPERTO EN MARKETING VIRAL. EN BASE A ESTE EJEMPLO:
+Animale Black
+Infografía:
+
+Notas de salida: Toronja, menta
+Notas de corazón: Especias, geranio
+Notas de fondo: Madera de cedro, vetiver
+Diseño: Codificación de colores por familias olfativas:
+Amaderados: Marrón
+Frescos: Verde
+Concentración de los perfumes:
+Eau de Toilette (EDT)
+Para: Hombre, misterioso
+Uso: Nocturno, seductor
+Duración: 8-10 horas
+Estilo: Intenso, masculino
+Concentración: EDT
+Texto:
+
+Título: "El misterio en una botella"
+Descripción: "Animale Black es una fragancia poderosa y masculina, ideal para el hombre que busca proyectar misterio y seducción en cada encuentro."
+Llamada a la acción: "Revela tu lado oscuro con Animale Black. WhatsApp: (0972) 260891 - (0986) 794774." (ESTOS TELÉFONOS DEBEN REPETIRSE EN CADA PERFUME)
+COMPLETA LA SIGUIIENTE LISTA:
+EA Fragrances
+Fantasy Britney Spears
+Fantasy Britney Spears Kit
+Britney Spears Fantasy
+Britney Spears Fantasy Twist 2 in 1
+Britney Spears Cosmic Radiance
+Britney Spears Fantasy Kit 100
+Britney Spears Fantasy Anniversary
+Britney Spears Fantasy Kit
+Elizabeth Arden
+Red Door
+5th Avenue
+Emper
+Chifon
+SaGa
+Privé Coral pour Femme
+Legend
+SaGa Pink
+Fassio Essence
+Emporio Armani
+Stronger with You
+Estelle Ewen
+L'Oriental White Edition
+L'Oriental Men
+L'Oriental Icon
+Euroitalia
+Cheap and Chic Moschino Chic Petals
+Cheap and Chic Moschino I Love Love
+Versace Blue Jeans Man
+Versace Eros
+Ferrari Fragrances
+Scuderia Ferrari
+Scuderia Ferrari Black
+Ferrari Uomo
+Scuderia Ferrari Red
+Fragantia Secrets
+Predator Paris for Men
+Gilles Cantuel
+Arsenal Blue
+Arsenal Gold
+Arsenal Red
+Giorgio Armani
+Armani Code
+Acqua di Gio
+Give Back Brands
+Someday by Justin Bieber
+Givenchy
+Amarige
+Gentlemen Only
+Ange ou Démon
+Gentleman
+Pi
+Very Irresistible
+L'Interdit
+
+#ACTUA COMO DATA SCIENTIST Y EXPERTO EN MARKETING VIRAL. EN BASE A ESTOS EJEMPLOS:
+
+Givenchy Pi
+
+Infografía:
+
+Notas de Salida: Romero, Mandarina, Estragón, Albahaca
+Notas de Corazón: Lirio de los valles, Anís, Geranio, Neroli
+Notas de Fondo: Vainilla, Almendra, Tonka, Cedro
+Diseño:
+Codificación de colores por familias olfativas:
+Hierbas/Especiadas: Verde oliva
+Florales: Amarillo claro
+Orientales/Amaderados: Marrón dorado
+Concentración de los perfumes: Eau de Toilette (EDT)
+Para: Hombre, innovador y explorador
+Uso: Nocturno, ocasiones especiales
+Duración: 8-10 horas
+Estilo: Refinado, cálido, intelectual
+Concentración: EDT
+Texto:
+
+Título: "Más Allá del Infinito"
+Descripción: "Pi de Givenchy, una fragancia que invita a explorar más allá de los límites, perfecta para el hombre que busca la innovación y la sofisticación en cada aspecto de su vida."
+Llamada a la acción: "Explora nuevos horizontes con Pi. WhatsApp: (0972) 260891 - (0986) 794774."
+
+Animale Black
+Infografía:
+
+Notas de salida: Toronja, menta
+Notas de corazón: Especias, geranio
+Notas de fondo: Madera de cedro, vetiver
+Diseño: Codificación de colores por familias olfativas:
+Amaderados: Marrón
+Frescos: Verde
+Concentración de los perfumes:
+Eau de Toilette (EDT)
+Para: Hombre, misterioso
+Uso: Nocturno, seductor
+Duración: 8-10 horas
+Estilo: Intenso, masculino
+Concentración: EDT
+Texto:
+
+Título: "El misterio en una botella"
+Descripción: "Animale Black es una fragancia poderosa y masculina, ideal para el hombre que busca proyectar misterio y seducción en cada encuentro."
+Llamada a la acción: "Revela tu lado oscuro con Animale Black. WhatsApp: (0972) 260891 - (0986) 794774." (ESTOS TELÉFONOS DEBEN REPETIRSE EN CADA PERFUME)
+
+COMPLETA LA SIGUIIENTE LISTA:
+Grès
+Cabotine
+Cabotine Kit (3 piezas)
+Cabotine Kit 100 200
+Cabotine Kit (2 piezas)
+Cabotine Kit
+Guy Laroche
+Drakkar Noir
+Hugo Boss
+Bottled Night
+INCC
+Mercedes Benz for Men
+Interparfums
+Mont Blanc Presence
+Issey Miyake
+L'Eau D'Issey
+L'Eau D'Issey pour Homme Sport
+Jean Paul Gaultier
+Le Male
+Jeanne Arthes
+Boum Sport
+Jesús Del Pozo
+Halloween
+Halloween Man Rock On
+Karen Low
+Pure Pink for Women
+Kenzo
+Flower by Kenzo
+Madly
+Lacoste
+Bleu - Powerful
+L1212 Blanc Pure
+Eau de Lacoste for Her
+LAK Paris
+Dania Women
+Lancome
+La Vie est Belle
+Lanvin Parfums
+Me L'Absolu
+Marina de Bourbon
+Princesse Clasique
+Master of New Brand
+Essence Pink Gold for Women
+Essence for Women
+Essence for Men
+Essence Gold for Women
+Essence Platinum for Men
+Mavive
+Pino Silvestre Original
+Police Woman Passion
+Moschino
+Toy 2
+New Brand Perfumes
+Unic
+Prestige US Army
+Prestige Gold for Men
+Prestige 4 Women Delicious
+Prestige Gold for Women
+Prestige Invincible for Men
+Prestige Ego Gold for Men
+Fluo Pink for Women
+Prestige Extasia for Women
+In Love for Women
+Prestige Velvet for Women
+Prestige Princess Dreaming
+Forever
+Fashionista
+K'men for Men
+Monaco
+Air Force Army
+Monaco for Men
+Cute
+Story of New Brand
+Hola
+Prestige The NB
+
+Nina Ricci
+Les Belles de Nina
+Ricci Ricci
+Nuparfums Group
+Débutante
+Omerta
+Beautiful Pink
+P&G Prestige Beauté
+Gabriela Sabatini
+Hugo Boss Energise
+Hugo Boss Man
+Hugo Boss Woman
+Hugo Boss In Motion Orange
+Pacha Ibiza
+Diva
+Privé
+Pacific Creation
+Lolita Lempicka
+Paco Rabanne
+1 Million
+Paco Rabanne pour Homme
+Black XS
+Invictus
+Lady Million
+Ultraviolet Kit
+XS Excess pour Homme
+Olympea
+1 Million Privé
+Parfums
+1 Million Dollar
+777 VVIP Men
+717 Men NYC
+NYC Scents Invictus
+NYC Scents Olympea
+NYC Scents Acqua Gio
+NYC Scents J'Adore
+NYC Scents CH
+Nice Shoe CH Good Girl
+NYC Scents Women Million
+NYC Scents Acqua Gio
+Parfums Café
+Intenso by Café
+Café
+Café - Café
+Parfums Des Champs
+Cuba Original Gold for Men
+Cuba Royal for Men
+Cuba Original Winner
+Cuba Original
+Cuba Black for Men
+Cuba Original Set Gold for Men
+Cuba Silver
+Paris Elysees
+Pink Topaz
+Billion Woman
+Puig
+Agua Brava
+Quorum
+Agua Brava Kit
+Ralph Lauren
+Polo Blue
+Sapil
+Chantage
+Sergio Tacchini
+Smash
+Sex in the City
+Good Girl (Crema)
+Fantasy (Crema)
+Olympea (Crema)
+212 Vip Rose (Crema)
+212 Sexy (Crema)
+Shakira
+Dance
+Love Rock!
+S (Clásico)
+Eau Florale
+Dance Diamonds
+Elixir Kit
+Elixir
+Dream
+Rock!
+Stella Dustin
+Self pour Homme
+La Priére
+Ted Lapidus
+Lapidus pour Homme
+Pour Lui
+Rumba
+Rumba
+Tommy Hilfiger
+Tommy
+Ulric de Varens
+Night
+Jacques Saint Prés Indra
+UDV for Men
+Jacques Saint Prés Isa
+Blue
+Flash
+Ulric de Varens for Men
+Unforgettable Moments
+SXY
+Via Paris Parfums
+Laloa Sexy
+Victoria's Secret
+Man

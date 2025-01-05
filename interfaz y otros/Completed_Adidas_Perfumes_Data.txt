@@ -1,0 +1,14 @@
+
+-- Tabla Marca
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (1, 'Adidas');
+
+-- Tabla Perfume
+INSERT INTO Perfume (id_perfume, nombre_perfume, id_marca, ano_lanzamiento, perfumero, notas_olfativas, costo, precio_venta_contado, precio_venta_credito, segmento, franja_etaria, ocasion) 
+VALUES 
+(1, 'Adidas Ice Dive', 1, 2020, 'Alberto Morillas', 'Fresco y deportivo', 15.00, 28.00, 30.00, 'Deportivo', '18-30', 'Casual');
+
+-- Tabla Presentacion
+INSERT INTO Presentacion (id_presentacion, id_perfume, codigo_barra, tamano_ml) 
+VALUES 
+(1, 1, '8411114079707', 50),
+(2, 1, '8411114079708', 100);

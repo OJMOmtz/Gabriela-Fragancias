@@ -1,0 +1,238 @@
+### Tablas Principales
+1. **Tabla "Marca"**:
+   - **ID_Marca**: Identificador único, clave primaria.
+   - **Nombre_Marca**: Nombre de la marca.
+   - **Año_Fundación**: Año en que se fundó la marca.
+   - **Sede**: Ubicación principal de la marca.
+2. **Tabla "Perfume"**:
+   - **ID_Perfume**: Identificador único, clave primaria.
+   - **Nombre_Perfume**: Nombre del perfume.
+   - **ID_Marca**: Relación con la tabla Marca, clave foránea.
+   - **Año_Lanzamiento**: Año en que el perfume fue lanzado.
+   - **Perfumero**: Nombre del perfumista.
+   - **Notas_Olfativas**: Descripción de las notas olfativas.
+   - **Costo**: Precio de compra en guaraníes.
+   - **Precio_Venta_Crédito**: Precio de venta a crédito en guaraníes.
+   - **Precio_Venta_Contado**: Precio de venta al contado en guaraníes.
+3. **Tabla "Presentación"**:
+   - **ID_Presentación**: Identificador único, clave primaria.
+   - **ID_Perfume**: Relación con la tabla Perfume, clave foránea.
+   - **Código_Barra**: Código de barras del producto.
+   - **Tamaño_ml**: Tamaño del producto en mililitros.
+   - **Imagen_URL**: URL de la imagen del producto.
+### Relaciones
+- La tabla "Perfume" se relaciona con "Marca" mediante **ID_Marca**.
+- La tabla "Presentación" se relaciona con "Perfume" mediante **ID_Perfume**.
+### Ejemplo de Datos
+**Tabla Marca**:
+| ID_Marca | Nombre_Marca | Año_Fundación | Sede              |
+|----------|--------------|---------------|--------------------|
+| 1        | Chanel       | 1910          | París, Francia      |
+**Tabla Perfume**:
+| ID_Perfume | Nombre_Perfume   | ID_Marca | Año_Lanzamiento | Perfumero       | Notas_Olfativas                     | Costo   | Precio_Venta_Crédito | Precio_Venta_Contado |
+|-------------|------------------|----------|------------------|------------------|------------------------------------|---------|----------------------|-----------------------|
+| 1           | Chanel No. 5     | 1        | 1921             | Ernest Beaux     | Aldehídos, Ylang-Ylang, Neroli    | 100.000 | 150.000              | 140.000               |
+**Tabla Presentación**:
+| ID_Presentación | ID_Perfume | Código_Barra      | Tamaño_ml | Imagen_URL                    |
+|------------------|------------|-------------------|-----------|-------------------------------|
+| 1                | 1          | 3145891161201     | 100       | [URL de Chanel No. 5 100ml] |
+
+
+
+Traceback (most recent call last):
+  File "D:\Gabriela Fragancias\office_process.py", line 181, in <module>
+    columns = next(data)[0:]
+StopIteration
+
+Estos productos reflejan la diversidad y creatividad que caracteriza a New Brand. Si necesitas más información o deseas agregar otros perfumes a esta lista, ¡házmelo saber!
+
+    "D:\Gabriela Fragancias\Base de datos\BASE.FDB",
+	"D:\Gabriela Fragancias\Base de datos\CEDULA.FDB",
+	"D:\Gabriela Fragancias\Base de datos\EMPRESA.FDB",
+	"D:\Gabriela Fragancias\Base de datos\IMAGEN.FDB",
+	"D:\Gabriela Fragancias\Base de datos\INFORME.FDB",
+	"D:\Gabriela Fragancias\Base de datos\SMS.FDB",
+	
+	import os
+import fdb
+import pandas as pd
+from dbfread import DBF
+
+# Lista de rutas de archivos DBF, Firebird, CSV y TXT
+file_paths = [
+    # DBF
+    "D:\\PADRONES\\Automotores\\cap001.dbf",
+    # Agrega el resto de las rutas de los archivos DBF aquí
+    "D:\\PADRONES\\Automotores\\cap001.dbf",
+    "D:\\PADRONES\\Automotores\\poli01.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\dobles.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\extranjeros.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\menores.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\nacionalidades.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\part.dbf",
+    "D:\\PADRONES\\Consulta Padron 2013\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\desh_exte.dbf",
+
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\menores.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\menores.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón 2010 (rcp2008.dbc) 31-08\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\extranjeros.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\menores.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\nacionalidades.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\extranjeros.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\menores.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\nacionalidades.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2013 Generales (rcp2008.dbc)-\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2015 (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2017 HC (datos.dbc)\\mas_pda.dbf",
+    "D:\\PADRONES\\Padrón 2017 pre ANR (datos.dbc)\\mas_pda.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2018 (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2020 (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2021\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\desh_exte.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\inhabilitados.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\nacionalidades.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\Padrón 2021 (rcp2008.dbc)\\data\\regciv_exte.dbf",
+    "D:\\PADRONES\\Padrón 2021 ANR (datos.dbc)\\mas_pda.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\deshabilitados.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\difuntos.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\dobles.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\interdictos.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\menores.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\part.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\pol_y_mil.dbf",
+    "D:\\PADRONES\\Padrón UNACE (rcp2008.dbc)\\data\\regciv.dbf",
+    "D:\\PADRONES\\RUC\\RUC.dbf",
+    "D:\\PADRONES\\RUC\\RUC2017.dbf",
+    "D:\\PADRONES\\SATI\\DATOS\\cedauto.dbf",
+    "D:\\PADRONES\\SATI\\DATOS\\celulares.dbf",
+    "D:\\PADRONES\\SATI\\DATOS\\provisorios.dbf",
+    # Firebird
+    "D:\\Gabriela Fragancias\\Base de datos\\BASE.FDB",
+	"D:\\Gabriela Fragancias\\Base de datos\\CEDULA.FDB",
+	"D:\\Gabriela Fragancias\\Base de datos\\EMPRESA.FDB",
+	"D:\\Gabriela Fragancias\\Base de datos\\IMAGEN.FDB",
+	"D:\\Gabriela Fragancias\\Base de datos\\INFORME.FDB",
+	"D:\\Gabriela Fragancias\\Base de datos\\SMS.FDB",
+
+    # CSV
+    "D:\\PADRONES\\RUC\\ruc 1.csv",
+	"D:\\PADRONES\\RUC\\ruc0.csv",
+	"D:\\PADRONES\\RUC\\ruc1.csv",
+	"D:\\PADRONES\\RUC\\ruc2.csv",
+	"D:\\PADRONES\\RUC\\ruc3.csv",
+	"D:\\PADRONES\\RUC\\ruc4.csv",
+	"D:\\PADRONES\\RUC\\ruc5.csv",
+	"D:\\PADRONES\\RUC\\ruc6.csv",
+	"D:\\PADRONES\\RUC\\ruc7.csv",
+	"D:\\PADRONES\\RUC\\ruc8.csv",
+	"D:\\PADRONES\\RUC\\ruc9.csv",
+    # TXT
+    "D:\\PADRONES\\TXT\\data.txt",
+    # Agrega el resto de las rutas de los archivos TXT aquí
+]
+
+# Procesar cada archivo en la lista de rutas
+for file_path in file_paths:
+    if os.path.isfile(file_path):
+        file_extension = os.path.splitext(file_path)[1].lower()
+
+        if file_extension == ".dbf":
+            table = DBF(file_path, encoding='latin-1')
+            print(f"\nEstructura de la tabla DBF '{file_path}':")
+            for field in table.fields:
+                print(f"Columna: {field.name}, Tipo: {field.type}")
+
+        elif file_extension == ".fdb":
+            con = fdb.connect(dsn=file_path, user='SYSDBA', password='masterkey', fb_library_name=r"D:\Gabriela Fragancias\fbclient.dll")
+            cur = con.cursor()
+            cur.execute("SELECT rdb$relation_name FROM rdb$relations WHERE rdb$view_blr IS NULL AND (rdb$system_flag IS NULL OR rdb$system_flag = 0)")
+            tables = cur.fetchall()
+
+            for table in tables:
+                table_name = table[0].strip()
+                cur.execute(f"SELECT rdb$field_name, rdb$field_source FROM rdb$relation_fields WHERE rdb$relation_name = '{table_name}'")
+                fields = cur.fetchall()
+
+                print(f"\nEstructura de la tabla Firebird '{table_name}':")
+                for field in fields:
+                    field_name = field[0].strip()
+                    field_type = field[1]
+                    print(f"Columna: {field_name}, Tipo: {field_type}")
+
+            con.close()
+    
+        elif file_extension == ".csv" or file_extension == ".txt":
+            df = pd.read_csv(file_path, encoding='iso-8859-1', on_bad_lines='skip')
+            print(f"\nEstructura del archivo {file_extension[1:].upper()} '{file_path}':")
+            print(df.info())
+    
+        else:
+            print(f"\nEl archivo '{file_path}' no es un formato compatible.")
+
+    else:
+        print(f"\nEl archivo '{file_path}' no existe.")
+en base a este excelente código, crea uno para archivos access y excel con posibilidad de extrer datos y eliminar redundncias
+
+COMO IA DE ELITE CREA UN PROMPT PARA CADA PROYECTO
+1. CREA UN APLICACIÓN PARA DIGNOSTICAR COMPUTDORAS, EXTRAER TODA LA INFORMACIÓN DE HARDWARE, IDENTIFICAR COMPONENTES Y POSIBLES FALLAS, SOFTWARE INSTALADO Y SERIALES
+2. CREA UNA APP PARA TRNSCRIBIR ARCHIVOS DE AUDIO Y CREAR EL TIEMPO SINCRONIZADO OFRECE LA POSIBILIDAD DE EXTRAER EL TEXTO CATEGORIZADO COMO DOCUMENTO Y EL DE SUBTITULO
+

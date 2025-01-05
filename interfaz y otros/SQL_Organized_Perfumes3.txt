@@ -1,0 +1,287 @@
+﻿Para esta base de datos ingresa los datos según los ejemplos dados
+-- Tabla Marca
+CREATE TABLE Marca (
+    id_marca SERIAL PRIMARY KEY,
+    nombre_marca VARCHAR(100) NOT NULL,
+    ano_fundacion INTEGER,
+    sede VARCHAR(100)
+);
+
+-- Tabla Perfume
+CREATE TABLE Perfume (
+    id_perfume SERIAL PRIMARY KEY,
+    nombre_perfume VARCHAR(200) NOT NULL,
+    id_marca INTEGER REFERENCES Marca(id_marca),
+    costo DECIMAL(10, 2),
+    precio_venta_credito DECIMAL(10, 2),
+    precio_venta_contado DECIMAL(10, 2),
+    segmento VARCHAR(50),
+    franja_etaria VARCHAR(50),
+    ocasion VARCHAR(50),
+    ano_lanzamiento INTEGER,
+    perfumero VARCHAR(100),
+    notas_olfativas TEXT,
+    notas_salida TEXT,
+    notas_corazon TEXT,
+    notas_fondo TEXT,
+    intensidad VARCHAR(20),
+    concentracion VARCHAR(20),
+    duracion VARCHAR(50),
+    estilo VARCHAR(50),
+    imagen_url VARCHAR(255)
+);
+
+-- Tabla Presentacion
+CREATE TABLE Presentacion (
+    id_presentacion SERIAL PRIMARY KEY,
+    id_perfume INTEGER REFERENCES Perfume(id_perfume) ON DELETE CASCADE,
+    codigo_barra VARCHAR(50) UNIQUE NOT NULL,
+    tamano_ml INTEGER CHECK (tamano_ml > 0),
+    imagen_url VARCHAR(255)
+);
+
+-- Tabla Cédula
+CREATE TABLE Cedula (
+    id_cedula SERIAL PRIMARY KEY,
+    numero_ci VARCHAR(20) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    direccion TEXT NOT NULL
+);
+
+-- Tabla AntecedentesJudiciales
+CREATE TABLE AntecedentesJudiciales (
+    id_antecedente SERIAL PRIMARY KEY,
+    numero_ci VARCHAR(20) REFERENCES Cedula(numero_ci),
+    causa_penal TEXT
+);
+
+-- Tabla Cliente
+CREATE TABLE Cliente (
+    id_cliente SERIAL PRIMARY KEY,
+	tarjeta VARCHAR(5),
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    cedula_ruc VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(100) CHECK (email LIKE '%_@_%._%'),
+    telefono VARCHAR(20),
+    direccion TEXT,
+    tipo_pago VARCHAR(20),
+    grupo_economico VARCHAR(50),
+    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
+    edad INTEGER CHECK (edad >= 18)
+);
+
+-- Tabla Vendedor
+CREATE TABLE Vendedor (
+    id_vendedor SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    cedula VARCHAR(20) UNIQUE,
+    telefono VARCHAR(20),
+    zona VARCHAR(50)
+);
+
+-- Tabla Venta
+CREATE TABLE Venta (
+    id_venta SERIAL PRIMARY KEY,
+    id_cliente INTEGER REFERENCES Cliente(id_cliente) ON DELETE CASCADE,
+    id_vendedor INTEGER REFERENCES Vendedor(id_vendedor) ON DELETE CASCADE,
+    fecha_venta TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10, 2),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'pagado', 'cancelado')),
+    entrega_inmediata BOOLEAN DEFAULT TRUE
+);
+-- Tabla DetalleVenta
+CREATE TABLE DetalleVenta (
+    id_detalle_venta SERIAL PRIMARY KEY,
+    id_venta INTEGER REFERENCES Venta(id_venta) ON DELETE CASCADE,
+    id_presentacion INTEGER REFERENCES Presentacion(id_presentacion) ON DELETE CASCADE,
+    cantidad INTEGER CHECK (cantidad > 0),
+    precio_unitario DECIMAL(10, 2),
+    subtotal DECIMAL(10, 2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED
+);
+-- Tabla Vehiculo
+CREATE TABLE Vehiculo (
+    id_vehiculo SERIAL PRIMARY KEY,
+    marca VARCHAR(50),
+    modelo VARCHAR(50),
+    placa VARCHAR(20) UNIQUE,
+    ano INTEGER
+);
+-- Tabla RutaVenta
+CREATE TABLE RutaVenta (
+   id_ruta SERIAL PRIMARY KEY,
+   id_vehiculo INTEGER REFERENCES Vehiculo(id_vehiculo),
+   fecha DATE
+);
+-- Tabla GastoVehiculo
+CREATE TABLE GastoVehiculo (
+   id_gasto SERIAL PRIMARY KEY,
+   tipo_gasto VARCHAR(50),
+   monto DECIMAL(10, 2),
+   fecha DATE
+);
+
+-- Tabla Inventario
+CREATE TABLE Inventario (
+    id_inventario SERIAL PRIMARY KEY,
+    ubicacion VARCHAR(50),
+    id_presentacion INTEGER REFERENCES Presentacion(id_presentacion) ON DELETE CASCADE,
+    stock INTEGER CHECK (stock >= 0)
+);
+
+-- Trigger para actualizar el stock al vender
+CREATE OR REPLACE FUNCTION actualizar_stock() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.cantidad > OLD.stock THEN
+        RAISE EXCEPTION 'No hay suficiente stock';
+    ELSE
+        UPDATE Inventario SET stock = stock - NEW.cantidad WHERE id_presentacion = NEW.id_presentacion;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tg_actualizar_stock
+AFTER INSERT ON DetalleVenta
+FOR EACH ROW EXECUTE FUNCTION actualizar_stock(); esta
+
+-- Tabla Marca
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (1, 'Fantasy Britney Spears kit');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (2, 'Nuez moscada');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (3, 'esta campaña de marketing digital de tres meses');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (4, 'Forever');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (5, 'Calvin Klein Eternity for Men');
+
+-- Tabla Perfume
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (1, 'Reseda', Violeta, Frésia, 'Melocotón', 'Notas marinas', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (2, 'Britney Spears Fantasy Twist 2 in 1', Britney Spears Fantasy Kit 100, Britney Spears Fantasy Anniversary: Mujer (18-30 años), 'dulce. Beneficios: Fragancias gourmand y florales', 'joven', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (3, 'Fashionista', Cute, Story of New Brand, 'que busca fragancias para el día a día a precios accesibles. Beneficios: Aromas frescos y juveniles.', 'Hola): Público joven (15-25 años)', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (4, 'Chanel Bleu de Chanel', Dolce & Gabbana Light Blue, Giorgio Armani Acqua di Gio, 'Versace Eros', 'Lancôme La Vie Est Belle', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (5, 'junto con la clasificación detallada de los productos', el reconocimiento de marca y las ventas de las fragancias. Al aprovechar las fechas especiales como la primavera y la Navidad, y utilizar una combinación de estrategias en Facebook, 'la marca podrá conectarse con su público objetivo de manera efectiva y generar resultados tangibles.', 'YouTube y WhatsApp', '');
+
+-- Tabla Presentacion
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (1, 'Notas de Corazón: Ciclamen', Cilantro);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (2, 'Fantasy Britney Spears', Britney Spears Cosmic Radiance);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (3, 'Fragancias con nombres genéricos (Unic', Monaco);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (4, 'Eau de Toilette (EDT): Adidas Team Five Special Edition', Dior Sauvage);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (5, 'En conclusión', ayudará a aumentar la visibilidad);
+tienes estos ejemplos para seguir:
+Carolina Herrera 212 VIP Rosé
+Notas de salida: Champagne rosé
+Notas de corazón: Flor de durazno
+Notas de fondo: Madera de ámbar, almizcle blanco
+Frutales: Rosa claro
+Para: Mujer, chic
+Uso: Nocturno, fiestas
+Estilo: Femenino, glamuroso
+  8411114079707  Air-Val International      Colonia Fresca PJMasks 
+   663350062403  Air-Val International      Colonia Fresca Minions 
+  8411114079660  Air-Val International      Colonia Fresca Super Wings 
+   663350073560  Air-Val International      Paw Patrol 
+   663350059830  Air-Val International      Barbie Pack 
+   663350065725  Air-Val International      Real Madrid 
+   663350050530  Air-Val International      Barbie 
+   663350073362  Air-Val International      FC Barcelona 
+  8411114073866  Air-Val International      Rayo McQueen 
+   663350057850  Air-Val International      Eau de Toilette in Minion Box 
+   663350062847  Air-Val International      Minions Alcancía 
+   663350009736  Air-Val International      Minnie
+  8411061636329  Antonio Banderas        Blue Seduction (Tester) 
+  8411061701041  Antonio Banderas        The Secret 
+  8411061722794  Antonio Banderas        The Golden Secret (Tester) 
+  8411061820117  Antonio Banderas        Queen of Seduction 
+  8411061860441  Antonio Banderas        Her Secret Temptation 
+  8411061738009  Antonio Banderas        Her Secret 
+  8411061771907  Antonio Banderas        Diavolo 
+  8411061876817  Antonio Banderas        Her Golden Secret Kit 
+  8411061701034  Antonio Banderas        The Secret 
+  8411061722756  Antonio Banderas        The Golden Secret 
+  8411061860533  Antonio Banderas        The Secret Temptation (tester) 
+  8411061921081  Antonio Banderas        Miami Seduction
+   783320913228  Bulgari                 Aqva for Men 
+  5045252667392  Burberry Fragances       Burberry for Men 
+  5045254676101  Burberry Fragances       Baby Touch 
+  5045252667453  Burberry Fragances       Burberry for Men 
+  3360373000074  Cacharel                Lou Lou 
+45X123400T12339  Cadillac                Cadillac Black 
+  3607348556700  Calvin Klein             Eternity Aqua 
+    88300105519  Calvin Klein             Eternity for Men 
+  3607343811835  Calvin Klein             One 
+      8018737922  Calvin Klein             Eternity 
+    88300162505  Calvin Klein             Euphoria 
+    88300101306  Calvin Klein             Eternity
+  8411061831304  Carolina Herrera         212 Vip Men NYC Kit 
+  8411061853160  Carolina Herrera         212 Men NYC 
+  8411061061107  Carolina Herrera         Carolina Herrera New York 
+  8411061865460  Carolina Herrera         212 Sexy 
+  8411061819838  Carolina Herrera         Good Girl 
+  8411061607152  Carolina Herrera         CHHC 
+  8411061865439  Carolina Herrera         212 Sexy 
+  8411061723777  Carolina Herrera         212 VIP Men NYC 
+  8411061781197  Carolina Herrera         212 VIP Rosé 
+  8411061711804  Carolina Herrera         212 VIP NYC 
+  8411061723760  Carolina Herrera         212 VIP Men 
+  8411061081600  Carolina Herrera         Herrera for Men
+   719346065399  EA Fragrances           Britney Spears Fantasy 
+   719346159357  EA Fragrances           Britney Spears Fantasy Twist 2 in 1 
+   719346145879  EA Fragrances           Britney Spears Cosmic Radiance 
+   719346633772  EA Fragrances           Britney Spears Fantasy Kit 100 
+   719346065405  EA Fragrances           Britney Spears Fantasy 
+   719346601887  EA Fragrances           Britney Spears Fantasy Anniversary 
+   719346198592  EA Fragrances           Britney Spears Fantasy kit 
+    85805114435  Elizabeth Arden          Red Door 
+    85805390402  Elizabeth Arden          5th Avenue 
+    85805558420  Elizabeth Arden          Red Door 
+  6291103661791  Emper                 Chifon 
+  6291103661784  Emper                 SaGa
+  3274870373268  Givenchy               ange ou démon 
+  3274870352362  Givenchy               Very Irresistible 
+  3274872372153  Givenchy               L'Interdit 
+  7640111494324  Grès                   Cabotine 
+  7640163970692  Grès                   Cabotine Kit (3 piezas) 
+  7640111492030  Grès                   Cabotine Kit 100 200 
+  7640111494027  Grès                   Cabotine 
+  7640163970708  Grès                   Cabotine kit 2 piezas 
+  7640171193458  Grès                   Cabotine kit 
+  3360372009436  Guy Laroche            Drakkar Noir 
+   737052352060  Hugo Boss              Bottled Night 
+  3595471021021  INCC                   Mercedes Benz for Men
+  5425017736431  New Brand Perfumes     Prestige 4 Women Delicious 
+  5425017734314  New Brand Perfumes     Prestige Gold for Women 
+  5425039220161  New Brand Perfumes     Prestige Invincible for Men 
+  5425017735113  New Brand Perfumes     Prestige Ego Gold for Men 
+  5425017735151  New Brand Perfumes     Fluo Pink for Women 
+  5425017731016  New Brand Perfumes     Prestige Extasia for Women 
+  5425017734468  New Brand Perfumes     In Love for Women 
+  5425017735137  New Brand Perfumes     Prestige Velvet for Women 
+  5425017735076  New Brand Perfumes     Prestige Princess Dreaming 
+  5425017730620  New Brand Perfumes     Forever 
+  5425039220338  New Brand Perfumes     Fashionista 
+   802822001650  New Brand Perfumes     K'men for Men
+  3349668508488  Paco Rabanne           Lady Million 
+  3349668513970  Paco Rabanne           Ultraviolet kit 
+  3349668508471  Paco Rabanne           Lady Million 
+  3349666007921  Paco Rabanne           1 Million 
+  3349668111541  Paco Rabanne           XS Excess pour Homme 
+  3349666002506  Paco Rabanne           Black XS 
+  3349668508587  Paco Rabanne           Lady Million 
+  3349668568093  Paco Rabanne           Olympea 
+  3349668535484  Paco Rabanne           1 Million Privé 
+  3349668528660  Paco Rabanne           Olympea 
+  6944348501871  Parfums                1 Million Dollar 
+  6915924304964  Parfums                777 VVIP men
+  6949063982721  Sex in the City           Olympea (crema) 
+  6949063982707  Sex in the City           212 Vip Rose (Crema) 
+  6949063982745  Sex in the City           212 Sexy (crema) 
+  8411061823033  Shakira                 Dance 
+  8411061810606  Shakira                 Love Rock! 
+  8411061697290  Shakira                 S (Clásico) 
+  8411061722176  Shakira                 Eau Florale 
+  8411061697283  Shakira                 S (Clásico) 
+  8411061876039  Shakira                 Dance Diamonds 
+  8411061769249  Shakira                 Elixir kit 
+  8411061741696  Shakira                 Elixir 
+  8411061916964  Shakira                 Dream

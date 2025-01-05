@@ -1,0 +1,2700 @@
+CREATE TABLE Clientes (
+    id_cliente SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    cedula VARCHAR(20) UNIQUE,
+    telefono VARCHAR(20),
+    direccion TEXT,
+    tipo_pago VARCHAR(20),
+    saldo DECIMAL(10,2)
+);
+
+CREATE TABLE Productos (
+    id_producto SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    codigo_barras VARCHAR(50) UNIQUE,
+    precio_contado DECIMAL(10,2),
+    precio_credito DECIMAL(10,2),
+    stock INTEGER
+);
+
+CREATE TABLE Vendedores (
+    id_vendedor SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    zona VARCHAR(50),
+    comision DECIMAL(10,2)
+);
+
+CREATE TABLE Rutas (
+    id_ruta SERIAL PRIMARY KEY,
+    id_vendedor INTEGER REFERENCES Vendedores(id_vendedor),
+    zona VARCHAR(50),
+    fecha DATE,
+    datos_geo GEOJSON
+);
+
+CREATE TABLE Ventas (
+    id_venta SERIAL PRIMARY KEY,
+    id_cliente INTEGER REFERENCES Clientes(id_cliente),
+    id_producto INTEGER REFERENCES Productos(id_producto),
+    fecha DATE,
+    forma_pago VARCHAR(20),
+    total DECIMAL(10,2),
+    saldo DECIMAL(10,2)
+);
+
+CREATE TABLE Inventario (
+    id_inventario SERIAL PRIMARY KEY,
+    id_vendedor INTEGER REFERENCES Vendedores(id_vendedor),
+    id_producto INTEGER REFERENCES Productos(id_producto),
+    cantidad INTEGER
+);
+-- Tabla Usuario
+CREATE TABLE Usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    cedula VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+-- Tabla Cédula
+CREATE TABLE Cedula (
+    numero_ci VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    direccion TEXT NOT NULL
+);
+
+-- Tabla AntecedentesJudiciales
+CREATE TABLE AntecedentesJudiciales (
+    id_antecedente SERIAL PRIMARY KEY,
+    numero_ci VARCHAR(20) REFERENCES Cedula(numero_ci),
+    causa_penal TEXT
+);
+
+-- Tabla de Clientes
+CREATE TABLE Tarjeta (
+    id_tarjeta SERIAL PRIMARY KEY,
+    descripcion VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE RUC (
+    id_ruc SERIAL PRIMARY KEY,
+    numero_ruc VARCHAR(20) UNIQUE
+);
+
+CREATE TABLE GrupoEconomico (
+    id_grupo SERIAL PRIMARY KEY,
+    descripcion VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE TipoPago (
+    id_tipo_pago SERIAL PRIMARY KEY,
+    descripcion VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE EdadGrupo (
+    id_edad_grupo SERIAL PRIMARY KEY,
+    descripcion VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE AfiliacionPolitica (
+    id_afiliacion SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE Clientes (
+    id_cliente SERIAL PRIMARY KEY,
+    id_tarjeta INT REFERENCES Tarjeta(id_tarjeta),
+    cedula VARCHAR(20) UNIQUE,
+    id_ruc INT REFERENCES RUC(id_ruc),
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    direccion TEXT,
+    telefono VARCHAR(20),
+    email VARCHAR(100),
+    fecha_registro DATE DEFAULT CURRENT_DATE,
+    id_grupo INT REFERENCES GrupoEconomico(id_grupo),
+    id_tipo_pago INT REFERENCES TipoPago(id_tipo_pago),
+    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
+    id_edad_grupo INT REFERENCES EdadGrupo(id_edad_grupo),
+    id_afiliacion INT REFERENCES AfiliacionPolitica(id_afiliacion)
+);
+
+-- Tabla de Empleados
+CREATE TABLE Empleados (
+    id_empleado SERIAL PRIMARY KEY,
+    cedula VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    id_zona INT REFERENCES Zonas(id_zona),
+    cargo VARCHAR(50) CHECK (cargo IN ('Vendedor', 'Cobrador', 'Chofer')),
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2)
+);
+
+-- Tabla de Zonas
+CREATE TABLE Zonas (
+    id_zona SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) UNIQUE
+);
+
+-- Tabla de Productos
+CREATE TABLE Marca (
+    id_marca SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Productos (
+    id_producto SERIAL PRIMARY KEY,
+    codigo_barras VARCHAR(50) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    id_marca INT REFERENCES Marca(id_marca),
+    descripcion TEXT,
+    presentacion VARCHAR(50),
+    volumen INT CHECK (volumen BETWEEN 5 AND 200),
+    es_kit BOOLEAN DEFAULT FALSE,
+    costo DECIMAL(10, 2),
+    precio_venta_credito DECIMAL(10, 2),
+    precio_venta_contado DECIMAL(10, 2),
+    segmento VARCHAR(50),
+    franja_etaria VARCHAR(50),
+    ocasion VARCHAR(50),
+    ano_lanzamiento INT,
+    origen VARCHAR(50),
+    perfumero VARCHAR(100),
+    notas_olfativas TEXT,
+    notas_salida TEXT,
+    notas_corazon TEXT,
+    notas_fondo TEXT,
+    intensidad VARCHAR(20),
+    concentracion VARCHAR(20),
+    duracion VARCHAR(50),
+    estilo VARCHAR(50),
+    imagen_url VARCHAR(255)
+);
+
+-- Función para verificar antecedentes judiciales al insertar un cliente
+CREATE OR REPLACE FUNCTION verificar_antecedentes_judiciales()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM AntecedentesJudiciales
+        WHERE numero_ci = NEW.cedula
+    ) THEN
+        RAISE NOTICE 'El cliente con cédula % tiene antecedentes judiciales', NEW.cedula;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger para llamar a la función al insertar un cliente
+CREATE TRIGGER tg_verificar_antecedentes_judiciales
+BEFORE INSERT ON Clientes
+FOR EACH ROW
+EXECUTE FUNCTION verificar_antecedentes_judiciales(); 
+
+CREATE DATABASE Gabriela_Fragancias;
+
+-- Tabla Usuario
+CREATE TABLE Usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    cedula VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla Empresa
+CREATE TABLE Empresa (
+    id_empresa SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    logo VARCHAR(255),
+    descripcion TEXT
+);
+
+-- Tabla Cédula
+CREATE TABLE Cedula (
+    numero_ci VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    direccion TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla AntecedentesJudiciales
+CREATE TABLE AntecedentesJudiciales (
+    id_antecedente SERIAL PRIMARY KEY,
+    numero_ci VARCHAR(20) REFERENCES Cedula(numero_ci),
+    causa_penal TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Clientes
+CREATE TABLE clientes (
+    id_cliente SERIAL PRIMARY KEY,
+    tarjeta VARCHAR(5),
+    cedula VARCHAR(20) UNIQUE,
+    ruc VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    direccion TEXT,
+    telefono VARCHAR(20),
+    email VARCHAR(100),
+    fecha_registro DATE DEFAULT CURRENT_DATE,
+    grupo_economico VARCHAR(50),
+    tipo_pago VARCHAR(20),
+    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
+    edad_grupo VARCHAR(20) CHECK (edad_grupo IN ('Niño', 'Púber', 'Adolescente', 'Joven', 'Adulto', 'Mayor')),
+    afiliacion_politica VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL	
+);
+
+-- Tabla para manejar afiliaciones políticas (si es necesario)
+CREATE TABLE afiliaciones_politicas (
+    id_afiliacion SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) UNIQUE
+);
+
+-- Tabla de Empleados
+CREATE TABLE empleados (
+    id_empleado SERIAL PRIMARY KEY,
+    cedula VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    zona VARCHAR(50),
+    cargo VARCHAR(50) CHECK (cargo IN ('Vendedor', 'Cobrador', 'Chofer')),
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Zonas
+CREATE TABLE zonas (
+    id_zona SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) UNIQUE
+);
+
+-- Tabla de Productos
+CREATE TABLE productos (
+    id_producto SERIAL PRIMARY KEY,
+    codigo_barras VARCHAR(50) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    id_marca INTEGER REFERENCES Marca(id_marca),
+    descripcion TEXT,
+    presentacion VARCHAR(50),
+    volumen INT CHECK (volumen BETWEEN 5 AND 200),
+    es_kit BOOLEAN DEFAULT FALSE,
+    costo DECIMAL(10, 2),
+    precio_venta_credito DECIMAL(10, 2),
+    precio_venta_contado DECIMAL(10, 2),
+    segmento VARCHAR(50),
+    franja_etaria VARCHAR(50),
+    ocasion VARCHAR(50),
+    ano_lanzamiento INTEGER,
+    origen VARCHAR(50),
+    perfumero VARCHAR(100),
+    notas_olfativas TEXT,
+    notas_salida TEXT,
+    notas_corazon TEXT,
+    notas_fondo TEXT,
+    intensidad VARCHAR(20),
+    concentracion VARCHAR(20),
+    duracion VARCHAR(50),
+    estilo VARCHAR(50),
+    imagen_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Índices para mejorar el rendimiento
+CREATE INDEX idx_clientes_cedula ON clientes(cedula);
+CREATE INDEX idx_clientes_ruc ON clientes(ruc);
+CREATE INDEX idx_productos_codigo_barras ON productos(codigo_barras);
+
+-- Tabla de Empleados
+CREATE TABLE empleados (
+    id_empleado SERIAL PRIMARY KEY,
+    cedula VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    apellido VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    telefono VARCHAR(20),
+    zona VARCHAR(50)
+    cargo VARCHAR(50) CHECK (cargo IN ('Vendedor', 'Cobrador', 'Chofer')), CHARACTER SET utf8mb4;
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Zonas
+CREATE TABLE zonas (
+    id_zona SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) UNIQUE CHARACTER SET utf8mb4;
+);
+
+-- Tabla de Productos
+CREATE TABLE productos (
+    id_producto SERIAL PRIMARY KEY,
+    codigo_barras VARCHAR(50) UNIQUE,
+    nombre VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+	id_marca INTEGER REFERENCES Marca(id_marca),
+	descripcion TEXT,  CHARACTER SET utf8mb4;
+    presentacion VARCHAR(50),
+    volumen INT CHECK (volumen BETWEEN 5 AND 200),
+	es_kit BOOLEAN DEFAULT FALSE;
+    costo DECIMAL(10, 2),
+    precio_venta_credito DECIMAL(10, 2),
+    precio_venta_contado DECIMAL(10, 2),
+    segmento VARCHAR(50), CHARACTER SET utf8mb4;
+    franja_etaria VARCHAR(50),
+    ocasion VARCHAR(50), CHARACTER SET utf8mb4;
+    ano_lanzamiento INTEGER,
+	origen VARCHAR(50),
+    perfumero VARCHAR(100), CHARACTER SET utf8mb4;
+    notas_olfativas TEXT, CHARACTER SET utf8mb4;
+    notas_salida TEXT, CHARACTER SET utf8mb4;
+    notas_corazon TEXT, CHARACTER SET utf8mb4;
+    notas_fondo TEXT, CHARACTER SET utf8mb4;
+    intensidad VARCHAR(20), CHARACTER SET utf8mb4;
+    concentracion VARCHAR(20),
+    duracion VARCHAR(50), CHARACTER SET utf8mb4;
+    estilo VARCHAR(50), CHARACTER SET utf8mb4;
+    imagen_url VARCHAR(255)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Kits (para manejar kits con varios productos)
+CREATE TABLE kits (
+    id_kit SERIAL PRIMARY KEY,
+    id_producto INT REFERENCES productos(id_producto),
+    nombre VARCHAR(100) NOT NULL CHARACTER SET utf8mb4;
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+CREATE TABLE productos_kit (
+    id_kit INT REFERENCES kits(id_kit),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    PRIMARY KEY (id_kit, id_producto)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla Presentacion
+CREATE TABLE Presentacion (
+    id_presentacion SERIAL PRIMARY KEY,
+    id_perfume INTEGER REFERENCES Perfume(id_perfume) ON DELETE CASCADE,
+    codigo_barra VARCHAR(50) UNIQUE NOT NULL,
+    tamano_ml INTEGER CHECK (tamano_ml > 0),
+    imagen_url VARCHAR(255)
+);
+
+-- Tabla de Maletines de Vendedoras
+CREATE TABLE maletines (
+    id_maletin SERIAL PRIMARY KEY,
+    id_empleado INT REFERENCES empleados(id_empleado),
+    fecha_carga DATE DEFAULT CURRENT_DATE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+CREATE TABLE productos_maletin (
+    id_maletin INT REFERENCES maletines(id_maletin),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    PRIMARY KEY (id_maletin, id_producto)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Liquidaciones
+CREATE TABLE liquidaciones (
+    id_liquidacion SERIAL PRIMARY KEY,
+    id_empleado INT REFERENCES empleados(id_empleado),
+    fecha_liquidacion DATE DEFAULT CURRENT_DATE,
+    total_ventas DECIMAL(10, 2),
+    comision DECIMAL(10, 2),
+    total_pagar DECIMAL(10, 2)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Equipos (para manejar lectores de códigos, impresoras, etc.)
+CREATE TABLE equipos (
+    id_equipo SERIAL PRIMARY KEY,
+    tipo VARCHAR(50) CHECK (tipo IN ('Lector Código Barras', 'Impresora Ticket', 'Impresora Matricial', 'Impresora Láser', 'Impresora Inyección')),
+    marca VARCHAR(50), CHARACTER SET utf8mb4;
+    modelo VARCHAR(50), CHARACTER SET utf8mb4;
+    fecha_adquisicion DATE
+);
+
+-- Índices para mejorar el rendimiento
+CREATE INDEX idx_clientes_cedula ON clientes(cedula);
+CREATE INDEX idx_clientes_ruc ON clientes(ruc);
+CREATE INDEX idx_productos_codigo_barras ON productos(codigo_barras);
+CREATE INDEX idx_ventas_fecha ON ventas(fecha_venta);
+CREATE INDEX idx_empleados_cargo ON empleados(cargo);
+CREATE INDEX idx_cliente_cedula ON Cliente(cedula);
+
+-- Tabla de Ventas
+CREATE TABLE ventas (
+    id_venta SERIAL PRIMARY KEY,
+    id_cliente INT REFERENCES clientes(id_cliente) ON DELETE CASCADE,
+    id_empleado INT REFERENCES empleados(id_empleado) ON DELETE CASCADE,
+    id_zona INT REFERENCES zonas(id_zona),
+    fecha_venta TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+	total DECIMAL(10, 2),
+    tipo_pago VARCHAR(20) CHECK (tipo_pago IN ('Contado', 'Semanal', 'Quincenal', 'Mensual')),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'pagado', 'cancelado')),
+	entrega_inmediata BOOLEAN DEFAULT TRUE;
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Detalles de Venta
+CREATE TABLE detalles_venta (
+    id_detalle SERIAL PRIMARY KEY,
+    id_venta INTEGER REFERENCES ventas(id_venta) ON DELETE CASCADE,
+    id_presentacion INTEGER REFERENCES Presentacion(id_presentacion) ON DELETE CASCADE,
+    cantidad INTEGER CHECK (cantidad > 0),
+    precio_unitario DECIMAL(10, 2),
+    subtotal DECIMAL(10, 2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Pagos
+CREATE TABLE pagos (
+    id_pago SERIAL PRIMARY KEY,
+    id_venta INT REFERENCES ventas(id_venta),
+    fecha_pago DATE DEFAULT CURRENT_DATE,
+    monto DECIMAL(10, 2)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Inventario
+CREATE TABLE inventario (
+    id_inventario SERIAL PRIMARY KEY,
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ubicacion VARCHAR(50),
+    id_presentacion INTEGER REFERENCES Presentacion(id_presentacion) ON DELETE CASCADE,
+    stock INTEGER CHECK (stock >= 0)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Trigger para actualizar el stock al vender
+CREATE OR REPLACE FUNCTION actualizar_stock() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.cantidad > OLD.stock THEN
+        RAISE EXCEPTION 'No hay suficiente stock';
+    ELSE
+        UPDATE Inventario SET stock = stock - NEW.cantidad WHERE id_presentacion = NEW.id_presentacion;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tg_actualizar_stock
+AFTER INSERT ON DetalleVenta
+FOR EACH ROW EXECUTE FUNCTION actualizar_stock();
+
+-- Tabla de Vehículos
+CREATE TABLE vehiculos (
+    id_vehiculo SERIAL PRIMARY KEY,
+    placa VARCHAR(20) UNIQUE,
+    marca VARCHAR(50), CHARACTER SET utf8mb4;
+    modelo VARCHAR(50), CHARACTER SET utf8mb4;
+    año INT,
+    ultima_revision DATE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Gastos de Vehículos
+CREATE TABLE gastos_vehiculos (
+    id_gasto SERIAL PRIMARY KEY,
+    id_vehiculo INT REFERENCES vehiculos(id_vehiculo),
+    tipo_gasto VARCHAR(50) CHECK (tipo_gasto IN ('Combustible', 'Lubricantes', 'Gomería', 'Mecánica', 'Electricidad', 'Otro')); CHARACTER SET utf8mb4;
+    monto DECIMAL(10, 2),
+    fecha DATE DEFAULT CURRENT_DATE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla RutaVenta
+CREATE TABLE RutaVenta (
+   id_ruta SERIAL PRIMARY KEY,
+   id_vehiculo INTEGER REFERENCES Vehiculo(id_vehiculo),
+   fecha DATE
+);
+
+-- Tabla de Tracking GPS
+CREATE TABLE tracking_gps (
+    id_tracking SERIAL PRIMARY KEY,
+    id_vehiculo INT REFERENCES vehiculos(id_vehiculo),
+	coordenadas GEOGRAPHY(Point, 4326);
+    latitud DECIMAL(9, 6),
+    longitud DECIMAL(9, 6),
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de Proveedores
+CREATE TABLE proveedores (
+    id_proveedor SERIAL PRIMARY KEY,
+    ruc VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    direccion TEXT, CHARACTER SET utf8mb4;
+    telefono VARCHAR(20),
+    email VARCHAR(100) CHARACTER SET utf8mb4;
+);
+
+-- Tabla de Compras a Proveedores
+CREATE TABLE compras_proveedores (
+    id_compra SERIAL PRIMARY KEY,
+    id_proveedor INT REFERENCES proveedores(id_proveedor),
+    fecha_compra DATE DEFAULT CURRENT_DATE,
+    total DECIMAL(10, 2)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Tabla de Detalles de Compra
+CREATE TABLE detalles_compra (
+    id_detalle SERIAL PRIMARY KEY,
+    id_compra INT REFERENCES compras_proveedores(id_compra),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    precio_unitario DECIMAL(10, 2),
+    subtotal DECIMAL(10, 2)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+-- Tabla Departamento
+CREATE TABLE Departamento (
+    id_departamento SERIAL PRIMARY KEY,
+    nombre_departamento VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    codigo_departamento VARCHAR(10) UNIQUE NOT NULL
+);
+
+-- Tabla Municipio
+CREATE TABLE Municipio (
+    id_municipio SERIAL PRIMARY KEY,
+    id_departamento INTEGER REFERENCES Departamento(id_departamento),
+    nombre_municipio VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    codigo_municipio VARCHAR(10) UNIQUE NOT NULL
+);
+
+-- Tabla Zona
+CREATE TABLE Zona (
+    id_zona SERIAL PRIMARY KEY,
+    id_municipio INTEGER REFERENCES Municipio(id_municipio),
+    nombre_zona VARCHAR(100) NOT NULL, CHARACTER SET utf8mb4;
+    codigo_zona VARCHAR(10) UNIQUE NOT NULL,
+    geometria GEOGRAPHY(POLYGON, 4326)
+);
+
+-- Modificar la tabla Vendedor para incluir una referencia a la tabla Zona
+ALTER TABLE Vendedor ADD COLUMN id_zona INTEGER REFERENCES Zona(id_zona);
+
+-- Tabla Ubicacion
+CREATE TABLE Ubicacion (
+    id_ubicacion SERIAL PRIMARY KEY,
+    id_vendedor INTEGER REFERENCES Vendedor(id_vendedor),
+    fecha_hora TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    coordenadas GEOGRAPHY(POINT, 4326)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
+);
+-- Actualizaciones a la tabla de Productos
+ALTER TABLE productos
+ADD COLUMN presentacion VARCHAR(50),
+ADD COLUMN volumen INT CHECK (volumen BETWEEN 5 AND 200),
+ADD COLUMN es_kit BOOLEAN DEFAULT FALSE;
+
+-- Tabla de Kits (para manejar kits con varios productos)
+CREATE TABLE kits (
+    id_kit SERIAL PRIMARY KEY,
+    id_producto INT REFERENCES productos(id_producto),
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE productos_kit (
+    id_kit INT REFERENCES kits(id_kit),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    PRIMARY KEY (id_kit, id_producto)
+);
+
+-- Tabla de Maletines de Vendedoras
+CREATE TABLE maletines (
+    id_maletin SERIAL PRIMARY KEY,
+    id_empleado INT REFERENCES empleados(id_empleado),
+    fecha_carga DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE productos_maletin (
+    id_maletin INT REFERENCES maletines(id_maletin),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    PRIMARY KEY (id_maletin, id_producto)
+);
+
+-- Tabla de Liquidaciones
+CREATE TABLE liquidaciones (
+    id_liquidacion SERIAL PRIMARY KEY,
+    id_empleado INT REFERENCES empleados(id_empleado),
+    fecha_liquidacion DATE DEFAULT CURRENT_DATE,
+    total_ventas DECIMAL(10, 2),
+    comision DECIMAL(10, 2),
+    total_pagar DECIMAL(10, 2)
+);
+
+-- Actualización a la tabla de Ventas
+ALTER TABLE ventas
+ADD COLUMN entrega_inmediata BOOLEAN DEFAULT TRUE;
+
+-- Tabla de Equipos (para manejar lectores de códigos, impresoras, etc.)
+CREATE TABLE equipos (
+    id_equipo SERIAL PRIMARY KEY,
+    tipo VARCHAR(50) CHECK (tipo IN ('Lector Código Barras', 'Impresora Ticket', 'Impresora Matricial', 'Impresora Láser', 'Impresora Inyección')),
+    marca VARCHAR(50),
+    modelo VARCHAR(50),
+    fecha_adquisicion DATE
+);
+
+-- Actualización a la tabla de Gastos de Vehículos
+ALTER TABLE gastos_vehiculos
+ADD COLUMN tipo_gasto VARCHAR(50) CHECK (tipo_gasto IN ('Combustible', 'Lubricantes', 'Gomería', 'Mecánica', 'Electricidad', 'Otro'));
+
+-- Tabla para manejar afiliaciones políticas (si es necesario)
+CREATE TABLE afiliaciones_politicas (
+    id_afiliacion SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) UNIQUE
+);
+
+-- Agregar referencia a la tabla de clientes
+ALTER TABLE clientes
+ADD COLUMN id_afiliacion INT REFERENCES afiliaciones_politicas(id_afiliacion);
+
+-- Índices para mejorar el rendimiento
+CREATE INDEX idx_clientes_cedula ON clientes(cedula);
+CREATE INDEX idx_clientes_ruc ON clientes(ruc);
+CREATE INDEX idx_productos_codigo_barras ON productos(codigo_barras);
+CREATE INDEX idx_ventas_fecha ON ventas(fecha_venta);
+CREATE INDEX idx_empleados_cargo ON empleados(cargo);
+
+-- Tabla de Marcas
+CREATE TABLE Marcas (
+    ID_Marca INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Año_Fundacion INT,
+    Sede VARCHAR(100),
+    Sitio_Web VARCHAR(255),
+    UNIQUE (Nombre)
+);
+
+-- Tabla de Perfumistas
+CREATE TABLE Perfumistas (
+    ID_Perfumista INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Nacionalidad VARCHAR(50),
+    UNIQUE (Nombre, Apellido)
+);
+
+-- Tabla de Notas Olfativas
+CREATE TABLE Notas_Olfativas (
+    ID_Nota INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    UNIQUE (Nombre)
+);
+
+-- Tabla de Productos (Perfumes)
+CREATE TABLE Productos (
+    ID_Producto INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Marca INT,
+    Nombre VARCHAR(100) NOT NULL,
+    Año_Lanzamiento INT,
+    ID_Perfumista INT,
+    Codigo_Barras VARCHAR(13) UNIQUE,
+    Precio_Costo DECIMAL(10, 2),
+    Precio_Venta DECIMAL(10, 2),
+    Duracion_Horas INT,
+    Stock INT DEFAULT 0,
+    FOREIGN KEY (ID_Marca) REFERENCES Marcas(ID_Marca),
+    FOREIGN KEY (ID_Perfumista) REFERENCES Perfumistas(ID_Perfumista)
+);
+
+-- Tabla de relación entre Productos y Notas Olfativas
+CREATE TABLE Producto_Notas (
+    ID_Producto INT,
+    ID_Nota INT,
+    Tipo_Nota ENUM('Alta', 'Media', 'Base'),
+    PRIMARY KEY (ID_Producto, ID_Nota, Tipo_Nota),
+    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto),
+    FOREIGN KEY (ID_Nota) REFERENCES Notas_Olfativas(ID_Nota)
+);
+
+-- Tabla de Clientes
+CREATE TABLE Clientes (
+    ID_Cliente INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Cedula VARCHAR(20) UNIQUE,
+    RUC VARCHAR(20) UNIQUE,
+    Email VARCHAR(255),
+    Telefono VARCHAR(20),
+    Direccion TEXT,
+    Fecha_Registro DATE
+);
+
+-- Tabla de Empleados
+CREATE TABLE Empleados (
+    ID_Empleado INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Cedula VARCHAR(20) UNIQUE,
+    Email VARCHAR(255),
+    Telefono VARCHAR(20),
+    Cargo VARCHAR(50),
+    Fecha_Contratacion DATE
+);
+
+-- Tabla de Proveedores
+CREATE TABLE Proveedores (
+    ID_Proveedor INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre_Empresa VARCHAR(100) NOT NULL,
+    RUC VARCHAR(20) UNIQUE,
+    Contacto_Nombre VARCHAR(100),
+    Contacto_Email VARCHAR(255),
+    Contacto_Telefono VARCHAR(20),
+    Direccion TEXT
+);
+
+-- Tabla de Ventas
+CREATE TABLE Ventas (
+    ID_Venta INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Cliente INT,
+    ID_Empleado INT,
+    Fecha_Venta DATETIME,
+    Total DECIMAL(10, 2),
+    Tipo_Venta ENUM('Contado', 'Semanal', 'Quincenal', 'Mensual'),
+    Estado ENUM('Pendiente', 'Pagada', 'Cancelada'),
+    FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_Cliente),
+    FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado)
+);
+
+-- Tabla de Detalle de Ventas
+CREATE TABLE Detalle_Ventas (
+    ID_Detalle INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Venta INT,
+    ID_Producto INT,
+    Cantidad INT,
+    Precio_Unitario DECIMAL(10, 2),
+    Subtotal DECIMAL(10, 2),
+    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta),
+    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
+);
+
+-- Tabla de Pagos
+CREATE TABLE Pagos (
+    ID_Pago INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Venta INT,
+    Fecha_Pago DATE,
+    Monto DECIMAL(10, 2),
+    Metodo_Pago VARCHAR(50),
+    FOREIGN KEY (ID_Venta) REFERENCES Ventas(ID_Venta)
+);
+
+-- Tabla de Inventario
+CREATE TABLE Inventario (
+    ID_Inventario INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Producto INT,
+    Cantidad INT,
+    Fecha_Actualizacion DATETIME,
+    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
+);
+
+-- Índices para optimizar consultas frecuentes
+CREATE INDEX idx_productos_marca ON Productos(ID_Marca);
+CREATE INDEX idx_ventas_cliente ON Ventas(ID_Cliente);
+CREATE INDEX idx_ventas_fecha ON Ventas(Fecha_Venta);
+CREATE INDEX idx_inventario_producto ON Inventario(ID_Producto);
+
+-- Vistas para reportes comunes
+CREATE VIEW VW_Ventas_Por_Cliente AS
+SELECT 
+    c.ID_Cliente, 
+    c.Nombre, 
+    c.Apellido, 
+    COUNT(v.ID_Venta) AS Total_Ventas, 
+    SUM(v.Total) AS Monto_Total
+FROM 
+    Clientes c
+LEFT JOIN 
+    Ventas v ON c.ID_Cliente = v.ID_Cliente
+GROUP BY 
+    c.ID_Cliente;
+
+CREATE VIEW VW_Stock_Productos AS
+SELECT 
+    p.ID_Producto, 
+    p.Nombre, 
+    m.Nombre AS Marca, 
+    p.Stock, 
+    p.Precio_Venta
+FROM 
+    Productos p
+JOIN 
+    Marcas m ON p.ID_Marca = m.ID_Marca;
+
+-- Procedimiento almacenado para actualizar el stock después de una venta
+DELIMITER //
+CREATE PROCEDURE SP_Actualizar_Stock_Despues_Venta(IN p_ID_Venta INT)
+BEGIN
+    UPDATE Productos p
+    JOIN Detalle_Ventas dv ON p.ID_Producto = dv.ID_Producto
+    SET p.Stock = p.Stock - dv.Cantidad
+    WHERE dv.ID_Venta = p_ID_Venta;
+END //
+DELIMITER ;
+
+-- Trigger para actualizar el stock después de insertar un detalle de venta
+DELIMITER //
+CREATE TRIGGER TR_Actualizar_Stock_Venta
+AFTER INSERT ON Detalle_Ventas
+FOR EACH ROW
+BEGIN
+    UPDATE Productos
+    SET Stock = Stock - NEW.Cantidad
+    WHERE ID_Producto = NEW.ID_Producto;
+END //
+DELIMITER ;
+
+/* SQL Manager for InterBase and Firebird 5.5.3.52046          */
+/* ----------------------------------------------------------- */
+/* Host     : localhost                                        */
+/* Database : D:\Gabriela Fragancias\Base de datos\EMPRESA.FDB */
+
+
+CREATE DATABASE 'D:\Gabriela Fragancias\Base de datos\EMPRESA.FDB'
+  USER 'SYSDBA'
+  PAGE_SIZE = 1024
+  DEFAULT CHARACTER SET NONE;
+
+/* Definition for the `FIB$BOOLEAN` domain :  */
+
+CREATE DOMAIN FIB$BOOLEAN AS
+  SMALLINT
+  DEFAULT 1
+  NOT NULL
+  CHECK (VALUE IN (0,1));
+
+/* Structure for the `FIB$FIELDS_INFO` table :  */
+
+CREATE TABLE FIB$FIELDS_INFO (
+  TABLE_NAME VARCHAR(31) NOT NULL,
+  FIELD_NAME VARCHAR(31) NOT NULL,
+  DISPLAY_LABEL VARCHAR(25),
+  VISIBLE FIB$BOOLEAN  DEFAULT 1 NOT NULL,
+  DISPLAY_FORMAT VARCHAR(15),
+  EDIT_FORMAT VARCHAR(15),
+  TRIGGERED FIB$BOOLEAN  DEFAULT 0 NOT NULL,
+  DISPLAY_WIDTH INTEGER DEFAULT 0,
+  FIB$VERSION INTEGER);
+
+
+ALTER TABLE FIB$FIELDS_INFO ADD CONSTRAINT PK_FIB$FIELDS_INFO PRIMARY KEY (TABLE_NAME,FIELD_NAME);
+
+/* Definition for the `FIB$FIELD_INFO_VERSION` generator :  */
+
+CREATE GENERATOR FIB$FIELD_INFO_VERSION;
+
+/* Definition for the `FIB$FIELDS_INFO_BI` trigger :  */
+
+SET TERM ^ ;
+
+CREATE TRIGGER FIB$FIELDS_INFO_BI FOR FIB$FIELDS_INFO
+ACTIVE BEFORE 
+  INSERT
+POSITION 0
+AS
+begin 
+new.fib$version=gen_id(fib$field_info_version,1);
+end^
+
+SET TERM ; ^
+
+/* Definition for the `FIB$FIELDS_INFO_BU` trigger :  */
+
+SET TERM ^ ;
+
+CREATE TRIGGER FIB$FIELDS_INFO_BU FOR FIB$FIELDS_INFO
+ACTIVE BEFORE 
+  UPDATE
+POSITION 0
+AS
+begin 
+new.fib$version=gen_id(fib$field_info_version,1);
+end^
+
+SET TERM ; ^
+
+/* Definition for the `DIRECCION` domain :  */
+
+CREATE DOMAIN DIRECCION AS
+  VARCHAR(500);
+
+/* Definition for the `ID` domain :  */
+
+CREATE DOMAIN ID AS
+  SMALLINT;
+
+/* Definition for the `NOMBRE` domain :  */
+
+CREATE DOMAIN NOMBRE AS
+  VARCHAR(50);
+
+/* Structure for the `EMPRESA_EMAIL` table :  */
+
+CREATE TABLE EMPRESA_EMAIL (
+  ID_EMPRESA ID NOT NULL,
+  RAZON NOMBRE,
+  DIRECCION DIRECCION,
+  EMAIL NOMBRE,
+  NOMBRE_SERVIDOR NOMBRE,
+  PUERTO_SERVIDOR ID,
+  CONTRASE_EMAIL NOMBRE);
+
+/* Structure for the `GRUPO_ENVIO` table :  */
+
+CREATE TABLE GRUPO_ENVIO (
+  ID_GRUPO_ENVIO ID NOT NULL,
+  DESCRIPCION DIRECCION);
+
+
+ALTER TABLE GRUPO_ENVIO ADD CONSTRAINT PK_GRUPO_ENVIO PRIMARY KEY (ID_GRUPO_ENVIO);
+
+/* Definition for the `ENTERO` domain :  */
+
+CREATE DOMAIN ENTERO AS
+  INTEGER;
+
+/* Definition for the `NOMBRE_LARGO` domain :  */
+
+CREATE DOMAIN NOMBRE_LARGO AS
+  VARCHAR(100);
+
+/* Structure for the `CONFI_MENSAJE` table :  */
+
+CREATE TABLE CONFI_MENSAJE (
+  ID_CONFIGURACION ENTERO NOT NULL,
+  ID_CALIFICACION ENTERO,
+  DESCRIPCION NOMBRE,
+  UBICACION_SONIDO NOMBRE_LARGO);
+
+
+ALTER TABLE CONFI_MENSAJE ADD CONSTRAINT PK_CONFI_MENSAJE PRIMARY KEY (ID_CONFIGURACION);
+
+/* Structure for the `GRUPO_ENVIO_D` table :  */
+
+CREATE TABLE GRUPO_ENVIO_D (
+  ID_GRUPO_ENVIO_D ID NOT NULL,
+  ID_GRUPO_ENVIO ID,
+  ID_CLIENTE ENTERO);
+
+
+ALTER TABLE GRUPO_ENVIO_D ADD CONSTRAINT PK_GRUPO_ENVIO_D PRIMARY KEY (ID_GRUPO_ENVIO_D);
+
+/* Definition for the `HORA` domain :  */
+
+CREATE DOMAIN HORA AS
+  TIME;
+
+/* Definition for the `NOMBRE_CORTO` domain :  */
+
+CREATE DOMAIN NOMBRE_CORTO AS
+  VARCHAR(50);
+
+/* Structure for the `COPIA_SEGURIDAD` table :  */
+
+CREATE TABLE COPIA_SEGURIDAD (
+  ID_COPIA ID NOT NULL,
+  SERVIDOR NOMBRE_CORTO,
+  NOMBRE_BD NOMBRE_LARGO,
+  BACK_DESTINO NOMBRE_LARGO,
+  HORA_BACK HORA);
+
+
+ALTER TABLE COPIA_SEGURIDAD ADD CONSTRAINT PK_COPIA_SEGURIDAD PRIMARY KEY (ID_COPIA);
+
+/* Structure for the `CONFIGURACION` table :  */
+
+CREATE TABLE CONFIGURACION (
+  INI_DIRECCION VARCHAR(500));
+
+/* Structure for the `EMPRESA` table :  */
+
+CREATE TABLE EMPRESA (
+  NOMBRE VARCHAR(50),
+  UBICACION VARCHAR(500),
+  IP CHAR(25));
+
+/* Structure for the `REPMAN_GROUPS` table :  */
+
+CREATE TABLE REPMAN_GROUPS (
+  GROUP_CODE INTEGER NOT NULL,
+  GROUP_NAME VARCHAR(50),
+  PARENT_GROUP INTEGER NOT NULL);
+
+
+ALTER TABLE REPMAN_GROUPS ADD PRIMARY KEY (GROUP_CODE) USING INDEX RDB$PRIMARY2;
+
+/* Structure for the `REPMAN_REPORTS` table :  */
+
+CREATE TABLE REPMAN_REPORTS (
+  REPORT_NAME VARCHAR(50) NOT NULL,
+  REPORT BLOB,
+  REPORT_GROUP INTEGER,
+  USER_FLAG INTEGER);
+
+
+ALTER TABLE REPMAN_REPORTS ADD PRIMARY KEY (REPORT_NAME) USING INDEX RDB$PRIMARY1;
+
+/* Definition for the `CEILING` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "CEILING"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_ceiling' MODULE_NAME 'ib_udf';
+
+/* Definition for the `FLOOR` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "FLOOR"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_floor' MODULE_NAME 'ib_udf';
+
+/* Data for the 'EMPRESA_EMAIL' table  (Records 1 - 1) */
+
+INSERT INTO EMPRESA_EMAIL
+VALUES (1, 'Gabriela Fragancias', 'Calle San Miguel 105 / 2', 'gabriela.fragancias@gmail.com', 26, '3581961cabeza');
+
+COMMIT WORK;
+
+/* Data for the 'CONFI_MENSAJE' table  (Records 1 - 2) */
+
+INSERT INTO CONFI_MENSAJE
+VALUES (1, 1, 'Escriba una descripción', 'D:\\Gabriela Fragancias\\Recibir Email\\Sonidos\\Primero.wav');
+
+INSERT INTO CONFI_MENSAJE
+VALUES (2, 4, 'Escriba una descripción', 'D:\\Gabriela Fragancias\\Recibir Email\\Sonidos\\demandar.wav');
+
+COMMIT WORK;
+
+/* Data for the 'COPIA_SEGURIDAD' table  (Records 1 - 1) */
+
+INSERT INTO COPIA_SEGURIDAD
+VALUES (2, '127.0.0.1', 'BASE', 'C:\\', '11:30:00');
+
+COMMIT WORK;
+
+/* Data for the 'CONFIGURACION' table  (Records 1 - 1) */
+
+INSERT INTO CONFIGURACION
+VALUES ('D:\\Gabriela Fragancias\\Base de Datos\\Empresa\\');
+
+COMMIT WORK;
+
+/* Data for the 'EMPRESA' table  (Records 1 - 8) */
+
+INSERT INTO EMPRESA
+VALUES ('Original', 'BASE', '127.0.0.1');
+
+INSERT INTO EMPRESA
+VALUES ('Gabriela Fragancias', ''D:\\Gabriela Fragancias\\Base de Datos\\BASE.FDB', '127.0.0.1');
+
+COMMIT WORK;
+
+/* Data for the 'REPMAN_REPORTS' table  (Records 1 - 1) */
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA LEGAL', 0, NULL);
+
+COMMIT WORK;
+
+/* Structure for the `GRUPO_ENVIO_D` table :  */
+
+ALTER TABLE GRUPO_ENVIO_D ADD CONSTRAINT FK_ID_GRUPO_ENVIO FOREIGN KEY (ID_GRUPO_ENVIO) REFERENCES GRUPO_ENVIO(ID_GRUPO_ENVIO) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/* Privileges for the `CONFI_MENSAJE` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON CONFI_MENSAJE TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `CONFIGURACION` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON CONFIGURACION TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `COPIA_SEGURIDAD` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON COPIA_SEGURIDAD TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `EMPRESA` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON EMPRESA TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `EMPRESA_EMAIL` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON EMPRESA_EMAIL TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `FIB$FIELDS_INFO` :  */
+
+
+GRANT SELECT ON FIB$FIELDS_INFO TO PUBLIC;
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON FIB$FIELDS_INFO TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `GRUPO_ENVIO` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON GRUPO_ENVIO TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `GRUPO_ENVIO_D` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON GRUPO_ENVIO_D TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `REPMAN_GROUPS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON REPMAN_GROUPS TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `REPMAN_REPORTS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON REPMAN_REPORTS TO SYSDBA WITH GRANT OPTION;
+
+/* SQL Manager for InterBase and Firebird 5.5.3.52046          */
+/* ----------------------------------------------------------- */
+/* Host     : localhost                                        */
+/* Database : D:\Gabriela Fragancias\Base de datos\INFORME.FDB */
+
+
+CREATE DATABASE 'D:\Gabriela Fragancias\Base de datos\INFORME.FDB'
+  USER 'SYSDBA'
+  PAGE_SIZE = 1024
+  DEFAULT CHARACTER SET ASCII;
+
+/* Structure for the `REPMAN_GROUPS` table :  */
+
+CREATE TABLE REPMAN_GROUPS (
+  GROUP_CODE INTEGER NOT NULL,
+  GROUP_NAME VARCHAR(100),
+  PARENT_GROUP INTEGER NOT NULL);
+
+
+ALTER TABLE REPMAN_GROUPS ADD PRIMARY KEY (GROUP_CODE) USING INDEX RDB$PRIMARY2;
+
+/* Structure for the `REPMAN_REPORTS` table :  */
+
+CREATE TABLE REPMAN_REPORTS (
+  REPORT_NAME VARCHAR(50) NOT NULL,
+  REPORT BLOB,
+  REPORT_GROUP INTEGER,
+  USER_FLAG INTEGER);
+
+
+ALTER TABLE REPMAN_REPORTS ADD PRIMARY KEY (REPORT_NAME) USING INDEX RDB$PRIMARY1;
+
+/* Data for the 'REPMAN_GROUPS' table  (Records 1 - 27) */
+
+INSERT INTO REPMAN_GROUPS
+VALUES (1, 'PRODUCTOS', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (5, 'RESUMEN PUNTO DE VENTA', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (6, 'PROVEEDORES', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (2, 'ALMACEN', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (4, 'CAJA', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (7, 'CLIENTES', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (3, 'PRECIO', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (8, 'VENTAS', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (9, 'CONTABILDAD', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (10, 'LIBRO MAYOR', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (11, 'DIARIO', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (12, 'PLAN DE CUENTA', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (13, 'GANANCIA', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (14, 'BALANCE', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (15, 'COMPRAS', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (16, 'LIBRO COMPRA Y VENTA', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (17, 'COMPARATIVO', 14);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (18, 'VENDEDOR', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (19, 'FLUJO EFECTIVO', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (20, 'LIBRO FISCAL', 9);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (21, 'ANALISIS', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (22, 'USUARIO', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (23, 'ERP_SOLUCION', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (24, 'Finanzas', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (25, 'PROMOCION', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (26, 'MODELO DE FACTURAS', 0);
+
+INSERT INTO REPMAN_GROUPS
+VALUES (27, 'ACADEMICO', 0);
+
+COMMIT WORK;
+
+/* Data for the 'REPMAN_REPORTS' table  (Records 1 - 251) */
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_PRODUCTO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CAJA DE UN USUARIO', 4, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('INFORMACION DE UN ARTICULO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTO EN ALMACEN', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTO POR CONCEPTO EN UN ALMACEN', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_UN_ALMACEN', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTA DE UN USUARIO POR FECHA', 5, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA POR FECHAS', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTA DE UN CURSO POR CONCEPTO', 27, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA POR GRUPO CLIENTE', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('ALMACEN LISTADO STOCK CON MULTI UNIDADES', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER CLIENTE POR GRUPO 1', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de venta de productos', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO CON CUOTA TIPO PRESUPUESTO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTOS A CONFIRMAR POR SEMANA', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Detalle operaciones por estado', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTES PAGOS REALIZADOS', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de compra de clientes previo', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('EXISTENCIA POR GRUPO DE UN ALMACEN SIN 0', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR FECHAS', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CODIGO DE BARRAS', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO STOCK MINIMO', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTE FIEL', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Listado de Proveedor Desde Hasta', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS DEL DIA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de venta en almacenes', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CAJA DE UN USUARIO POR FECHA RESUMEN', 5, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN VENTA DE UN ARTICULO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Libro Mayor', 10, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('IMPRESION DE PAGARE', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('UN MOVIMIENTO CAJA GENERAL', 4, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO POR CLASE PARA INVENTARIO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Libro diario', 11, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE GANANCIAS POR FECHA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA DE CLIENTE POR UN COMPROBANTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DETALLADA POR ARTICULO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS RESUMEN DE UN USUARIO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA DE UN ALMACEN', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER DE UN CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FICHA DE NUEVO CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTO EN CAJA GENERAL POR FECHA', 4, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTA CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COMPRAS POR COMPROBANTE', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LIBRO VENTA POR ALMACEN', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIAS DETALLADO POR FECHAS', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_PRODUCTO_COMPATIBILIDAD', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Libro Mayor continuo', 10, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO MAS VENDIDO POR CLASE', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('UN MOVIMIENTO DE CUENTA', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA POR COMPROBANTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE RECIPIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_PRODUCTO_GRUPO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Diario continuo', 11, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA CON VUELTO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE LAS CUENTAS', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RECETAS DE PRODUCTO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR FACTURA POR FECHA', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Librio Diario por id', 20, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA DEL DIA RESUMEN', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO STOCK + UN PRECIO', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO A VENCER', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS POR FECHA DE UN PRODUCTO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTA DE UN USUARIO POR FECHA RESUMEN', 5, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('TRANFERENCIA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CIERRE CAJA', 4, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Suma y saldo', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PAGARE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE CLIENTE POR PRECIO', 3, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTA DETALLADA PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO A VENCER ENTRE FECHA EN ALMACENES', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA RESUMEN', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER DE UN PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO VENCIDO EN ALMACENES', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR SESION', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK + INFORMACION', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('ALMACEN LISTADO STOCK CON MULTI UNIDADES C', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_POR_TOTAL_PRECIO_VENTA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_PRODUCTO_POR_UN_GRUPO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Estado de resultado', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CODIGO DE BARRA DE PRODUCTOS', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Balance General Comparativo', 17, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('compra por mes', 20, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE PRODUCTO DE UN USUARIO', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Libro venta por mes', 20, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RECIBO POR PAGO', 27, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_PRODUCTO_POR_UN_MARCA', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS POR GRUPO DE CLIENTE CON GANANCIA', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTA VENCIDA DE LOS CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE USUARIO POR PRODUCTO', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS VENCIDOS', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RECIBO DE PAGO POR FACTURA CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de venta de productos previo', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER CLIENTE POR GRUPO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTA_PRODUCTO_CLIENTE_POR_UN_PRECIO', 3, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de almacen resumen', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTAS ABIERTOS', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTO MAS VENDIDO EN DEPOSITOS', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE GANANCIAS DEL DIA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('UN MOVIMIENTO DE CUENTA PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA_MATRICIAL', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE USUARIO POR FACTURA', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE USUARIO POR PRODUCTO AL', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Plan de cuenta', 12, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTA DETALLADA CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('ALMACEN LISTADO STOCK CON MULTI UNIDADES M', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('ANALISIS PROVEEDOR EN COMPRA Y CUENTA', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE LAS CUENTAS PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de venta en almacenes 1', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COMPRAS POR FECHAS', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRECIOS  DE PRODUCTOS', 23, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTES CON PUNTOS ACUMULADOS', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTA VENCIDA DE LOS PROVEEDORES', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Estado de Resultado', 17, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COBROS DE CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIAS DETALLADO DEL DIA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Flujo Efectivo', 19, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA DE MAC MOVIDA MATRICIAL', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR COMPROBANTE', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTO POR PRECIO', 3, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS POR ARTICULO DE VENDEDORES', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO_CLIENTE_CON_CUENTA_POR_GRUPO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Balance General', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COMPRAS POR ALMACEN', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('COBROS REALIZADOS POR FECHA DE UN VENDEDOR', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('INFORMACION DE UN PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR DIA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PUNTOS DE UN CLIENTE', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('de 8 columnas', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER DE LOS CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA NUEVA VERSION', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA DE UN VENDEDOR', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN COMPRA DE UN ARTICULO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Flujo Efectivo Comparativo', 19, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE CUENTA PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA CON UTILIDAD', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA DETALLADO DEL DIA', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PAGOS REALIZADOS DE CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Venta por fecha resumen', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA COMPRA COMPLETA', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CUENTAS A VENCER DE LOS PROVEEDORES', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE USUARIO POR FECHA', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIAS POR DIA POR FECHA', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Ventas a clientes por fecha', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS POR FECHA DE VENDEDORES', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR ALMACEN RESUMEN POR DIA', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Ventas por listado de Clientes', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COMPRAS POR PROVEEDOR', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTO POR IMPUESTO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis cliente en venta y cuenta', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('EPSON GENERICA', 26, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE CLIENTE POR GRUPO', 3, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Ventas por grupo de cliente', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Ventas por comprobante de un Almacen', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('saldo cuenta', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO POR TIPO DE PRECIO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CHE Y DEPOSITO A CONFIRMAR SIN LIMITE DE FECHA', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('cheques y deposito a confirmar', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTOS POR PRECIOS', 3, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN MOVIMIENTO DE CAJA POR FECHA', 4, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO POR MARCA PARA INVENTARIO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTO POR MARCA', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DETALLADA POR ARTICULO SUMADO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR ALMACEN COMPROBANTE', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR COMPROBANTE POR FECHA', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CHEQUES POR VENCIMIENTO', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis de almacen resumen grafico', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO COMPRA POR ALMACEN', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS EN PODER', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('detalle operacion x concepto', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Detalle de operaciones por conceptos', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('operacion detalle', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Ventas en Cuenta Cliente', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS TITULAR EN PODER', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('movimiento x concepto', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA A ENVIAR', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO PROVEEDOR CON MOVI COMPRO', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CARNET DE CLIENTES', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTO VENDIDO POR VENDEDOR', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Detalle de una promocion', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LIBRO DE VENTA', 16, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('FACTURA RECIBIDA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE CLIENTES POR NOMBRE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR COMPROBANTE', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Suma y saldo analitico', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS RESUMEN DE USUARIOS', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PRODUCTOS CON STOCK MINIMO EN ALMACENES', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO POR GRUPO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PRODUCTO POR TIPO DE PRECIO Y GRUPO', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR CLIENTE', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LIBRO DE COMPRA', 16, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS DE USUARIOS POR FECHA', 22, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR CLASE', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR ALMACEN', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO POR CIUDAD DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('de 8 columna analitico', 14, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA POR GRUPO', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTES CON PUNTOS SOLO GANADORES', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PROVEEDOR', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE COMPRAS', 15, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR COMPROBANTE POR TOTAL FECHA', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA POR GRUPO ALMACEN COMPROBANTE DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTES POR GRUPO PUNTOS ACUMULADOS', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Ventas por ciudad de cliente', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('PAGOS REALIZADOS DE CLIENTE DE UN GRUPO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE PROVEEDOR POR CIUDAD', 6, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Ganadores de una promocion', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA POR PRECIO ALMACEN COMPROBANTE DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('CLIENTES POR GRUPO SOLO GANADORES', 25, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Venta en Cuenta Cliente por almacen', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA POR CIUDAD ALMACEN COMPROBANTE DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Operaciones Confirmada', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Operaciones Anuladas', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Venta en Cuenta Cliente por vendedor', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Venta en Cuenta Cliente por cliente', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA DE UN GRUPO DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTA DE UN PRECIO DE CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('Analisis Venta en Cuenta Cliente por grupo cliente', 21, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('INVENTARIO', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTOS DE TERCEROS TITULAR REMITIDOS', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS REMITIDOS', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE VENTAS POR VENDEDORES POR FECHA', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTOS DE TERCEROS REMITIDOS POR FECHA', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTOS DE TERCEROS PORTADOR REMITIDOS', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS A VENDECER', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCEROS PORTADOR EN PODER', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DOCUMENTO DE TERCERO SELECIONADO', 24, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COBROS POR VENDEDORES POR FECHA', 18, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA DE PRODUCTOS POR CLIENTE', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE COBROS A CLIENTES POR GRUPO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE VENTA POR GRUPO PRODUCTO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR MARCA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MODELO MAC MOVIDA', 26, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTO POR CONCEPTO EN UN ALMACEN POR CLASE', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MODELO NUEVA VERSION', 26, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MODELO TIPO MATRICIAL', 26, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO RECIPIENTE POR PRODUCTO', 7, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('MOVIMIENTO POR CONCEPTO EN UN ALMACEN POR MARCA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR TIPO', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('DEVOLUCION', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('VENTAS POR FORMA DE PAGO', 8, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR PROVEEDOR GENERAL', 13, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR UNA CLASE', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR UNA MARCA', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR UNA SESION', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK CON SALDO 0', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('LISTADO DE STOCK ALMACEN POR UNA TIPO', 2, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('RESUMEN DE PRODUCION', 1, NULL);
+
+INSERT INTO REPMAN_REPORTS (REPORT_NAME, REPORT_GROUP, USER_FLAG)
+VALUES ('GANANCIA POR PROVEEDOR POR TIPO', 13, NULL);
+
+COMMIT WORK;
+
+/* Privileges for the `REPMAN_GROUPS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON REPMAN_GROUPS TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `REPMAN_REPORTS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON REPMAN_REPORTS TO SYSDBA WITH GRANT OPTION;
+
+/* SQL Manager for InterBase and Firebird 5.5.3.52046         */
+/* ---------------------------------------------------------- */
+/* Host     : localhost                                       */
+/* Database : D:\Gabriela Fragancias\Base de datos\IMAGEN.FDB */
+
+
+CREATE DATABASE 'D:\Gabriela Fragancias\Base de datos\IMAGEN.FDB'
+  USER 'SYSDBA'
+  PAGE_SIZE = 1024
+  DEFAULT CHARACTER SET NONE;
+
+/* Definition for the `DESCRIPCION` domain :  */
+
+CREATE DOMAIN DESCRIPCION AS
+  VARCHAR(75);
+
+/* Definition for the `ENTERO` domain :  */
+
+CREATE DOMAIN ENTERO AS
+  INTEGER;
+
+/* Definition for the `FECHA` domain :  */
+
+CREATE DOMAIN FECHA AS
+  DATE;
+
+/* Definition for the `IMAGEN` domain :  */
+
+CREATE DOMAIN IMAGEN AS
+  BLOB SEGMENT SIZE 100;
+
+/* Structure for the `IMAGEN_PRODUCTO` table :  */
+
+CREATE TABLE IMAGEN_PRODUCTO (
+  ID_IMAGEN_PRODUCTO ENTERO NOT NULL,
+  FECHA FECHA,
+  IMAGEN IMAGEN,
+  ID_PRODUCTO ENTERO,
+  DESCRIPCION DESCRIPCION);
+
+
+ALTER TABLE IMAGEN_PRODUCTO ADD CONSTRAINT PK_IMAGEN_PRODUCTO PRIMARY KEY (ID_IMAGEN_PRODUCTO);
+
+/* Definition for the `IMAGEN_PRODUCTO_GEN` generator :  */
+
+CREATE GENERATOR IMAGEN_PRODUCTO_GEN;
+
+SET GENERATOR IMAGEN_PRODUCTO_GEN TO 9;
+
+/* Definition for the `DISPARADORPRODUCTO` trigger :  */
+
+SET TERM ^ ;
+
+CREATE TRIGGER DISPARADORPRODUCTO FOR IMAGEN_PRODUCTO
+ACTIVE BEFORE 
+  INSERT
+POSITION 0
+AS
+BEGIN
+        NEW.ID_IMAGEN_PRODUCTO = GEN_ID(IMAGEN_PRODUCTO_GEN, 1);
+END^
+
+SET TERM ; ^
+
+/* Structure for the `IMAGEN_CLIENTE` table :  */
+
+CREATE TABLE IMAGEN_CLIENTE (
+  ID_IMAGEN_CLIENTE ENTERO NOT NULL,
+  ID_CLIENTE ENTERO,
+  FECHA FECHA,
+  DESCRIPCION DESCRIPCION,
+  IMAGEN IMAGEN,
+  ID_USUARIO ENTERO);
+
+
+ALTER TABLE IMAGEN_CLIENTE ADD CONSTRAINT PK_IMAGEN_CLIENTE PRIMARY KEY (ID_IMAGEN_CLIENTE);
+
+/* Structure for the `IMAGEN_FINANCIERO` table :  */
+
+CREATE TABLE IMAGEN_FINANCIERO (
+  ID_IMAGEN_FINANCIERO ENTERO NOT NULL,
+  ID_OPERACION_FINANCIERO ENTERO NOT NULL,
+  DESCRIPCION DESCRIPCION,
+  IMAGEN IMAGEN);
+
+
+ALTER TABLE IMAGEN_FINANCIERO ADD CONSTRAINT PK_IMAGEN_FINANCIERO PRIMARY KEY (ID_IMAGEN_FINANCIERO);
+
+/* Definition for the `FIB$BOOLEAN` domain :  */
+
+CREATE DOMAIN FIB$BOOLEAN AS
+  SMALLINT
+  DEFAULT 1
+  NOT NULL
+  CHECK (VALUE IN (0,1));
+
+/* Definition for the `CEILING` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "CEILING"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_ceiling' MODULE_NAME 'ib_udf';
+
+/* Definition for the `FLOOR` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "FLOOR"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_floor' MODULE_NAME 'ib_udf';
+
+/* Data for the 'IMAGEN_CLIENTE' table  (Records 1 - 8) */
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (1, 3, '2014-06-23', 'Cedula', 2);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (2, 3, '2014-06-23', 'Cedula atras', 2);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (3, 3, '2014-06-23', 'Otros', 2);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (4, 3, '2014-06-23', 'capaz', 2);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (5, 980, '2014-06-23', 'Cedula', 2);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (6, 504, '2016-05-02', 'Cara', 1);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (7, 504, '2016-05-02', 'Reverso', 1);
+
+INSERT INTO IMAGEN_CLIENTE (ID_IMAGEN_CLIENTE, ID_CLIENTE, FECHA, DESCRIPCION, ID_USUARIO)
+VALUES (8, 1, '2017-05-04', 'footo', 5);
+
+COMMIT WORK;
+
+/* Privileges for the `IMAGEN_CLIENTE` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON IMAGEN_CLIENTE TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `IMAGEN_FINANCIERO` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON IMAGEN_FINANCIERO TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `IMAGEN_PRODUCTO` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON IMAGEN_PRODUCTO TO SYSDBA WITH GRANT OPTION;
+
+/* SQL Manager for InterBase and Firebird 5.5.3.52046      */
+/* ------------------------------------------------------- */
+/* Host     : localhost                                    */
+/* Database : D:\Gabriela Fragancias\Base de datos\SMS.FDB */
+
+
+CREATE DATABASE 'D:\Gabriela Fragancias\Base de datos\SMS.FDB'
+  USER 'SYSDBA'
+  PAGE_SIZE = 1024
+  DEFAULT CHARACTER SET NONE;
+
+/* Definition for the `DESCRIPCION` domain :  */
+
+CREATE DOMAIN DESCRIPCION AS
+  VARCHAR(60);
+
+/* Definition for the `ENTERO` domain :  */
+
+CREATE DOMAIN ENTERO AS
+  INTEGER;
+
+/* Definition for the `FECHA` domain :  */
+
+CREATE DOMAIN FECHA AS
+  DATE;
+
+/* Definition for the `HORA` domain :  */
+
+CREATE DOMAIN HORA AS
+  TIME;
+
+/* Definition for the `IMAGEN` domain :  */
+
+CREATE DOMAIN IMAGEN AS
+  BLOB SEGMENT SIZE 100;
+
+/* Definition for the `MENSAJE` domain :  */
+
+CREATE DOMAIN MENSAJE AS
+  VARCHAR(500);
+
+/* Definition for the `SI_NO_SI` domain :  */
+
+CREATE DOMAIN SI_NO_SI AS
+  CHAR(1);
+
+/* Structure for the `EMAIL` table :  */
+
+CREATE TABLE EMAIL (
+  ID_EMAIL ENTERO NOT NULL,
+  EMAIL DESCRIPCION,
+  ASUNTO DESCRIPCION,
+  ADJUNTO IMAGEN,
+  CONTENIDO MENSAJE,
+  ENVIADO SI_NO_SI,
+  FECHA FECHA,
+  HORA HORA,
+  MODULO ENTERO,
+  REFERENCIA ENTERO);
+
+
+ALTER TABLE EMAIL ADD CONSTRAINT PK_EMAIL PRIMARY KEY (ID_EMAIL);
+
+/* Definition for the `EMAIL_BI` trigger :  */
+
+SET TERM ^ ;
+
+CREATE TRIGGER EMAIL_BI FOR EMAIL
+ACTIVE AFTER 
+  INSERT
+POSITION 0
+AS
+BEGIN
+  /* Trigger body */
+  post_event 'NUEVOEMAIL';
+
+END^
+
+SET TERM ; ^
+
+/* Definition for the `NUMERODESTINATARIO` domain :  */
+
+CREATE DOMAIN NUMERODESTINATARIO AS
+  VARCHAR(15);
+
+/* Structure for the `SMS` table :  */
+
+CREATE TABLE SMS (
+  ID_SMS ENTERO NOT NULL,
+  DESTINATARIO NUMERODESTINATARIO,
+  MENSAJE MENSAJE,
+  ENVIADO SI_NO_SI,
+  FECHA FECHA,
+  HORA HORA,
+  MODULO ENTERO,
+  REFERENCIA ENTERO,
+  FECHAENVIADO FECHA,
+  ID_CLIENTE ENTERO);
+
+
+ALTER TABLE SMS ADD CONSTRAINT PK_SMS PRIMARY KEY (ID_SMS);
+
+/* Definition for the `SMS_NEWSMS` trigger :  */
+
+SET TERM ^ ;
+
+CREATE TRIGGER SMS_NEWSMS FOR SMS
+ACTIVE AFTER 
+  INSERT
+POSITION 0
+AS
+BEGIN
+  /* Trigger body */
+    post_event 'NUEVOSMS';
+END^
+
+SET TERM ; ^
+
+/* Structure for the `ALDO` table :  */
+
+CREATE TABLE ALDO (
+  NUM_ALDO DESCRIPCION NOT NULL);
+
+
+ALTER TABLE ALDO ADD CONSTRAINT PK_ALDO PRIMARY KEY (NUM_ALDO);
+
+/* Structure for the `TIPO_CONEXION` table :  */
+
+CREATE TABLE TIPO_CONEXION (
+  ID_TIPO_CONEXION ENTERO NOT NULL,
+  DESCRIPCION DESCRIPCION);
+
+
+ALTER TABLE TIPO_CONEXION ADD CONSTRAINT PK_TIPO_CONEXION PRIMARY KEY (ID_TIPO_CONEXION);
+
+/* Structure for the `CONFIGURACION` table :  */
+
+CREATE TABLE CONFIGURACION (
+  ID_CONFIGURACION ENTERO NOT NULL,
+  DESCRIPCION DESCRIPCION,
+  ACTIVO SI_NO_SI,
+  ID_TIPO_CONEXION ENTERO,
+  PROTOCOLO ENTERO,
+  PARAMETROCONEXION DESCRIPCION,
+  CONEXIONPING DESCRIPCION,
+  INTERVALOAGOTADO ENTERO,
+  INTERVALOENVIO ENTERO,
+  INVERVALOREINTENTO ENTERO,
+  VALIDEZMENSAJE ENTERO,
+  CONCATENARSMS ENTERO);
+
+
+ALTER TABLE CONFIGURACION ADD CONSTRAINT PK_CONFIGURACION PRIMARY KEY (ID_CONFIGURACION);
+
+/* Structure for the `SMS_ENTRADA` table :  */
+
+CREATE TABLE SMS_ENTRADA (
+  ID_SMS_ENTRADA ENTERO NOT NULL,
+  REMITENTE NUMERODESTINATARIO,
+  MENSAJE MENSAJE,
+  LEIDO SI_NO_SI,
+  FECHA FECHA,
+  HORA HORA,
+  ID_CLIENTE ENTERO);
+
+
+ALTER TABLE SMS_ENTRADA ADD CONSTRAINT PK_SMS_ENTRADA PRIMARY KEY (ID_SMS_ENTRADA);
+
+/* Definition for the `FIB$BOOLEAN` domain :  */
+
+CREATE DOMAIN FIB$BOOLEAN AS
+  SMALLINT
+  DEFAULT 1
+  NOT NULL
+  CHECK (VALUE IN (0,1));
+
+/* Structure for the `UCTABRIGHTS` table :  */
+
+CREATE TABLE UCTABRIGHTS (
+  UCIDUSER INTEGER,
+  UCMODULE VARCHAR(50),
+  UCCOMPNAME VARCHAR(50),
+  UCKEY VARCHAR(250));
+
+/* Structure for the `UCTABRIGHTSEX` table :  */
+
+CREATE TABLE UCTABRIGHTSEX (
+  UCIDUSER INTEGER,
+  UCMODULE VARCHAR(50),
+  UCCOMPNAME VARCHAR(50),
+  UCFORMNAME VARCHAR(50),
+  UCKEY VARCHAR(250));
+
+/* Structure for the `UCTABUSERS` table :  */
+
+CREATE TABLE UCTABUSERS (
+  UCIDUSER INTEGER,
+  UCUSERNAME VARCHAR(30),
+  UCLOGIN VARCHAR(30),
+  UCPASSWORD VARCHAR(250),
+  UCPASSEXPIRED CHAR(10),
+  UCUSEREXPIRED INTEGER,
+  UCUSERDAYSSUN INTEGER,
+  UCEMAIL VARCHAR(150),
+  UCPRIVILEGED INTEGER,
+  UCTYPEREC CHAR(1),
+  UCPROFILE INTEGER,
+  UCKEY VARCHAR(250));
+
+/* Definition for the `CEILING` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "CEILING"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_ceiling' MODULE_NAME 'ib_udf';
+
+/* Definition for the `FLOOR` UDF :  */
+
+DECLARE EXTERNAL FUNCTION "FLOOR"
+  DOUBLE PRECISION
+RETURNS DOUBLE PRECISION BY VALUE
+ENTRY_POINT 'IB_UDF_floor' MODULE_NAME 'ib_udf';
+
+/* Data for the 'EMAIL' table  (Records 1 - 22) */
+
+INSERT INTO EMAIL (ID_EMAIL, EMAIL, ASUNTO, CONTENIDO, ENVIADO, FECHA, HORA, MODULO, REFERENCIA)
+VALUES (1, 'mariomartinez@erp-solucion.com', 'Pago de cuota', 'Señor/a: MARIO MARTINEZ ZAPORITTI se ha registrado un pago de : 1550000 ENRRIQUE CACERES S.R.L.', 'N', '2012-06-27', NULL, 2, 1);
+
+INSERT INTO EMAIL (ID_EMAIL, EMAIL, ASUNTO, CONTENIDO, ENVIADO, FECHA, HORA, MODULO, REFERENCIA)
+VALUES (7, 'vilmaflorentin@hotmail.com', 'Pago de cuota', 'Señor/a: VILMA ADELA FLORENTIN ROMERO se ha registrado un pago de : 100000 ENRRIQUE CACERES S.R.L.', 'N', '2012-07-06', NULL, 2, 1);
+
+COMMIT WORK;
+
+
+
+/* Data for the 'SMS' table  (Records 1 - 500) */
+
+INSERT INTO SMS
+VALUES (3642, '0982-623-903', 'Prueba...', 'N', '2017-05-29', NULL, 0, 0, NULL, 3722);
+
+COMMIT WORK;
+
+
+
+/* Data for the 'ALDO' table  (Records 1 - 500) */
+
+INSERT INTO ALDO
+VALUES ('0981862674');
+
+INSERT INTO ALDO
+VALUES ('0986231313');
+
+
+/* Data for the 'ALDO' table  (Records 501 - 1000) */
+
+INSERT INTO ALDO
+VALUES ('0986226676');
+
+
+
+/* Data for the 'ALDO' table  (Records 20001 - 20001) */
+
+INSERT INTO ALDO
+VALUES ('');
+
+COMMIT WORK;
+
+/* Data for the 'TIPO_CONEXION' table  (Records 1 - 4) */
+
+INSERT INTO TIPO_CONEXION
+VALUES (1, 'Physical/Virtual COM Port');
+
+INSERT INTO TIPO_CONEXION
+VALUES (2, 'Infrarojo');
+
+INSERT INTO TIPO_CONEXION
+VALUES (3, 'Bluetooth');
+
+INSERT INTO TIPO_CONEXION
+VALUES (4, 'USB');
+
+COMMIT WORK;
+
+/* Data for the 'CONFIGURACION' table  (Records 1 - 1) */
+
+INSERT INTO CONFIGURACION
+VALUES (1, 'ZTE Modem', 'S', 1, 1, 'COM29, 9600', NULL, 1, 28, 1, 5, NULL);
+
+COMMIT WORK;
+
+/* Data for the 'SMS_ENTRADA' table  (Records 1 - 1) */
+
+INSERT INTO SMS_ENTRADA
+VALUES (1, '981268140', 'Recibido', 'S', '2014-07-08', '08:25:00', 1513);
+
+COMMIT WORK;
+
+/* Data for the 'UCTABRIGHTS' table  (Records 1 - 20) */
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'Configuraciones', 'ykusjB4R68Qy8mkoyso41D');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'SMSEnviado', 'ykfi3vQPL6IC33L');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'EnvioSMS', 'y8u2aWKyZQVc');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'GenerardeCuentaClientes', 'y0uc1uTvSzKVgCRl5NzDohATN4e48QgC');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'MensajeaLista', 'yceJIhuMftIFkBru8RF');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'MensajesLibres', 'yceJIhuMftoBSeRtfvvE');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'CerrarSesion', 'ykOuR6ebPJK8v3qbqD');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'CombioPass', 'ykusglBOB09DgXI');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'Perfilles', 'yov9RhQSMc1JiD');
+
+INSERT INTO UCTABRIGHTS
+VALUES (2, 'ERPSMSSEND', 'Usuarios', 'y8P6oKz09rNX');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'Configuraciones', 'xgZnolOjCkEMzGLAnWo/gA');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'SMSEnviado', 'xgYQjtnAeQud4kO');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'EnvioSMS', 'x45pC/vK3nDx');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'GenerardeCuentaClientes', 'xwZSaHK2Z3OdHIT1+XVFxKh4XPQnsWur');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'MensajeaLista', 'xY5M2YK9l232oD+a5eB');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'MensajesLibres', 'xY5M2YK9l2Xysh991b6d');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'CerrarSesion', 'xg5ldB2Pk9XmBtXTgB');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'CombioPass', 'xgZnrl5W38LBL5C');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'Perfilles', 'xsoErhGLWDpF0D');
+
+INSERT INTO UCTABRIGHTS
+VALUES (1, 'ERPSMSSEND', 'Usuarios', 'x4Ykk836A5LK');
+
+COMMIT WORK;
+
+/* Data for the 'UCTABUSERS' table  (Records 1 - 2) */
+
+INSERT INTO UCTABUSERS
+VALUES (1, 'admin', 'admin', 'jU/GVqfSaD', '24/06/2012', 0, 30, 'soporte@hoserpsolucion.com', -1, 'U', 0, 'xobOIWXveVL9x3I9DC');
+
+INSERT INTO UCTABUSERS
+VALUES (2, 'Mario Martinez', 'Mario2', '', '11/12/2015', 0, 10, '', -1, 'U', 0, 'yceIeO+VdB');
+
+COMMIT WORK;
+
+/* Structure for the `CONFIGURACION` table :  */
+
+ALTER TABLE CONFIGURACION ADD CONSTRAINT FK_ID_TIPO_CONEXION FOREIGN KEY (ID_TIPO_CONEXION) REFERENCES TIPO_CONEXION(ID_TIPO_CONEXION) ON UPDATE CASCADE;
+
+/* Privileges for the `ALDO` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON ALDO TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `CONFIGURACION` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON CONFIGURACION TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `EMAIL` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON EMAIL TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `SMS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON SMS TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `SMS_ENTRADA` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON SMS_ENTRADA TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `TIPO_CONEXION` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON TIPO_CONEXION TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `UCTABRIGHTS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON UCTABRIGHTS TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `UCTABRIGHTSEX` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON UCTABRIGHTSEX TO SYSDBA WITH GRANT OPTION;
+
+
+/* Privileges for the `UCTABUSERS` :  */
+
+
+GRANT SELECT, INSERT, DELETE, REFERENCES, UPDATE ON UCTABUSERS TO SYSDBA WITH GRANT OPTION;

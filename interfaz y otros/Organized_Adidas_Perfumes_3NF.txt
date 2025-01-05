@@ -1,0 +1,20 @@
+-- Tabla Marca
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (1, 'esta campaña de marketing digital de tres meses');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (2, 'Forever');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (3, 'Fantasy Britney Spears kit');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (4, 'Calvin Klein Eternity for Men');
+INSERT INTO Marca (id_marca, nombre_marca) VALUES (5, 'Nuez moscada');
+
+-- Tabla Perfume
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (1, 'Reseda', Violeta, Frésia, 'Melocotón', 'Notas marinas', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (2, 'Britney Spears Fantasy Twist 2 in 1', Britney Spears Fantasy Kit 100, Britney Spears Fantasy Anniversary: Mujer (18-30 años), 'dulce. Beneficios: Fragancias gourmand y florales', 'joven', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (3, 'Fashionista', Cute, Story of New Brand, 'que busca fragancias para el día a día a precios accesibles. Beneficios: Aromas frescos y juveniles.', 'Hola): Público joven (15-25 años)', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (4, 'Chanel Bleu de Chanel', Dolce & Gabbana Light Blue, Giorgio Armani Acqua di Gio, 'Versace Eros', 'Lancôme La Vie Est Belle', '');
+INSERT INTO Perfume (id_perfume, nombre_perfume, costo, precio_venta_contado, segmento, franja_etaria, ocasion) VALUES (5, 'junto con la clasificación detallada de los productos', el reconocimiento de marca y las ventas de las fragancias. Al aprovechar las fechas especiales como la primavera y la Navidad, y utilizar una combinación de estrategias en Facebook, 'la marca podrá conectarse con su público objetivo de manera efectiva y generar resultados tangibles.', 'YouTube y WhatsApp', '');
+
+-- Tabla Presentacion
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (1, 'Notas de Corazón: Ciclamen', Cilantro);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (2, 'Fantasy Britney Spears', Britney Spears Cosmic Radiance);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (3, 'Fragancias con nombres genéricos (Unic', Monaco);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (4, 'Eau de Toilette (EDT): Adidas Team Five Special Edition', Dior Sauvage);
+INSERT INTO Presentacion (id_presentacion, codigo_barra, tamano_ml) VALUES (5, 'En conclusión', ayudará a aumentar la visibilidad);

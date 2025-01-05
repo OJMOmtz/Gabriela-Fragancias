@@ -1,0 +1,2076 @@
+import os
+import sqlite3
+import pyodbc
+import xml.etree.ElementTree as ET
+from configparser import ConfigParser
+from typing import Dict, List, Optional, Any
+
+import geopandas as gpd
+from shapely.geometry import Point, LineString, Polygon
+
+
+def load_config(config_file_path="config.ini") -> ConfigParser:
+    config = ConfigParser()
+    try:
+        with open(config_file_path, 'r') as f:
+            config.read_file(f)
+        return config
+    except FileNotFoundError:
+        print(f"Error: Configuration file '{config_file_path}' not found.")
+        return None
+
+
+def analyze_kml_file(file_path: str) -> Optional[Dict[str, List[str]]]:
+    try:
+        tree = ET.parse(file_path)
+        root = tree.getroot()
+        placemarks = root.findall(".//{http://www.opengis.net/kml/2.2}Placemark")
+        structure = {"Placemarks": [placemark.find("{http://www.opengis.net/kml/2.2}name").text for placemark in placemarks if placemark.find("{http://www.opengis.net/kml/2.2}name") is not None]}
+        return structure
+    except ET.ParseError as e:
+        print(f"Error al analizar el archivo KML {file_path}: {str(e)}")
+        return None
+
+
+def analyze_gpx_file(file_path: str) -> Optional[Dict[str, List[str]]]:
+    try:
+        tree = ET.parse(file_path)
+        root = tree.getroot()
+        waypoints = root.findall(".//{http://www.topografix.com/GPX/1/1}wpt")
+        structure = {"Waypoints": [wpt.find("{http://www.topografix.com/GPX/1/1}name").text for wpt in waypoints if wpt.find("{http://www.topografix.com/GPX/1/1}name") is not None]}
+        return structure
+    except ET.ParseError as e:
+        print(f"Error al analizar el archivo GPX {file_path}: {str(e)}")
+        return None
+
+
+def analyze_access_database(db_path: str) -> Optional[Dict[str, Any]]:
+    try:
+        conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ='+db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT Name FROM MSysObjects WHERE Type=1 AND Name NOT LIKE 'MSys*'")
+        tables = [row.Name for row in cursor.fetchall()]
+        structure = {"Tablas": tables}
+        return structure
+    except pyodbc.Error as e:
+        print(f"Error al analizar la base de datos Access {db_path}: {str(e)}")
+        return None
+
+
+def analyze_spatialite_database(db_path: str, spatialite_path: str) -> Optional[Dict[str, Any]]:
+    try:
+        conn = sqlite3.connect(db_path)
+        conn.enable_load_extension(True)
+        conn.load_extension(spatialite_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = [row[0] for row in cursor.fetchall()]
+        structure = {"Tablas": tables}
+        return structure
+    except sqlite3.Error as e:
+        print(f"Error al analizar la base de datos Spatialite {db_path}: {str(e)}")
+        return None
+
+
+def analyze_database(db_path: str, db_type: str, config: ConfigParser) -> Optional[Dict[str, Any]]:
+    if db_type == "access":
+        return analyze_access_database(db_path)
+    elif db_type == "spatialite":
+        spatialite_path = config.get('Paths', 'spatialite_path', fallback=None)
+        if spatialite_path:
+            return analyze_spatialite_database(db_path, spatialite_path)
+        else:
+            print("Ruta de Spatialite no especificada en config.ini. No se puede analizar la base de datos Spatialite.")
+            return None
+    elif db_type == "kml":
+        return analyze_kml_file(db_path)
+    elif db_type == "gpx":
+        return analyze_gpx_file(db_path)
+    else:
+        return None
+
+
+def main():
+    config = load_config()
+    databases = dict(config.items('Databases'))
+
+    for db_section, db_info in databases.items():
+        db_path, db_type = db_info.split(',')
+        db_path = db_path.strip()
+        db_type = db_type.strip().lower()
+
+        print(f"Analizando {db_section}...")
+        db_structure = analyze_database(db_path, db_type, config)
+
+        if db_structure is not None:
+            print(f"Estructura de la base de datos {db_section}:")
+            for table, items in db_structure.items():
+                print(f"  Tabla/Elemento: {table}")
+                for item in items:
+                    print(f"    Columna/Item: {item}")
+                print()
+        else:
+            print(f"No se pudo analizar la base de datos {db_section}")
+        print()
+
+if __name__ == "__main__":
+    main()
+
+[Paths]
+spatialite_path = D:\SOFTWARE\GPS\Spatialite\mod_spatialite-5.1.0-win-amd64\mod_spatialite.dll
+
+[Databases]
+Atlas2007_PY = D:\SOFTWARE\EDUCATIVOS\Atlas2007_PY\DataBases\MyData.mdb, access
+WORLDMAP = D:\SOFTWARE\GPS\WORLDMAP\Tdb\worldmap.tdb, spatialite
+GoogleEarth = D:\SOFTWARE\GPS\Google Earth lugares\Google\GoogleEarth\myplaces.kml, kml
+Garmin = D:\SOFTWARE\GPS\Garmin\Backups\1CA616187\2022-06-27 (16.10.32)\Garmin\gpx\Current.gpx, gpx
+
+[Atlas2007_PY]
+table_name = tu_tabla
+fields = campo1, campo2, campo3
+
+[WORLDMAP]
+table_name = tu_tabla
+geom_field = tu_campo_geometria
+
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\OJMO>pip install pyodbc
+Collecting pyodbc
+  Using cached pyodbc-5.1.0.tar.gz (115 kB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Building wheels for collected packages: pyodbc
+  Building wheel for pyodbc (pyproject.toml) ... error
+  error: subprocess-exited-with-error
+
+  × Building wheel for pyodbc (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [13 lines of output]
+      WARNING: '' not a valid package name; please use only .-separated package names in setup.py
+      running bdist_wheel
+      running build
+      running build_py
+      creating build\lib.win-amd64-cpython-313
+      copying src\pyodbc.pyi -> build\lib.win-amd64-cpython-313
+      running build_ext
+      building 'pyodbc' extension
+      creating build\temp.win-amd64-cpython-313\Release\src
+      "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.41.34120\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -DPYODBC_VERSION=5.1.0 -IC:\Users\OJMO\AppData\Local\Programs\Python\Python313\include -IC:\Users\OJMO\AppData\Local\Programs\Python\Python313\Include "-IC:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.41.34120\include" "-IC:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\VS\include" "-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" /EHsc /Tpsrc\cnxninfo.cpp /Fobuild\temp.win-amd64-cpython-313\Release\src\cnxninfo.obj /Wall /wd4514 /wd4820 /wd4668 /wd4711 /wd4100 /wd4127 /wd4191 /d2FH4-
+      cnxninfo.cpp
+      C:\Users\OJMO\AppData\Local\Temp\pip-install-ts7gqcmm\pyodbc_2090989279314a6fa0e3d064dbc2f795\src\pyodbc.h(19): fatal error C1083: No se puede abrir el archivo incluir: 'windows.h': No such file or directory
+      error: command 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX86\\x64\\cl.exe' failed with exit code 2
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for pyodbc
+Failed to build pyodbc
+ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (pyodbc)cmd
+
+D:\SOFTWARE\GPS\maps[1].kml
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pydpto.dbf
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pymuni.dbf
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pydpto.sbn
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pymuni.sbn
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pydpto.sbx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pymuni.sbx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pydpto.shp
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pymuni.shp
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pydpto.shx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2005\Datos\Total\pymuni.shx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\FOXUSER.DBF
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pydpto.dbf
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pymuni.dbf
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\sanpedis.dbf
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pydpto.sbn
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pymuni.sbn
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\sanpedis.sbn
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pydpto.sbx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pymuni.sbx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\sanpedis.sbx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pydpto.shp
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pymuni.shp
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\sanpedis.shp
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pydpto.shx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\pymuni.shx
+D:\SOFTWARE\GPS\Atlas de Desarrollo Humano Paraguay 2007\Shapes\sanpedis.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\DIAGRAMA.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\hojas25.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\orto5.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\orto5.sbn
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\orto5.sbx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\DIAGRAMA.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\hojas25.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\orto5.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\DIAGRAMA.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\hojas25.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\DIAGRAMA DE ORTOFOTOS\orto5.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\capitales.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\DEPARTAMENTOS AFECTADOS.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\franja 1.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\linea de seguridad fronteriza.dbf
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\capitales.sbn
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\franja 1.sbn
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\linea de seguridad fronteriza.sbn
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\capitales.sbx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\franja 1.sbx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\linea de seguridad fronteriza.sbx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\capitales.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\departamentos afectados.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\franja 1.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\linea de seguridad fronteriza.shp
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\capitales.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\departamentos afectados.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\franja 1.shx
+D:\SOFTWARE\GPS\CURSO GPS - INDERT\MAPA SEGURIDAD FRONTERIZA\linea de seguridad fronteriza.shx
+D:\SOFTWARE\GPS\DATOSGOVPY\DEPARTAMENTOS_PY_CNPV2022.geojson
+D:\SOFTWARE\GPS\DATOSGOVPY\DISTRITOS_PY_CNPV2022.geojson
+D:\SOFTWARE\GPS\DATOSGOVPY\DEPARTAMENTOS_PY_CNPV2022.kml
+D:\SOFTWARE\GPS\DATOSGOVPY\DISTRITOS_PY_CNPV2022.kml
+D:\SOFTWARE\GPS\DATOSGOVPY\DEPARTAMENTOS_PY_CNPV2022.shp
+D:\SOFTWARE\GPS\DATOSGOVPY\DISTRITOS_PY_CNPV2022.shp
+D:\SOFTWARE\GPS\Google Earth lugares\Google\GoogleEarth\myplaces.backup.kml
+D:\SOFTWARE\GPS\Google Earth lugares\Google\GoogleEarth\myplaces.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distrito_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Barrios_Localidades_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Ciudades_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Departamento_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Distritos_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Hidrografia_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Manzanas_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias principales_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\00 ASUNCIÓN\Vias_Asuncion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Barrios_Localidades_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Ciudades_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Departamento_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Distritos_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Hidrografia_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Manzanas_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias principales_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\01 CONCEPCION\Vias_Concepcion.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Barrios_Localidades_San_Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Ciudades_San Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Departamento_San_Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Distritos_San_Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Hidrografia_San Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Manzanas_San Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias principales_San Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\02 SAN PEDRO\Vias_San_Pedro.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Barrios_Localidades_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Ciudades_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Departamento_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Distritos_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Hidrografia_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Manzanas_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias principales_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\03 CORDILLERA\Vias_Cordillera.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Barrios_Localidades_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Ciudades_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Departamento_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Distritos_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Hidrografia_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Manzanas_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias principales_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\04 GUAIRÁ\Vias_Guaira.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Barrios_Localidades_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Ciudades_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Departamento_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Distritos_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Hidrografia_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Manzanas_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias principales_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\05 CAAGUAZÚ\Vias_Caaguazu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Barrios_Localidades_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Ciudades_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Departamento_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Distritos_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Hidrografia_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Manzanas_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias principales_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\06 CAAZAPÁ\Vias_Caazapa.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Barrios_Localidades_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Ciudades_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Departamento_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Distritos_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Hidrografia_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Manzanas_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias principales_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\07 ITAPÚA\Vias_Itapua.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Barrios_Localidades_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Ciudades_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Departamento_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Distritos_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Hidrografia_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Manzanas_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias principales_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\08 MISIONES\Vias_Misiones.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Barrios_Localidades_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Ciudades_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Departamento_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Distritos_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Hidrografia_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Manzanas_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias principales_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\09 PARAGUARÍ\Vias_Paraguari.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto_Parana.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto_Parana.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Barrios_Localidades_Alto_Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Ciudades_Alto Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Departamento_Alto_Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Distritos_Alto_Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Hidrografia_Alto Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Manzanas_Alto Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias principales_Alto Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\10 ALTO PARANÁ\Vias_Alto Parana.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Barrios_Localidades_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Ciudades_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Departamento_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Distritos_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Hidrografia_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Manzanas_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias principales_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\11 CENTRAL\Vias_Central.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Barrios_Localidades_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Ciudades_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Departamento_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Distritos_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Hidrografia_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Manzanas_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias principales_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\12 ÑEEMBUCÚ\Vias_Ñeembucu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Barrios_Localidades_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Ciudades_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Departamento_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Distritos_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Hidrografia_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Manzanas_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias principales_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\13 AMAMBAY\Vias_Amambay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Barrios_Localidades_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Ciudades_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Departamento_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Distritos_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Hidrografia_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Manzanas_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias principales_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\14 CANINDEYU\Vias_Canindeyu.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Barrios_Localidades_Presidente_Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Ciudades_Presidente Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Departamento_Presidente_Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Distritos_Presidente_Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Hidrografia_Presidente Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Manzanas_Presidente Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias principales_Presidente Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\15 PRESIDENTE HAYES\Vias_Presidente_Hayes.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Barrios_Localidades_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Ciudades_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Departamento_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Distritos_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Hidrografia_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Manzanas_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias principales_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\16 BOQUERÓN\Vias_Boqueron.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Barrios_Localidades_Alto_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Ciudades_Alto Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Departamento_Alto_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Distritos_Alto_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Hidrografia_Alto Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Manzanas_Alto Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias principales_Alto Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\17 ALTO PARAGUAY\Vias_Alto Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_DE_SALUD_DGEEC2012.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_EDUCATIVOS_DGEEC2012.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\Códigos cartográficos\LOCALES_POLICIALES_DGEEC2012.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.geojson
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.dbf
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.kml
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.cpg
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.prj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.qpj
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.sbn
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.sbx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.shp
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Barrios_Localidades_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Ciudades_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Comunidades_Indigenas_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Departamentos_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Distritos_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Hidrografia_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Manzanas_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias principales_Paraguay.shx
+D:\SOFTWARE\GPS\INEC\CARTOGRAFÍA\PAIS\Vias_Paraguay.shx
+D:\SOFTWARE\GPS\Mapas\Caminos Nacionales\cami.dbf
+D:\SOFTWARE\GPS\Mapas\Caminos Nacionales\cami.sbn
+D:\SOFTWARE\GPS\Mapas\Caminos Nacionales\cami.sbx
+D:\SOFTWARE\GPS\Mapas\Caminos Nacionales\cami.shp
+D:\SOFTWARE\GPS\Mapas\Caminos Nacionales\cami.shx
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\curva de nivel.dbf
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\table2.dbf
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\curva de nivel.sbn
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\curva de nivel.sbx
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\curva de nivel.shp
+D:\SOFTWARE\GPS\Mapas\Curva Nivel\curva de nivel.shx
+D:\SOFTWARE\GPS\Mapas\Curvas\curva de nivel.dbf
+D:\SOFTWARE\GPS\Mapas\Curvas\curva de nivel.sbn
+D:\SOFTWARE\GPS\Mapas\Curvas\curva de nivel.sbx
+D:\SOFTWARE\GPS\Mapas\Curvas\curva de nivel.shp
+D:\SOFTWARE\GPS\Mapas\Curvas\curva de nivel.shx
+D:\SOFTWARE\GPS\Mapas\IMAGEN\Agosto 2005\table11.dbf
+D:\SOFTWARE\GPS\Mapas\Punto GPS\Menno.dbf
+D:\SOFTWARE\GPS\Mapas\Punto GPS\table6.dbf
+
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+========== RESTART: D:\IA provechar\GPS_DB_ANALYZER\GPS_DB_ANALYZER.py =========
+Analyzing atlas2007_py...
+Error analyzing Access database D:\SOFTWARE\EDUCATIVOS\Atlas2007_PY\DataBases\MyData.mdb: ('42S02', "[42S02] [Microsoft][ODBC Microsoft Access Driver] The Microsoft Access database engine cannot find the input table or query 'tu_tabla'. Make sure it exists and that its name is spelled correctly. (-1305) (SQLExecDirectW)")
+Failed to analyze the database atlas2007_py
+
+Analyzing worldmap...
+Error analyzing Spatialite database D:\SOFTWARE\GPS\WORLDMAP\Tdb\worldmap.tdb: No se puede encontrar el módulo especificado.
+
+Failed to analyze the database worldmap
+
+Analyzing googleearth...
+Error analyzing KML file D:\SOFTWARE\GPS\Google Earth lugares\Google\GoogleEarth\myplaces.kml: could not convert string to float: '\n\t\t\t\t\t'
+Failed to analyze the database googleearth
+
+Analyzing garmin...
+Structure of the database garmin:
+  name                     geometry
+0  001  POINT (-44.90484 -25.27246)
+1  009  POINT (-56.03614 -25.45515)
+2  010  POINT (-55.69739 -25.37801)
+3  011  POINT (-55.79406 -25.45187)
+4  012  POINT (-56.07484 -25.50249)
+
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+========== RESTART: D:\IA provechar\GPS_DB_ANALYZER\GPS_DB_ANALYZER.py =========
+Analizando atlas2007_py...
+Error al analizar D:\SOFTWARE\EDUCATIVOS\Atlas2007_PY\DataBases\MyData.mdb: ('42000', "[42000] [Microsoft][ODBC Microsoft Access Driver] Record(s) cannot be read; no read permission on 'MSysObjects'. (-1907) (SQLExecDirectW)")
+No se pudo analizar la base de datos atlas2007_py
+
+Analizando worldmap...
+Error al analizar D:\SOFTWARE\GPS\WORLDMAP\Tdb\worldmap.tdb: No se puede encontrar el módulo especificado.
+
+No se pudo analizar la base de datos worldmap
+
+Analizando googleearth...
+Estructura de la base de datos googleearth:
+  Tabla/Elemento: Placemarks
+    Columna/Item: La Torre Eiffel
+    Columna/Item: El Cristo Redentor
+    Columna/Item: El Gran Cañón del Colorado
+    Columna/Item: Sidney
+    Columna/Item: Basílica de San Pedro
+    Columna/Item: El London Eye
+    Columna/Item: El Titanic
+    Columna/Item: La Ciudad Prohibida
+    Columna/Item: El Monte Fuji
+    Columna/Item: La Casa Central de Google
+    Columna/Item: Mamá a Christian
+    Columna/Item: Mamá a Ariel
+    Columna/Item: Mamá a Jorge
+    Columna/Item: Arroyito
+    Columna/Item: Granja Martínez Barreto
+    Columna/Item: Abuela EDE
+    Columna/Item: Sandra Cano
+    Columna/Item: Jorge y Liz
+    Columna/Item: Medina Oliveira
+    Columna/Item: Gustavo
+
+
+Analizando garmin...
+Estructura de la base de datos garmin:
+  Tabla/Elemento: Waypoints
+    Columna/Item: 001
+    Columna/Item: 009
+    Columna/Item: 010
+    Columna/Item: 011
+    Columna/Item: 012
+    Columna/Item: 013
+    Columna/Item: 014
+    Columna/Item: 015
+    Columna/Item: 016
+    Columna/Item: 017
+    Columna/Item: 018
+    Columna/Item: 019
+    Columna/Item: 020
+    Columna/Item: 021
+    Columna/Item: 022
+    Columna/Item: 023
+    Columna/Item: 024
+    Columna/Item: 025
+    Columna/Item: 026
+    Columna/Item: 027
+    Columna/Item: 028
+    Columna/Item: 1ra Linea S Miguel
+    Columna/Item: 20 de Noviembre
+    Columna/Item: 2da Twcuru Pyta
+    Columna/Item: 6ta 3 De Febrero
+    Columna/Item: Adesa
+    Columna/Item: Afsa
+    Columna/Item: Agro San Luis
+    Columna/Item: Agroeco
+    Columna/Item: Agroindustrial Sta Isabel
+    Columna/Item: Agroriego
+    Columna/Item: Agua Sta Rosa
+    Columna/Item: Alberto Silva
+    Columna/Item: Alcotec
+    Columna/Item: Alcousina
+    Columna/Item: Algonera Guarani42546
+    Columna/Item: Almisa
+    Columna/Item: Almisur
+    Columna/Item: Arroyito
+    Columna/Item: Aserradero Lapacho
+    Columna/Item: Azpa
+    Columna/Item: Azpa 001
+    Columna/Item: B. Peralta
+    Columna/Item: Balneario Czu
+    Columna/Item: Barretos
+    Columna/Item: Barrio Cerrado Las Palmera
+    Columna/Item: Basilio Hellman
+    Columna/Item: Br Fusa
+    Columna/Item: C J D
+    Columna/Item: C Silva
+    Columna/Item: Cabañas Elec
+    Columna/Item: Cabañas Electric
+    Columna/Item: Calle4 Virgen Del Carmen
+    Columna/Item: Camino Pavimentado
+    Columna/Item: Camino Pavimentado 1
+    Columna/Item: Campo Electric
+    Columna/Item: Carlos Medina
+    Columna/Item: Carretera
+    Columna/Item: Carretera & Carretera
+    Columna/Item: Carretera sin asfaltar
+    Columna/Item: Casa Vera
+    Columna/Item: Ceproh
+    Columna/Item: Cerealista Campo 9
+    Columna/Item: Cerro Cora & Carretera sin asf
+    Columna/Item: Cirilo R
+    Columna/Item: Colonia Florido
+    Columna/Item: Com
+    Columna/Item: Com De Ag Primera Dama
+    Columna/Item: Com Pa I Ha
+    Columna/Item: Com Patiño Zanjá
+    Columna/Item: Com Piroy
+    Columna/Item: Com Puente Vaba2
+    Columna/Item: Com Puente Vava
+    Columna/Item: Com San Miguel
+    Columna/Item: Com Sta Lucia
+    Columna/Item: Comagro Asuncion
+    Columna/Item: Comagro Czu
+    Columna/Item: Comite 20 De Julio
+    Columna/Item: Comite De Prod Blas Garay
+    Columna/Item: Const Metalica E B
+    Columna/Item: Cooka
+    Columna/Item: Coop Bergthal
+    Columna/Item: Coop Capiibary
+    Columna/Item: Coop Cnel Oviedo
+    Columna/Item: Coop Cnel Oviedo 001
+    Columna/Item: Cristian David
+    Columna/Item: Delia Elisa
+    Columna/Item: Dls
+    Columna/Item: Dr. Roberto L. Pettit
+    Columna/Item: Electri Campo 9
+    Columna/Item: Electricmotor
+    Columna/Item: Electro Campo 9
+    Columna/Item: Electromotor
+    Columna/Item: Enrique Remmele
+    Columna/Item: Estancia Loma
+    Columna/Item: Expeller Srl
+    Columna/Item: Fac Una
+    Columna/Item: Ferret Alianza
+    Columna/Item: Ferrizar
+    Columna/Item: Fibrac
+    Columna/Item: Fund Granular
+    Columna/Item: Gallin Isck Hildebrand
+    Columna/Item: Gallineria Ernie Friwsen
+    Columna/Item: Gallineria Gonzalez
+    Columna/Item: Garcci Mercantil
+    Columna/Item: Garmin Asia
+    Columna/Item: Garmin Europe
+    Columna/Item: Garmin USA
+    Columna/Item: Gerhar Huber 50061810
+    Columna/Item: German Gauto
+    Columna/Item: Global Cia
+    Columna/Item: Granjero Campo 9
+    Columna/Item: Grevilsi S A
+    Columna/Item: Grupo Gpsa
+    Columna/Item: H Acosta Ñu
+    Columna/Item: H F Molinos
+    Columna/Item: Herreria Boli
+    Columna/Item: Hierros Y Afines
+    Columna/Item: Hierros Y Afines 1
+    Columna/Item: Hilagro
+    Columna/Item: Hilopar
+    Columna/Item: Impa
+    Columna/Item: Industrial Electric
+    Columna/Item: Inicio
+    Columna/Item: Javi
+    Columna/Item: Jobay
+    Columna/Item: Joel Jara
+    Columna/Item: Jose Nuñez
+    Columna/Item: Jra Calle Gimenez
+    Columna/Item: Jra De Repatriacion
+    Columna/Item: Jra De San Antonio G
+    Columna/Item: Jta 1 De Marzo
+    Columna/Item: Jta 1 De Mayo
+    Columna/Item: Jta 1 Linea Chacore
+    Columna/Item: Jta 1ra San Miguel
+    Columna/Item: Jta 2 Linea Manduara
+    Columna/Item: Jta 2 Linea Sta Rosa
+    Columna/Item: Jta 2da Linea Sto Domingo
+    Columna/Item: Jta 3 Linea San Miguel
+    Columna/Item: Jta 3ra Ka A Mindy
+    Columna/Item: Jta 3ra San Isidro
+    Columna/Item: Jta 4 Linea E Garay
+    Columna/Item: Jta 6 Linea Delgado
+    Columna/Item: Jta 8 Lunea W Inf
+    Columna/Item: Jta Aguapety
+    Columna/Item: Jta Añaretangue
+    Columna/Item: Jta Arroyito
+    Columna/Item: Jta Arroyo Guazu
+    Columna/Item: Jta Balanza
+    Columna/Item: Jta Barrio Sta Ana
+    Columna/Item: Jta Blas Garay 1
+    Columna/Item: Jta Boqueron
+    Columna/Item: Jta Brasil Cue
+    Columna/Item: Jta C Esp
+    Columna/Item: Jta Caaguazu
+    Columna/Item: Jta Caballero 3linea
+    Columna/Item: Jta Caballero Alv Norte
+    Columna/Item: Jta Caita
+    Columna/Item: Jta Calle 20
+    Columna/Item: Jta Calle 4
+    Columna/Item: Jta Calle 5
+    Columna/Item: Jta Calle 7
+    Columna/Item: Jta Calle 8 5122
+    Columna/Item: Jta Calle Piribebuy
+    Columna/Item: Jta Calle Victoria
+    Columna/Item: Jta Cancha 12
+    Columna/Item: Jta Capiibary
+    Columna/Item: Jta Capitan Cue
+    Columna/Item: Jta Carlos Pfannl
+    Columna/Item: Jta Cecilio Baez
+    Columna/Item: Jta Chaco I
+    Columna/Item: Jta Chaco I 001
+    Columna/Item: Jta Col Navile
+    Columna/Item: Jta Concepcion Mi
+    Columna/Item: Jta Cora Guazu
+    Columna/Item: Jta De 5 Linea W Insfran
+    Columna/Item: Jta De Borja
+    Columna/Item: Jta De Caazapa
+    Columna/Item: Jta De Carayao
+    Columna/Item: Jta De Maciel
+    Columna/Item: Jta De Pastoreo
+    Columna/Item: Jta De San Jose Centro
+    Columna/Item: Jta Empalado
+    Columna/Item: Jta Gral Garay
+    Columna/Item: Jta Gral Morinigo
+    Columna/Item: Jta Guayaki
+    Columna/Item: Jta Guyraungua
+    Columna/Item: Jta Irrazabal Norte
+    Columna/Item: Jta Ita Planchon
+    Columna/Item: Jta Itacurubi
+    Columna/Item: Jta Itacurubi 001
+    Columna/Item: Jta Itape
+    Columna/Item: Jta Ko E Pyahu
+    Columna/Item: Jta Ko Erory
+    Columna/Item: Jta M J Troche
+    Columna/Item: Jta Ma Auxiliadora
+    Columna/Item: Jta Mallorquin
+    Columna/Item: Jta Montanaro
+    Columna/Item: Jta Ñurugua
+    Columna/Item: Jta Ocampos
+    Columna/Item: Jta Oleary
+    Columna/Item: Jta Oveña
+    Columna/Item: Jta Pa I Ha2
+    Columna/Item: Jta Pañetey
+    Columna/Item: Jta Peyupa
+    Columna/Item: Jta Piri Poty
+    Columna/Item: Jta Piri Poty1
+    Columna/Item: Jta Potrero Del Carmen
+    Columna/Item: Jta Potrero Del Carmen2
+    Columna/Item: Jta Potrero Jardin
+    Columna/Item: Jta Potrero Ubaldina
+    Columna/Item: Jta Pozo 5
+    Columna/Item: JtA Pueblo De Dios
+    Columna/Item: Jta Puentecita
+    Columna/Item: Jta Punta Suerte
+    Columna/Item: Jta Raul Oviedo
+    Columna/Item: Jta Ri 6 Boqueron
+    Columna/Item: Jta San Blas
+    Columna/Item: Jta San Estanilado
+    Columna/Item: Jta San Francisco
+    Columna/Item: Jta San Francisco Caañada
+    Columna/Item: Jta San Francisco Maciel
+    Columna/Item: Jta San Gervacio
+    Columna/Item: Jta San Jose Puentecita
+    Columna/Item: Jta San Juan N
+    Columna/Item: Jta San Miguel Tacuru Pyta
+    Columna/Item: Jta Sanja Pyra
+    Columna/Item: Jta Saro Caro
+    Columna/Item: Jta Sinforino Bogarin
+    Columna/Item: Jta Sta Cecilia
+    Columna/Item: Jta Sta Librada
+    Columna/Item: Jta Sta Teresita
+    Columna/Item: Jta Sto Domingo
+    Columna/Item: Jta Sto Domingo2
+    Columna/Item: Jta Tacuapi
+    Columna/Item: Jta Tacuapi2
+    Columna/Item: Jta Tacuru
+    Columna/Item: Jta Tacuru Pyta
+    Columna/Item: Jta Taruma
+    Columna/Item: Jta Torin
+    Columna/Item: Jta Tuyu Pucu
+    Columna/Item: Jta Tuyuti
+    Columna/Item: Jta Vaicho
+    Columna/Item: Jta Yaguakai
+    Columna/Item: Jta Yegros
+    Columna/Item: Jta Yhaca Mi
+    Columna/Item: Jta Yhovy Central
+    Columna/Item: Jta Yhu
+    Columna/Item: Jta1 Linea E Garay
+    Columna/Item: Jtablas Garay
+    Columna/Item: Jtade Caazapa
+    Columna/Item: Junta Celano
+    Columna/Item: Junta Natalicio
+    Columna/Item: Junta Sta Rosa
+    Columna/Item: Komite Civil Somm
+    Columna/Item: Konther Metalurg
+    Columna/Item: Lactolanda
+    Columna/Item: M Colonial
+    Columna/Item: M R Perforaciones
+    Columna/Item: Ma Auxiliadora
+    Columna/Item: Mana
+    Columna/Item: Marcelo martinez
+    Columna/Item: Mario Campyzano
+    Columna/Item: Mennobrown
+    Columna/Item: Merco
+    Columna/Item: Metal Y Serv V V
+    Columna/Item: Miguel Rojas
+    Columna/Item: Monje Jhugua
+    Columna/Item: Monje Paso
+    Columna/Item: MPM Parquet
+    Columna/Item: Myh0use
+    Columna/Item: Neualco
+    Columna/Item: Nil Center
+    Columna/Item: Panglea Internacional
+    Columna/Item: Paraleva
+    Columna/Item: Payco
+    Columna/Item: Payco  001
+    Columna/Item: Payco Rosario
+    Columna/Item: Peter Dueck
+    Columna/Item: Petrobras Walter F
+    Columna/Item: Petrosur Sta Lucia
+    Columna/Item: Plantec
+    Columna/Item: Potrero Villar
+    Columna/Item: Pym
+    Columna/Item: Rancho  Alegre
+    Columna/Item: Rectif Campo 9
+    Columna/Item: Rectif Humplmaier
+    Columna/Item: Rn7
+    Columna/Item: Rn7 1
+    Columna/Item: Roberto Mongez
+    Columna/Item: Rotonda Melgarejo
+    Columna/Item: San Ramon
+    Columna/Item: San Roque
+    Columna/Item: San Ypora
+    Columna/Item: Schroeder Y Cia
+    Columna/Item: Semagro
+    Columna/Item: Semic
+    Columna/Item: Soja Rica
+    Columna/Item: Sol Blanca
+    Columna/Item: Taller Ma Auxil
+    Columna/Item: Taller San Antonio
+    Columna/Item: Tape
+    Columna/Item: Tarumac Carpa Cue
+    Columna/Item: Textilia
+    Columna/Item: Todo Manguera
+    Columna/Item: Torneria Campo 8
+    Columna/Item: Transagro
+    Columna/Item: Truckservis
+    Columna/Item: Villa San Juan 2
+    Columna/Item: Villaa Saan Juan
+    Columna/Item: Vpa Altona
+    Columna/Item: Woodchisp
+    Columna/Item: Zulia
+    Columna/Item: Zulia 1
+	
+-- Tabla RutaVenta
+CREATE TABLE RutaVenta (
+   id_ruta SERIAL PRIMARY KEY,
+   id_vehiculo INTEGER REFERENCES Vehiculo(id_vehiculo),
+   fecha DATE
+);
+
+-- Tabla de Tracking GPS
+CREATE TABLE tracking_gps (
+    id_tracking SERIAL PRIMARY KEY,
+    id_vehiculo INT REFERENCES vehiculos(id_vehiculo),
+    latitud DECIMAL(9, 6),
+    longitud DECIMAL(9, 6),
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de Proveedores
+CREATE TABLE proveedores (
+    id_proveedor SERIAL PRIMARY KEY,
+    ruc VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    direccion TEXT,
+    telefono VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- Tabla de Compras a Proveedores
+CREATE TABLE compras_proveedores (
+    id_compra SERIAL PRIMARY KEY,
+    id_proveedor INT REFERENCES proveedores(id_proveedor),
+    fecha_compra DATE DEFAULT CURRENT_DATE,
+    total DECIMAL(10, 2)
+);
+
+-- Tabla de Detalles de Compra
+CREATE TABLE detalles_compra (
+    id_detalle SERIAL PRIMARY KEY,
+    id_compra INT REFERENCES compras_proveedores(id_compra),
+    id_producto INT REFERENCES productos(id_producto),
+    cantidad INT,
+    precio_unitario DECIMAL(10, 2),
+    subtotal DECIMAL(10, 2)
+);
+-- Tabla Departamento
+CREATE TABLE Departamento (
+    id_departamento SERIAL PRIMARY KEY,
+    nombre_departamento VARCHAR(100) NOT NULL,
+    codigo_departamento VARCHAR(10) UNIQUE NOT NULL
+);
+
+-- Tabla Municipio
+CREATE TABLE Municipio (
+    id_municipio SERIAL PRIMARY KEY,
+    id_departamento INTEGER REFERENCES Departamento(id_departamento),
+    nombre_municipio VARCHAR(100) NOT NULL,
+    codigo_municipio VARCHAR(10) UNIQUE NOT NULL
+);
+
+-- Tabla Zona
+CREATE TABLE Zona (
+    id_zona SERIAL PRIMARY KEY,
+    id_municipio INTEGER REFERENCES Municipio(id_municipio),
+    nombre_zona VARCHAR(100) NOT NULL,
+    codigo_zona VARCHAR(10) UNIQUE NOT NULL,
+    geometria GEOGRAPHY(POLYGON, 4326)
+);
+
+-- Modificar la tabla Vendedor para incluir una referencia a la tabla Zona
+ALTER TABLE Vendedor ADD COLUMN id_zona INTEGER REFERENCES Zona(id_zona);
+
+-- Tabla Ubicacion
+CREATE TABLE Ubicacion (
+    id_ubicacion SERIAL PRIMARY KEY,
+    id_vendedor INTEGER REFERENCES Vendedor(id_vendedor),
+    fecha_hora TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    coordenadas GEOGRAPHY(POINT, 4326)
+);
+
+-- Tabla de Empleados
+CREATE TABLE empleados (
+    id_empleado SERIAL PRIMARY KEY,
+    cedula VARCHAR(20) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    zona VARCHAR(50)
+    cargo VARCHAR(50) CHECK (cargo IN ('Vendedor', 'Cobrador', 'Chofer')),
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2)
+);
+
+-- Tabla de Zonas
+CREATE TABLE zonas (
+    id_zona SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) UNIQUE
+);

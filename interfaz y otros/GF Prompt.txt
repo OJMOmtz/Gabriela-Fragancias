@@ -1,0 +1,77 @@
+Título: Diseño y Desarrollo de un Sistema de Gestión para una Tienda de Perfumes
+
+Descripción:
+
+Se solicita el diseño y desarrollo de un sistema de gestión para una tienda de perfumes llamada "Gabriela Fragancias". El sistema debe ser una aplicación web progresiva (PWA) que permita a los usuarios gestionar clientes, proveedores, productos, ventas e inventario de manera eficiente. Además, el sistema debe ser accesible desde dispositivos móviles y PCs, y debe proporcionar una interfaz de usuario intuitiva y atractiva.
+
+Requisitos Funcionales:
+
+    Gestión de clientes:
+        Agregar, editar y eliminar clientes.
+        Búsqueda y filtrado de clientes.
+        Visualización de información detallada de los clientes.
+
+    Gestión de proveedores:
+        Agregar, editar y eliminar proveedores.
+        Búsqueda y filtrado de proveedores.
+        Visualización de información detallada de los proveedores.
+
+    Gestión de productos:
+        Agregar, editar y eliminar productos (perfumes).
+        Búsqueda y filtrado de productos.
+        Gestión de inventario (ajuste de cantidades en stock).
+
+    Gestión de ventas:
+        Crear, editar y eliminar ventas.
+        Búsqueda y filtrado de ventas.
+        Proceso de venta con lector de códigos de barras.
+        Generación de facturas y recibos.
+
+    Generación de reportes:
+        Reportes de ventas por período, cliente y producto.
+        Reportes de inventario.
+        Personalización y exportación de reportes en formatos PDF, Excel o CSV.
+
+    Configuración y seguridad:
+        Gestión de usuarios y permisos.
+        Configuración de notificaciones y alertas.
+        Integración con GPS y seguimiento de vehículos.
+        Autenticación y autorización para proteger datos sensibles.
+
+Requisitos No Funcionales:
+
+    Interfaz de usuario:
+        Diseño intuitivo y atractivo.
+        Uso de colores y tipografías modernas.
+        Responsividad en dispositivos móviles y PCs.
+        Accesibilidad para usuarios con discapacidades.
+
+    Rendimiento y escalabilidad:
+        Carga rápida de la aplicación en dispositivos móviles y PCs.
+        Capacidad para manejar un gran volumen de datos y usuarios concurrentes.
+        Actualizaciones en tiempo real para datos críticos.
+
+    Seguridad y privacidad:
+        Protección de datos sensibles mediante encriptación.
+        Implementación de autenticación y autorización seguras.
+        Copias de seguridad automáticas de la base de datos.
+
+    Integración con dispositivos de hardware:
+        Soporte para lectores de códigos de barras.
+        Integración con impresoras para facturas, recibos y etiquetas.
+
+Entregables:
+
+    Esquema de base de datos.
+    Código fuente de la aplicación web progresiva (PWA).
+    Manual de usuario.
+    Documentación técnica.
+
+Tecnologías Sugeridas:
+
+    Frontend: React.js, React Router, Workbox (para PWA).
+    Backend: Node.js, Express.js.
+    Base de datos: PostgreSQL.
+    Servidor de alojamiento: Netlify, Vercel o AWS.
+
+Se espera que el sistema de gestión de "Gabriela Fragancias" proporcione una solución integral y fácil de usar para la gestión de la tienda de perfumes, mejorando la eficiencia y la satisfacción del cliente.

@@ -1,0 +1,71 @@
+tabla clientes
+id
+no tarjeta
+c.i.
+nombre
+apellidos
+sexo
+zona
+ciudad
+departamento
+barrio
+dirección
+fecha de nacimiento
+producto
+monto
+entrega
+condicion de pago
+fecha de pago
+cuota
+saldo
+
+tabla producto
+id
+código
+marca
+descripcion
+peso
+tipo
+costo
+precio
+cantidad en stock
+
+tabla compras
+id
+proveedor
+fecha
+cantidad
+código
+descripcion
+costo
+monto
+total
+
+tabla de ventas
+id
+no tarjeta
+c.i.
+nombre
+apellidos
+sexo
+zona
+ciudad
+departamento
+barrio
+dirección
+fecha de nacimiento
+producto
+monto
+entrega
+condicion de pago
+fecha de pago
+cuota
+saldo
+fecha
+cantidad
+código
+descripcion
+costo
+monto
+total
+
