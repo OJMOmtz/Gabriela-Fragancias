@@ -1,0 +1,8 @@
+# Configuración de la base de datos con parámetros optimizados
+{
+	"host": "localhost",
+	"database": "Gabriela_Fragancias",
+	"user": "postgres",
+	"password": "salmos23",
+	"port": 5432,
+}

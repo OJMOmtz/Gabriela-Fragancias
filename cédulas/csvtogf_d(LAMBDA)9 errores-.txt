@@ -1,0 +1,123 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+=============== RESTART: E:\ETL gf.cédulas\csvtogf_d(LAMBDA)9.py ===============
+
+[1/13] Procesando: regciv_2010_w1252.csv
+Total registros a procesar: 3,031,143
+Registros cargados en memoria: 3,031,143
+
+Insertando registros:   0%|          | 0/3031143 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/3031143 [00:00<?, ?reg/s]
+Error procesando regciv_2010_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...::timestamp, 'F', 'NULL', '3', '11', '0', 'NULL', 'NULL'), (...
+                                                             ^
+
+
+[2/13] Procesando: regciv_2013_w1252.csv
+Total registros a procesar: 3,516,273
+Registros cargados en memoria: 3,516,273
+
+Insertando registros:   0%|          | 0/3516273 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/3516273 [00:00<?, ?reg/s]
+Error procesando regciv_2013_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NULL', 'F...
+                                                             ^
+
+
+[3/13] Procesando: regciv_2015_w1252.csv
+Total registros a procesar: 3,947,574
+Registros cargados en memoria: 3,947,574
+
+Insertando registros:   0%|          | 0/3947574 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/3947574 [00:00<?, ?reg/s]
+Error procesando regciv_2015_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NULL', 'F...
+                                                             ^
+
+
+[4/13] Procesando: regciv_2018_w1252.csv
+Total registros a procesar: 4,241,507
+Registros cargados en memoria: 4,241,507
+
+Insertando registros:   0%|          | 0/4241507 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/4241507 [00:01<?, ?reg/s]
+Error procesando regciv_2018_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NULL', 'F...
+                                                             ^
+
+
+[5/13] Procesando: regciv_2020_w1252.csv
+Total registros a procesar: 4,466,866
+Registros cargados en memoria: 4,466,866
+
+Insertando registros:   0%|          | 0/4466866 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/4466866 [00:01<?, ?reg/s]
+Error procesando regciv_2020_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NULL', 'F...
+                                                             ^
+
+
+[6/13] Procesando: regciv_2021_w1252.csv
+Total registros a procesar: 4,684,841
+Registros cargados en memoria: 4,684,841
+
+Insertando registros:   0%|          | 0/4684841 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/4684841 [00:01<?, ?reg/s]
+Error procesando regciv_2021_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NULL', 'F...
+                                                             ^
+
+
+[7/13] Procesando: regcivext_2015_w1252.csv
+Total registros a procesar: 22,621
+Registros cargados en memoria: 22,621
+
+Insertando registros:   0%|          | 0/22621 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/22621 [00:00<?, ?reg/s]
+Error procesando regcivext_2015_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...n) VALUES (1000091, 'FELICITA', 'CANTERO OVIEDO', 'NULL', 'F...
+                                                             ^
+
+
+[8/13] Procesando: regcivext_2020_w1252.csv
+Total registros a procesar: 37,338
+Registros cargados en memoria: 37,338
+
+Insertando registros:   0%|          | 0/37338 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/37338 [00:00<?, ?reg/s]
+Error procesando regcivext_2020_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...0030, 'MARGARITA ELENA LIESEL', 'FERNANDEZ RODI', 'NULL', 'F...
+                                                             ^
+
+
+[9/13] Procesando: regcivext_2021_w1252.csv
+Total registros a procesar: 37,424
+Registros cargados en memoria: 37,424
+
+Insertando registros:   0%|          | 0/37424 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/37424 [00:00<?, ?reg/s]
+Error procesando regcivext_2021_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...0030, 'MARGARITA ELENA LIESEL', 'FERNANDEZ RODI', 'NULL', 'F...
+                                                             ^
+
+
+[10/13] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+
+Insertando registros:   0%|          | 0/4502581 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/4502581 [00:00<?, ?reg/s]
+Error procesando poli01_W1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...TINEZ Y HUMAITA', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL'), (...
+                                                             ^
+
+
+[11/13] Procesando: padrón 2017 anr_w1252.csv
+Total registros a procesar: 2,309,253
+Registros cargados en memoria: 2,309,048
+
+Insertando registros:   0%|          | 0/2309048 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/2309048 [00:00<?, ?reg/s]
+Error procesando padrón 2017 anr_w1252.csv: la sintaxis de entrada no es válida para tipo date: «NULL»
+LINE 1: ...ion) VALUES (1000001, 'RAQUEL', 'CHIR DE CHUANG', 'NULL', 'F...

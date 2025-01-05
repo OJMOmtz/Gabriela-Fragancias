@@ -1,0 +1,15 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+================ RESTART: E:/ETL gf.cédulas/csvtogf_a(chtgpt).py ===============
+
+[1/1] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+
+Insertando registros:   0%|          | 0/4502581 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 1000/4502581 [00:10<13:26:09, 93.07reg/s]
+Insertando registros:   0%|          | 2000/4502581 [00:11<6:43:07, 186.07reg/s]
+Insertando registros:   0%|          | 3000/4502581 [00:11<4:22:30, 285.68reg/s]
+Insertando registros:   0%|          | 4000/4502581 [00:11<3:09:20, 396.00reg/s]
+Insertando registros:   0%|          | 4000/4502581 [00:14<4:38:36, 269.11reg/s]

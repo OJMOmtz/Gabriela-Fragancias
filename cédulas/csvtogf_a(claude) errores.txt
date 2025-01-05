@@ -1,0 +1,142 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+================ RESTART: E:/ETL gf.cédulas/csvtogf_a(claude).py ===============
+
+[1/13] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+
+Insertando registros:   0%|          | 0/4502581 [00:00<?]
+Insertando registros:   0%|          | 0/4502581 [00:00<?]
+Error procesando poli01_W1252.csv: la columna «fecha_nacimiento» es de tipo date pero la expresión es de tipo integer
+LINE 3: ...                    VALUES (1, 'CARLOS', 'SILVA', 18841013, ...
+                                                             ^
+HINT:  Necesitará reescribir la expresión o aplicarle una conversión de tipo.
+
+
+[2/13] Procesando: padrón 2017 anr_w1252.csv
+Total registros a procesar: 2,309,253
+
+Warning (from warnings module):
+  File "E:/ETL gf.cédulas/csvtogf_a(claude).py", line 47
+    df = pd.read_csv(
+DtypeWarning: Columns (6,7) have mixed types. Specify dtype option on import or set low_memory=False.
+Registros cargados en memoria: 2,309,048
+
+Insertando registros:   0%|          | 0/2309048 [00:00<?]
+Insertando registros:   0%|          | 0/2309048 [00:00<?]
+Error procesando padrón 2017 anr_w1252.csv: valor de hora/fecha fuera de rango: «08/16/1964»
+LINE 3: ...     VALUES (1000001, 'RAQUEL', 'CHIR DE CHUANG', '08/16/196...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[3/13] Procesando: padrón_UNACE_w1252.csv
+Total registros a procesar: 391,200
+
+Warning (from warnings module):
+  File "E:/ETL gf.cédulas/csvtogf_a(claude).py", line 47
+    df = pd.read_csv(
+DtypeWarning: Columns (4,5) have mixed types. Specify dtype option on import or set low_memory=False.
+Registros cargados en memoria: 391,200
+
+Insertando registros:   0%|          | 0/391200 [00:00<?]
+Insertando registros:   0%|          | 0/391200 [00:25<?]
+Error procesando padrón_UNACE_w1252.csv: el valor es demasiado largo para el tipo character varying(2)
+
+
+[4/13] Procesando: regciv_2010_w1252.csv
+Total registros a procesar: 3,031,143
+Registros cargados en memoria: 3,031,143
+
+Insertando registros:   0%|          | 0/3031143 [00:00<?]
+Insertando registros:   0%|          | 0/3031143 [00:00<?]
+Error procesando regciv_2010_w1252.csv: la columna «fecha_nacimiento» es de tipo date pero la expresión es de tipo integer
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 19760620, ...
+                                                             ^
+HINT:  Necesitará reescribir la expresión o aplicarle una conversión de tipo.
+
+
+[5/13] Procesando: regciv_2013_w1252.csv
+Total registros a procesar: 3,516,273
+Registros cargados en memoria: 3,516,273
+
+Insertando registros:   0%|          | 0/3516273 [00:00<?]
+Insertando registros:   0%|          | 0/3516273 [00:01<?]
+Error procesando regciv_2013_w1252.csv: valor de hora/fecha fuera de rango: «06/20/1976»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', '06/20/197...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[6/13] Procesando: regciv_2015_w1252.csv
+Total registros a procesar: 3,947,574
+Registros cargados en memoria: 3,947,574
+
+Insertando registros:   0%|          | 0/3947574 [00:00<?]
+Insertando registros:   0%|          | 0/3947574 [00:00<?]
+Error procesando regciv_2015_w1252.csv: valor de hora/fecha fuera de rango: «06/20/1976»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', '06/20/197...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[7/13] Procesando: regciv_2018_w1252.csv
+Total registros a procesar: 4,241,507
+Registros cargados en memoria: 4,241,507
+
+Insertando registros:   0%|          | 0/4241507 [00:00<?]
+Insertando registros:   0%|          | 0/4241507 [00:02<?]
+Error procesando regciv_2018_w1252.csv: valor de hora/fecha fuera de rango: «06/20/1976»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', '06/20/197...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[8/13] Procesando: regciv_2020_w1252.csv
+Total registros a procesar: 4,466,866
+Registros cargados en memoria: 4,466,866
+
+Insertando registros:   0%|          | 0/4466866 [00:00<?]
+Insertando registros:   0%|          | 0/4466866 [00:02<?]
+Error procesando regciv_2020_w1252.csv: valor de hora/fecha fuera de rango: «06/20/1976»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', '06/20/197...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[9/13] Procesando: regciv_2021_w1252.csv
+Total registros a procesar: 4,684,841
+Registros cargados en memoria: 4,684,841
+
+Insertando registros:   0%|          | 0/4684841 [00:00<?]
+Insertando registros:   0%|          | 0/4684841 [00:01<?]
+Error procesando regciv_2021_w1252.csv: valor de hora/fecha fuera de rango: «06/20/1976»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', '06/20/197...
+                                                             ^
+HINT:  Quizás necesite una configuración diferente de «datestyle».
+
+
+[10/13] Procesando: regciv_UNACE_w1252.csv
+Total registros a procesar: 3,035,847
+Registros cargados en memoria: 3,035,847
+
+Insertando registros:   0%|          | 0/3035847 [00:00<?]
+Insertando registros:   0%|          | 0/3035847 [00:00<?]
+Error procesando regciv_UNACE_w1252.csv: la columna «fecha_nacimiento» es de tipo date pero la expresión es de tipo integer
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 19760620, ...
+                                                             ^
+HINT:  Necesitará reescribir la expresión o aplicarle una conversión de tipo.
+
+
+[11/13] Procesando: regcivext_2015_w1252.csv
+Total registros a procesar: 22,621
+Registros cargados en memoria: 22,621
+
+Insertando registros:   0%|          | 0/22621 [00:00<?]
+Insertando registros:   0%|          | 0/22621 [00:00<?]
+Error procesando regcivext_2015_w1252.csv: la sintaxis de entrada no es válida para tipo date: «F»
+LINE 3: ...LUES ('FELICITA', 'CANTERO OVIEDO', '03/07/1964', 'F', 'NaN'...
+                                                             ^
+

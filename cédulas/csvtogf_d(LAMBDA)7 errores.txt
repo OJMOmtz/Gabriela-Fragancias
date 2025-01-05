@@ -1,0 +1,444 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+=============== RESTART: E:\ETL gf.cédulas\csvtogf_d(LAMBDA)7.py ===============
+
+[1/13] Procesando: regciv_2010_w1252.csv
+Total registros a procesar: 3,031,143
+Registros cargados en memoria: 3,031,143
+Progreso: 1000/3031143 | Velocidad: 10667.83 reg/s | Tiempo restante: 00:04:44
+Progreso: 2000/3031143 | Velocidad: 11141.79 reg/s | Tiempo restante: 00:04:31
+Progreso: 3000/3031143 | Velocidad: 10267.11 reg/s | Tiempo restante: 00:04:54
+Progreso: 4000/3031143 | Velocidad: 10364.39 reg/s | Tiempo restante: 00:04:52
+Progreso: 5000/3031143 | Velocidad: 10274.15 reg/s | Tiempo restante: 00:04:54
+Progreso: 6000/3031143 | Velocidad: 10094.84 reg/s | Tiempo restante: 00:04:59
+Progreso: 7000/3031143 | Velocidad: 10041.87 reg/s | Tiempo restante: 00:05:01
+Progreso: 8000/3031143 | Velocidad: 9977.27 reg/s | Tiempo restante: 00:05:03
+Progreso: 9000/3031143 | Velocidad: 9928.22 reg/s | Tiempo restante: 00:05:04
+Progreso: 10000/3031143 | Velocidad: 9938.10 reg/s | Tiempo restante: 00:05:03
+Error procesando regciv_2010_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 259: ...  VALUES (1015723, 'FRANCISCA', 'BOGADO SANCHEZ', 'NaT'::tim...
+                                                               ^
+
+
+[2/13] Procesando: regciv_2013_w1252.csv
+Total registros a procesar: 3,516,273
+Registros cargados en memoria: 3,516,273
+Error procesando regciv_2013_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NaT'::tim...
+                                                             ^
+
+
+[3/13] Procesando: regciv_2015_w1252.csv
+Total registros a procesar: 3,947,574
+Registros cargados en memoria: 3,947,574
+Error procesando regciv_2015_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NaT'::tim...
+                                                             ^
+
+
+[4/13] Procesando: regciv_2018_w1252.csv
+Total registros a procesar: 4,241,507
+Registros cargados en memoria: 4,241,507
+Error procesando regciv_2018_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NaT'::tim...
+                                                             ^
+
+
+[5/13] Procesando: regciv_2020_w1252.csv
+Total registros a procesar: 4,466,866
+Registros cargados en memoria: 4,466,866
+Error procesando regciv_2020_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NaT'::tim...
+                                                             ^
+
+
+[6/13] Procesando: regciv_2021_w1252.csv
+Total registros a procesar: 4,684,841
+Registros cargados en memoria: 4,684,841
+Error procesando regciv_2021_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ... (1000000, 'JUANA DEL CARMEN', 'CAÑETE GONZALEZ', 'NaT'::tim...
+                                                             ^
+
+
+[7/13] Procesando: regcivext_2015_w1252.csv
+Total registros a procesar: 22,621
+Registros cargados en memoria: 22,621
+Error procesando regcivext_2015_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ...   VALUES (1000091, 'FELICITA', 'CANTERO OVIEDO', 'NaT'::tim...
+                                                             ^
+
+
+[8/13] Procesando: regcivext_2020_w1252.csv
+Total registros a procesar: 37,338
+Registros cargados en memoria: 37,338
+Error procesando regcivext_2020_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ...0030, 'MARGARITA ELENA LIESEL', 'FERNANDEZ RODI', 'NaT'::tim...
+                                                             ^
+
+
+[9/13] Procesando: regcivext_2021_w1252.csv
+Total registros a procesar: 37,424
+Registros cargados en memoria: 37,424
+Error procesando regcivext_2021_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ...0030, 'MARGARITA ELENA LIESEL', 'FERNANDEZ RODI', 'NaT'::tim...
+                                                             ^
+
+
+[10/13] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+Progreso: 1000/4502581 | Velocidad: 374.85 reg/s | Tiempo restante: 03:20:09
+Progreso: 2000/4502581 | Velocidad: 700.22 reg/s | Tiempo restante: 01:47:07
+Progreso: 3000/4502581 | Velocidad: 997.07 reg/s | Tiempo restante: 01:15:12
+Progreso: 4000/4502581 | Velocidad: 1289.67 reg/s | Tiempo restante: 00:58:08
+Progreso: 5000/4502581 | Velocidad: 1530.40 reg/s | Tiempo restante: 00:48:58
+Progreso: 6000/4502581 | Velocidad: 1736.30 reg/s | Tiempo restante: 00:43:09
+Progreso: 7000/4502581 | Velocidad: 1925.13 reg/s | Tiempo restante: 00:38:55
+Progreso: 8000/4502581 | Velocidad: 2130.60 reg/s | Tiempo restante: 00:35:09
+Progreso: 9000/4502581 | Velocidad: 2341.58 reg/s | Tiempo restante: 00:31:59
+Progreso: 10000/4502581 | Velocidad: 2529.56 reg/s | Tiempo restante: 00:29:36
+Progreso: 11000/4502581 | Velocidad: 2700.09 reg/s | Tiempo restante: 00:27:43
+Progreso: 12000/4502581 | Velocidad: 2869.00 reg/s | Tiempo restante: 00:26:05
+Progreso: 13000/4502581 | Velocidad: 3017.43 reg/s | Tiempo restante: 00:24:47
+Progreso: 14000/4502581 | Velocidad: 3177.46 reg/s | Tiempo restante: 00:23:32
+Progreso: 15000/4502581 | Velocidad: 3315.86 reg/s | Tiempo restante: 00:22:33
+Progreso: 16000/4502581 | Velocidad: 3451.69 reg/s | Tiempo restante: 00:21:39
+Progreso: 17000/4502581 | Velocidad: 3566.14 reg/s | Tiempo restante: 00:20:57
+Progreso: 18000/4502581 | Velocidad: 3694.00 reg/s | Tiempo restante: 00:20:14
+Progreso: 19000/4502581 | Velocidad: 3796.65 reg/s | Tiempo restante: 00:19:40
+Progreso: 20000/4502581 | Velocidad: 3916.09 reg/s | Tiempo restante: 00:19:04
+Progreso: 21000/4502581 | Velocidad: 4023.12 reg/s | Tiempo restante: 00:18:33
+Progreso: 22000/4502581 | Velocidad: 4134.91 reg/s | Tiempo restante: 00:18:03
+Progreso: 23000/4502581 | Velocidad: 4224.67 reg/s | Tiempo restante: 00:17:40
+Progreso: 24000/4502581 | Velocidad: 4319.72 reg/s | Tiempo restante: 00:17:16
+Progreso: 25000/4502581 | Velocidad: 4411.03 reg/s | Tiempo restante: 00:16:55
+Progreso: 26000/4502581 | Velocidad: 4501.14 reg/s | Tiempo restante: 00:16:34
+Progreso: 27000/4502581 | Velocidad: 4592.59 reg/s | Tiempo restante: 00:16:14
+Progreso: 28000/4502581 | Velocidad: 4666.12 reg/s | Tiempo restante: 00:15:58
+Progreso: 29000/4502581 | Velocidad: 4758.43 reg/s | Tiempo restante: 00:15:40
+Progreso: 30000/4502581 | Velocidad: 4829.26 reg/s | Tiempo restante: 00:15:26
+Progreso: 31000/4502581 | Velocidad: 4918.38 reg/s | Tiempo restante: 00:15:09
+Progreso: 32000/4502581 | Velocidad: 4980.12 reg/s | Tiempo restante: 00:14:57
+Progreso: 33000/4502581 | Velocidad: 5055.71 reg/s | Tiempo restante: 00:14:44
+Progreso: 34000/4502581 | Velocidad: 5123.59 reg/s | Tiempo restante: 00:14:32
+Progreso: 35000/4502581 | Velocidad: 5178.55 reg/s | Tiempo restante: 00:14:22
+Progreso: 36000/4502581 | Velocidad: 5246.77 reg/s | Tiempo restante: 00:14:11
+Progreso: 37000/4502581 | Velocidad: 5298.55 reg/s | Tiempo restante: 00:14:02
+Progreso: 38000/4502581 | Velocidad: 5374.22 reg/s | Tiempo restante: 00:13:50
+Progreso: 39000/4502581 | Velocidad: 5438.93 reg/s | Tiempo restante: 00:13:40
+Progreso: 40000/4502581 | Velocidad: 5483.07 reg/s | Tiempo restante: 00:13:33
+Progreso: 41000/4502581 | Velocidad: 5539.12 reg/s | Tiempo restante: 00:13:25
+Progreso: 42000/4502581 | Velocidad: 5581.72 reg/s | Tiempo restante: 00:13:19
+Progreso: 43000/4502581 | Velocidad: 4274.06 reg/s | Tiempo restante: 00:17:23
+Progreso: 44000/4502581 | Velocidad: 4324.17 reg/s | Tiempo restante: 00:17:11
+Progreso: 45000/4502581 | Velocidad: 4377.82 reg/s | Tiempo restante: 00:16:58
+Progreso: 46000/4502581 | Velocidad: 4422.75 reg/s | Tiempo restante: 00:16:47
+Progreso: 47000/4502581 | Velocidad: 4472.16 reg/s | Tiempo restante: 00:16:36
+Progreso: 48000/4502581 | Velocidad: 4515.47 reg/s | Tiempo restante: 00:16:26
+Progreso: 49000/4502581 | Velocidad: 4553.15 reg/s | Tiempo restante: 00:16:18
+Progreso: 50000/4502581 | Velocidad: 4609.34 reg/s | Tiempo restante: 00:16:05
+Progreso: 51000/4502581 | Velocidad: 4655.30 reg/s | Tiempo restante: 00:15:56
+Progreso: 52000/4502581 | Velocidad: 4698.25 reg/s | Tiempo restante: 00:15:47
+Progreso: 53000/4502581 | Velocidad: 4737.80 reg/s | Tiempo restante: 00:15:39
+Progreso: 54000/4502581 | Velocidad: 4783.27 reg/s | Tiempo restante: 00:15:30
+Progreso: 55000/4502581 | Velocidad: 4820.33 reg/s | Tiempo restante: 00:15:22
+Progreso: 56000/4502581 | Velocidad: 4865.86 reg/s | Tiempo restante: 00:15:13
+Progreso: 57000/4502581 | Velocidad: 4893.38 reg/s | Tiempo restante: 00:15:08
+Progreso: 58000/4502581 | Velocidad: 4928.18 reg/s | Tiempo restante: 00:15:01
+Progreso: 59000/4502581 | Velocidad: 4971.45 reg/s | Tiempo restante: 00:14:53
+Progreso: 60000/4502581 | Velocidad: 5011.49 reg/s | Tiempo restante: 00:14:46
+Progreso: 61000/4502581 | Velocidad: 5037.94 reg/s | Tiempo restante: 00:14:41
+Progreso: 62000/4502581 | Velocidad: 5077.45 reg/s | Tiempo restante: 00:14:34
+Progreso: 63000/4502581 | Velocidad: 5112.58 reg/s | Tiempo restante: 00:14:28
+Progreso: 64000/4502581 | Velocidad: 5151.21 reg/s | Tiempo restante: 00:14:21
+Progreso: 65000/4502581 | Velocidad: 5186.32 reg/s | Tiempo restante: 00:14:15
+Progreso: 66000/4502581 | Velocidad: 5217.54 reg/s | Tiempo restante: 00:14:10
+Progreso: 67000/4502581 | Velocidad: 5248.58 reg/s | Tiempo restante: 00:14:05
+Progreso: 68000/4502581 | Velocidad: 5281.95 reg/s | Tiempo restante: 00:13:59
+Progreso: 69000/4502581 | Velocidad: 5316.79 reg/s | Tiempo restante: 00:13:53
+Progreso: 70000/4502581 | Velocidad: 5351.49 reg/s | Tiempo restante: 00:13:48
+Progreso: 71000/4502581 | Velocidad: 5378.32 reg/s | Tiempo restante: 00:13:43
+Progreso: 72000/4502581 | Velocidad: 5404.26 reg/s | Tiempo restante: 00:13:39
+Progreso: 73000/4502581 | Velocidad: 5441.03 reg/s | Tiempo restante: 00:13:34
+Progreso: 74000/4502581 | Velocidad: 5468.82 reg/s | Tiempo restante: 00:13:29
+Progreso: 75000/4502581 | Velocidad: 5496.14 reg/s | Tiempo restante: 00:13:25
+Progreso: 76000/4502581 | Velocidad: 5521.40 reg/s | Tiempo restante: 00:13:21
+Progreso: 77000/4502581 | Velocidad: 5553.01 reg/s | Tiempo restante: 00:13:16
+Progreso: 78000/4502581 | Velocidad: 5582.97 reg/s | Tiempo restante: 00:13:12
+Progreso: 79000/4502581 | Velocidad: 5604.93 reg/s | Tiempo restante: 00:13:09
+Progreso: 80000/4502581 | Velocidad: 5628.09 reg/s | Tiempo restante: 00:13:05
+Progreso: 81000/4502581 | Velocidad: 5659.53 reg/s | Tiempo restante: 00:13:01
+Progreso: 82000/4502581 | Velocidad: 5687.79 reg/s | Tiempo restante: 00:12:57
+Progreso: 83000/4502581 | Velocidad: 5716.03 reg/s | Tiempo restante: 00:12:53
+Progreso: 84000/4502581 | Velocidad: 5734.87 reg/s | Tiempo restante: 00:12:50
+Progreso: 85000/4502581 | Velocidad: 5756.89 reg/s | Tiempo restante: 00:12:47
+Progreso: 86000/4502581 | Velocidad: 5780.50 reg/s | Tiempo restante: 00:12:44
+Progreso: 87000/4502581 | Velocidad: 5808.39 reg/s | Tiempo restante: 00:12:40
+Progreso: 88000/4502581 | Velocidad: 5835.52 reg/s | Tiempo restante: 00:12:36
+Progreso: 89000/4502581 | Velocidad: 5852.68 reg/s | Tiempo restante: 00:12:34
+Progreso: 90000/4502581 | Velocidad: 5877.20 reg/s | Tiempo restante: 00:12:30
+Progreso: 91000/4502581 | Velocidad: 5906.34 reg/s | Tiempo restante: 00:12:26
+Progreso: 92000/4502581 | Velocidad: 5928.65 reg/s | Tiempo restante: 00:12:23
+Progreso: 93000/4502581 | Velocidad: 5948.37 reg/s | Tiempo restante: 00:12:21
+Progreso: 94000/4502581 | Velocidad: 5975.73 reg/s | Tiempo restante: 00:12:17
+Progreso: 95000/4502581 | Velocidad: 5994.83 reg/s | Tiempo restante: 00:12:15
+Progreso: 96000/4502581 | Velocidad: 6020.43 reg/s | Tiempo restante: 00:12:11
+Progreso: 97000/4502581 | Velocidad: 6044.58 reg/s | Tiempo restante: 00:12:08
+Progreso: 98000/4502581 | Velocidad: 6066.56 reg/s | Tiempo restante: 00:12:06
+Progreso: 99000/4502581 | Velocidad: 6084.14 reg/s | Tiempo restante: 00:12:03
+Progreso: 100000/4502581 | Velocidad: 6101.84 reg/s | Tiempo restante: 00:12:01
+Progreso: 101000/4502581 | Velocidad: 6125.20 reg/s | Tiempo restante: 00:11:58
+Progreso: 102000/4502581 | Velocidad: 6143.13 reg/s | Tiempo restante: 00:11:56
+Progreso: 103000/4502581 | Velocidad: 6162.64 reg/s | Tiempo restante: 00:11:53
+Progreso: 104000/4502581 | Velocidad: 6181.89 reg/s | Tiempo restante: 00:11:51
+Progreso: 105000/4502581 | Velocidad: 6200.17 reg/s | Tiempo restante: 00:11:49
+Progreso: 106000/4502581 | Velocidad: 6214.93 reg/s | Tiempo restante: 00:11:47
+Progreso: 107000/4502581 | Velocidad: 6231.66 reg/s | Tiempo restante: 00:11:45
+Progreso: 108000/4502581 | Velocidad: 6255.02 reg/s | Tiempo restante: 00:11:42
+Progreso: 109000/4502581 | Velocidad: 6269.85 reg/s | Tiempo restante: 00:11:40
+Progreso: 110000/4502581 | Velocidad: 6288.41 reg/s | Tiempo restante: 00:11:38
+Progreso: 111000/4502581 | Velocidad: 6309.96 reg/s | Tiempo restante: 00:11:35
+Progreso: 112000/4502581 | Velocidad: 6326.99 reg/s | Tiempo restante: 00:11:33
+Progreso: 113000/4502581 | Velocidad: 6344.52 reg/s | Tiempo restante: 00:11:31
+Progreso: 114000/4502581 | Velocidad: 6356.53 reg/s | Tiempo restante: 00:11:30
+Progreso: 115000/4502581 | Velocidad: 6375.77 reg/s | Tiempo restante: 00:11:28
+Progreso: 116000/4502581 | Velocidad: 6396.91 reg/s | Tiempo restante: 00:11:25
+Progreso: 117000/4502581 | Velocidad: 6416.76 reg/s | Tiempo restante: 00:11:23
+Progreso: 118000/4502581 | Velocidad: 6433.95 reg/s | Tiempo restante: 00:11:21
+Progreso: 119000/4502581 | Velocidad: 6451.99 reg/s | Tiempo restante: 00:11:19
+Progreso: 120000/4502581 | Velocidad: 6462.18 reg/s | Tiempo restante: 00:11:18
+Progreso: 121000/4502581 | Velocidad: 6482.26 reg/s | Tiempo restante: 00:11:15
+Progreso: 122000/4502581 | Velocidad: 6497.99 reg/s | Tiempo restante: 00:11:14
+Progreso: 123000/4502581 | Velocidad: 6512.51 reg/s | Tiempo restante: 00:11:12
+Progreso: 124000/4502581 | Velocidad: 6528.92 reg/s | Tiempo restante: 00:11:10
+Progreso: 125000/4502581 | Velocidad: 6547.87 reg/s | Tiempo restante: 00:11:08
+Progreso: 126000/4502581 | Velocidad: 6563.23 reg/s | Tiempo restante: 00:11:06
+Progreso: 127000/4502581 | Velocidad: 6577.39 reg/s | Tiempo restante: 00:11:05
+Progreso: 128000/4502581 | Velocidad: 6590.71 reg/s | Tiempo restante: 00:11:03
+Progreso: 129000/4502581 | Velocidad: 6607.59 reg/s | Tiempo restante: 00:11:01
+Progreso: 130000/4502581 | Velocidad: 6621.61 reg/s | Tiempo restante: 00:11:00
+Progreso: 131000/4502581 | Velocidad: 6636.14 reg/s | Tiempo restante: 00:10:58
+Progreso: 132000/4502581 | Velocidad: 6652.51 reg/s | Tiempo restante: 00:10:56
+Progreso: 133000/4502581 | Velocidad: 6659.40 reg/s | Tiempo restante: 00:10:56
+Progreso: 134000/4502581 | Velocidad: 6675.47 reg/s | Tiempo restante: 00:10:54
+Progreso: 135000/4502581 | Velocidad: 6687.41 reg/s | Tiempo restante: 00:10:53
+Progreso: 136000/4502581 | Velocidad: 6702.51 reg/s | Tiempo restante: 00:10:51
+Progreso: 137000/4502581 | Velocidad: 6718.44 reg/s | Tiempo restante: 00:10:49
+Progreso: 138000/4502581 | Velocidad: 6726.69 reg/s | Tiempo restante: 00:10:48
+Progreso: 139000/4502581 | Velocidad: 6745.26 reg/s | Tiempo restante: 00:10:46
+Progreso: 140000/4502581 | Velocidad: 6761.07 reg/s | Tiempo restante: 00:10:45
+Progreso: 141000/4502581 | Velocidad: 6774.12 reg/s | Tiempo restante: 00:10:43
+Progreso: 142000/4502581 | Velocidad: 6787.70 reg/s | Tiempo restante: 00:10:42
+Progreso: 143000/4502581 | Velocidad: 6798.87 reg/s | Tiempo restante: 00:10:41
+Progreso: 144000/4502581 | Velocidad: 6813.14 reg/s | Tiempo restante: 00:10:39
+Progreso: 145000/4502581 | Velocidad: 6824.39 reg/s | Tiempo restante: 00:10:38
+Progreso: 146000/4502581 | Velocidad: 6841.27 reg/s | Tiempo restante: 00:10:36
+Progreso: 147000/4502581 | Velocidad: 6848.76 reg/s | Tiempo restante: 00:10:35
+Progreso: 148000/4502581 | Velocidad: 6859.02 reg/s | Tiempo restante: 00:10:34
+Progreso: 149000/4502581 | Velocidad: 6872.97 reg/s | Tiempo restante: 00:10:33
+Progreso: 150000/4502581 | Velocidad: 6885.83 reg/s | Tiempo restante: 00:10:32
+Progreso: 151000/4502581 | Velocidad: 6897.01 reg/s | Tiempo restante: 00:10:30
+Progreso: 152000/4502581 | Velocidad: 6909.32 reg/s | Tiempo restante: 00:10:29
+Progreso: 153000/4502581 | Velocidad: 6922.14 reg/s | Tiempo restante: 00:10:28
+Progreso: 154000/4502581 | Velocidad: 6935.46 reg/s | Tiempo restante: 00:10:27
+Progreso: 155000/4502581 | Velocidad: 6938.43 reg/s | Tiempo restante: 00:10:26
+Progreso: 156000/4502581 | Velocidad: 6949.07 reg/s | Tiempo restante: 00:10:25
+Progreso: 157000/4502581 | Velocidad: 6961.14 reg/s | Tiempo restante: 00:10:24
+Progreso: 158000/4502581 | Velocidad: 6972.19 reg/s | Tiempo restante: 00:10:23
+Progreso: 159000/4502581 | Velocidad: 6982.21 reg/s | Tiempo restante: 00:10:22
+Progreso: 160000/4502581 | Velocidad: 6993.35 reg/s | Tiempo restante: 00:10:20
+Progreso: 161000/4502581 | Velocidad: 7002.87 reg/s | Tiempo restante: 00:10:19
+Progreso: 162000/4502581 | Velocidad: 7016.84 reg/s | Tiempo restante: 00:10:18
+Progreso: 163000/4502581 | Velocidad: 7025.56 reg/s | Tiempo restante: 00:10:17
+Progreso: 164000/4502581 | Velocidad: 7039.31 reg/s | Tiempo restante: 00:10:16
+Progreso: 165000/4502581 | Velocidad: 7050.54 reg/s | Tiempo restante: 00:10:15
+Progreso: 166000/4502581 | Velocidad: 7063.17 reg/s | Tiempo restante: 00:10:13
+Progreso: 167000/4502581 | Velocidad: 7073.00 reg/s | Tiempo restante: 00:10:12
+Progreso: 168000/4502581 | Velocidad: 7084.24 reg/s | Tiempo restante: 00:10:11
+Progreso: 169000/4502581 | Velocidad: 7091.51 reg/s | Tiempo restante: 00:10:11
+Error procesando poli01_W1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 287: ...            VALUES (1158253, 'LIN', 'CHING CHIH', 'NaT'::tim...
+                                                               ^
+
+
+[11/13] Procesando: padrón 2017 anr_w1252.csv
+Total registros a procesar: 2,309,253
+Registros cargados en memoria: 2,309,048
+Error procesando padrón 2017 anr_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ...     VALUES (1000001, 'RAQUEL', 'CHIR DE CHUANG', 'NaT'::tim...
+                                                             ^
+
+
+[12/13] Procesando: padrón_UNACE_w1252.csv
+Total registros a procesar: 391,200
+Registros cargados en memoria: 391,200
+Progreso: 1000/391200 | Velocidad: 3886.49 reg/s | Tiempo restante: 00:01:40
+Progreso: 2000/391200 | Velocidad: 5863.81 reg/s | Tiempo restante: 00:01:06
+Progreso: 3000/391200 | Velocidad: 6346.28 reg/s | Tiempo restante: 00:01:01
+Progreso: 4000/391200 | Velocidad: 6951.20 reg/s | Tiempo restante: 00:00:55
+Progreso: 5000/391200 | Velocidad: 7297.76 reg/s | Tiempo restante: 00:00:52
+Progreso: 6000/391200 | Velocidad: 7128.28 reg/s | Tiempo restante: 00:00:54
+Progreso: 7000/391200 | Velocidad: 7396.20 reg/s | Tiempo restante: 00:00:51
+Progreso: 8000/391200 | Velocidad: 7454.91 reg/s | Tiempo restante: 00:00:51
+Progreso: 9000/391200 | Velocidad: 7589.72 reg/s | Tiempo restante: 00:00:50
+Progreso: 10000/391200 | Velocidad: 7725.05 reg/s | Tiempo restante: 00:00:49
+Progreso: 11000/391200 | Velocidad: 7800.45 reg/s | Tiempo restante: 00:00:48
+Progreso: 12000/391200 | Velocidad: 7864.41 reg/s | Tiempo restante: 00:00:48
+Progreso: 13000/391200 | Velocidad: 7885.82 reg/s | Tiempo restante: 00:00:47
+Progreso: 14000/391200 | Velocidad: 8105.06 reg/s | Tiempo restante: 00:00:46
+Progreso: 15000/391200 | Velocidad: 8165.41 reg/s | Tiempo restante: 00:00:46
+Progreso: 16000/391200 | Velocidad: 8196.20 reg/s | Tiempo restante: 00:00:45
+Progreso: 17000/391200 | Velocidad: 8253.10 reg/s | Tiempo restante: 00:00:45
+Progreso: 18000/391200 | Velocidad: 8319.65 reg/s | Tiempo restante: 00:00:44
+Progreso: 19000/391200 | Velocidad: 8365.41 reg/s | Tiempo restante: 00:00:44
+Progreso: 20000/391200 | Velocidad: 8389.43 reg/s | Tiempo restante: 00:00:44
+Progreso: 21000/391200 | Velocidad: 8414.64 reg/s | Tiempo restante: 00:00:43
+Progreso: 22000/391200 | Velocidad: 8463.60 reg/s | Tiempo restante: 00:00:43
+Progreso: 23000/391200 | Velocidad: 8446.46 reg/s | Tiempo restante: 00:00:43
+Progreso: 24000/391200 | Velocidad: 8568.90 reg/s | Tiempo restante: 00:00:42
+Progreso: 25000/391200 | Velocidad: 8533.87 reg/s | Tiempo restante: 00:00:42
+Progreso: 26000/391200 | Velocidad: 8510.27 reg/s | Tiempo restante: 00:00:42
+Progreso: 27000/391200 | Velocidad: 8496.44 reg/s | Tiempo restante: 00:00:42
+Progreso: 28000/391200 | Velocidad: 8537.82 reg/s | Tiempo restante: 00:00:42
+Progreso: 29000/391200 | Velocidad: 8569.13 reg/s | Tiempo restante: 00:00:42
+Progreso: 30000/391200 | Velocidad: 8554.54 reg/s | Tiempo restante: 00:00:42
+Progreso: 31000/391200 | Velocidad: 8597.64 reg/s | Tiempo restante: 00:00:41
+Progreso: 32000/391200 | Velocidad: 8643.09 reg/s | Tiempo restante: 00:00:41
+Progreso: 33000/391200 | Velocidad: 8665.76 reg/s | Tiempo restante: 00:00:41
+Progreso: 34000/391200 | Velocidad: 8662.92 reg/s | Tiempo restante: 00:00:41
+Progreso: 35000/391200 | Velocidad: 8709.68 reg/s | Tiempo restante: 00:00:40
+Progreso: 36000/391200 | Velocidad: 8695.25 reg/s | Tiempo restante: 00:00:40
+Progreso: 37000/391200 | Velocidad: 8722.48 reg/s | Tiempo restante: 00:00:40
+Progreso: 38000/391200 | Velocidad: 8742.40 reg/s | Tiempo restante: 00:00:40
+Progreso: 39000/391200 | Velocidad: 8747.68 reg/s | Tiempo restante: 00:00:40
+Progreso: 40000/391200 | Velocidad: 8762.25 reg/s | Tiempo restante: 00:00:40
+Progreso: 41000/391200 | Velocidad: 8738.85 reg/s | Tiempo restante: 00:00:40
+Progreso: 42000/391200 | Velocidad: 8762.02 reg/s | Tiempo restante: 00:00:39
+Progreso: 43000/391200 | Velocidad: 8736.16 reg/s | Tiempo restante: 00:00:39
+Progreso: 44000/391200 | Velocidad: 8754.85 reg/s | Tiempo restante: 00:00:39
+Progreso: 45000/391200 | Velocidad: 8783.02 reg/s | Tiempo restante: 00:00:39
+Progreso: 46000/391200 | Velocidad: 8779.95 reg/s | Tiempo restante: 00:00:39
+Progreso: 47000/391200 | Velocidad: 8790.11 reg/s | Tiempo restante: 00:00:39
+Progreso: 48000/391200 | Velocidad: 8791.84 reg/s | Tiempo restante: 00:00:39
+Progreso: 49000/391200 | Velocidad: 8818.74 reg/s | Tiempo restante: 00:00:38
+Progreso: 50000/391200 | Velocidad: 8805.89 reg/s | Tiempo restante: 00:00:38
+Progreso: 51000/391200 | Velocidad: 8826.97 reg/s | Tiempo restante: 00:00:38
+Progreso: 52000/391200 | Velocidad: 8847.33 reg/s | Tiempo restante: 00:00:38
+Progreso: 53000/391200 | Velocidad: 8874.42 reg/s | Tiempo restante: 00:00:38
+Progreso: 54000/391200 | Velocidad: 8875.86 reg/s | Tiempo restante: 00:00:37
+Progreso: 55000/391200 | Velocidad: 8891.56 reg/s | Tiempo restante: 00:00:37
+Progreso: 56000/391200 | Velocidad: 8889.83 reg/s | Tiempo restante: 00:00:37
+Progreso: 57000/391200 | Velocidad: 8915.89 reg/s | Tiempo restante: 00:00:37
+Progreso: 58000/391200 | Velocidad: 8570.92 reg/s | Tiempo restante: 00:00:38
+Progreso: 59000/391200 | Velocidad: 8346.01 reg/s | Tiempo restante: 00:00:39
+Progreso: 60000/391200 | Velocidad: 8354.29 reg/s | Tiempo restante: 00:00:39
+Progreso: 61000/391200 | Velocidad: 8310.05 reg/s | Tiempo restante: 00:00:39
+Progreso: 62000/391200 | Velocidad: 8139.94 reg/s | Tiempo restante: 00:00:40
+Progreso: 63000/391200 | Velocidad: 8150.64 reg/s | Tiempo restante: 00:00:40
+Progreso: 64000/391200 | Velocidad: 8150.66 reg/s | Tiempo restante: 00:00:40
+Progreso: 65000/391200 | Velocidad: 8058.94 reg/s | Tiempo restante: 00:00:40
+Progreso: 66000/391200 | Velocidad: 8004.80 reg/s | Tiempo restante: 00:00:40
+Progreso: 67000/391200 | Velocidad: 7996.47 reg/s | Tiempo restante: 00:00:40
+Progreso: 68000/391200 | Velocidad: 8042.12 reg/s | Tiempo restante: 00:00:40
+Progreso: 69000/391200 | Velocidad: 8003.68 reg/s | Tiempo restante: 00:00:40
+Progreso: 70000/391200 | Velocidad: 7957.63 reg/s | Tiempo restante: 00:00:40
+Progreso: 71000/391200 | Velocidad: 7874.92 reg/s | Tiempo restante: 00:00:40
+Progreso: 72000/391200 | Velocidad: 7882.94 reg/s | Tiempo restante: 00:00:40
+Progreso: 73000/391200 | Velocidad: 7918.07 reg/s | Tiempo restante: 00:00:40
+Progreso: 74000/391200 | Velocidad: 7855.73 reg/s | Tiempo restante: 00:00:40
+Progreso: 75000/391200 | Velocidad: 7817.87 reg/s | Tiempo restante: 00:00:40
+Progreso: 76000/391200 | Velocidad: 7569.58 reg/s | Tiempo restante: 00:00:41
+Progreso: 77000/391200 | Velocidad: 7468.87 reg/s | Tiempo restante: 00:00:42
+Progreso: 78000/391200 | Velocidad: 7373.98 reg/s | Tiempo restante: 00:00:42
+Progreso: 79000/391200 | Velocidad: 7285.13 reg/s | Tiempo restante: 00:00:42
+Progreso: 80000/391200 | Velocidad: 7294.83 reg/s | Tiempo restante: 00:00:42
+Progreso: 81000/391200 | Velocidad: 7293.16 reg/s | Tiempo restante: 00:00:42
+Progreso: 82000/391200 | Velocidad: 7170.09 reg/s | Tiempo restante: 00:00:43
+Progreso: 83000/391200 | Velocidad: 7201.01 reg/s | Tiempo restante: 00:00:42
+Progreso: 84000/391200 | Velocidad: 7213.50 reg/s | Tiempo restante: 00:00:42
+Progreso: 85000/391200 | Velocidad: 7241.08 reg/s | Tiempo restante: 00:00:42
+Progreso: 86000/391200 | Velocidad: 7242.58 reg/s | Tiempo restante: 00:00:42
+Progreso: 87000/391200 | Velocidad: 7241.05 reg/s | Tiempo restante: 00:00:42
+Progreso: 88000/391200 | Velocidad: 7271.77 reg/s | Tiempo restante: 00:00:41
+Progreso: 89000/391200 | Velocidad: 7290.12 reg/s | Tiempo restante: 00:00:41
+Progreso: 90000/391200 | Velocidad: 7301.64 reg/s | Tiempo restante: 00:00:41
+Progreso: 91000/391200 | Velocidad: 7301.83 reg/s | Tiempo restante: 00:00:41
+Progreso: 92000/391200 | Velocidad: 7330.44 reg/s | Tiempo restante: 00:00:40
+Progreso: 93000/391200 | Velocidad: 7353.45 reg/s | Tiempo restante: 00:00:40
+Progreso: 94000/391200 | Velocidad: 7344.49 reg/s | Tiempo restante: 00:00:40
+Progreso: 95000/391200 | Velocidad: 7382.36 reg/s | Tiempo restante: 00:00:40
+Progreso: 96000/391200 | Velocidad: 7390.76 reg/s | Tiempo restante: 00:00:39
+Progreso: 97000/391200 | Velocidad: 7415.37 reg/s | Tiempo restante: 00:00:39
+Progreso: 98000/391200 | Velocidad: 7426.12 reg/s | Tiempo restante: 00:00:39
+Progreso: 99000/391200 | Velocidad: 7445.65 reg/s | Tiempo restante: 00:00:39
+Progreso: 100000/391200 | Velocidad: 7462.09 reg/s | Tiempo restante: 00:00:39
+Progreso: 101000/391200 | Velocidad: 7470.00 reg/s | Tiempo restante: 00:00:38
+Progreso: 102000/391200 | Velocidad: 7489.82 reg/s | Tiempo restante: 00:00:38
+Progreso: 103000/391200 | Velocidad: 7485.41 reg/s | Tiempo restante: 00:00:38
+Progreso: 104000/391200 | Velocidad: 7510.72 reg/s | Tiempo restante: 00:00:38
+Progreso: 105000/391200 | Velocidad: 7521.19 reg/s | Tiempo restante: 00:00:38
+Progreso: 106000/391200 | Velocidad: 7543.78 reg/s | Tiempo restante: 00:00:37
+Progreso: 107000/391200 | Velocidad: 7550.64 reg/s | Tiempo restante: 00:00:37
+Progreso: 108000/391200 | Velocidad: 7557.91 reg/s | Tiempo restante: 00:00:37
+Progreso: 109000/391200 | Velocidad: 7516.16 reg/s | Tiempo restante: 00:00:37
+Progreso: 110000/391200 | Velocidad: 7533.31 reg/s | Tiempo restante: 00:00:37
+Progreso: 111000/391200 | Velocidad: 7543.57 reg/s | Tiempo restante: 00:00:37
+Progreso: 112000/391200 | Velocidad: 7533.41 reg/s | Tiempo restante: 00:00:37
+Progreso: 113000/391200 | Velocidad: 7555.06 reg/s | Tiempo restante: 00:00:36
+Progreso: 114000/391200 | Velocidad: 7563.91 reg/s | Tiempo restante: 00:00:36
+Progreso: 115000/391200 | Velocidad: 7572.63 reg/s | Tiempo restante: 00:00:36
+Progreso: 116000/391200 | Velocidad: 7578.77 reg/s | Tiempo restante: 00:00:36
+Progreso: 117000/391200 | Velocidad: 7579.90 reg/s | Tiempo restante: 00:00:36
+Progreso: 118000/391200 | Velocidad: 7608.31 reg/s | Tiempo restante: 00:00:35
+Progreso: 119000/391200 | Velocidad: 7621.82 reg/s | Tiempo restante: 00:00:35
+Progreso: 120000/391200 | Velocidad: 7631.75 reg/s | Tiempo restante: 00:00:35
+Progreso: 121000/391200 | Velocidad: 7644.92 reg/s | Tiempo restante: 00:00:35
+Progreso: 122000/391200 | Velocidad: 7645.96 reg/s | Tiempo restante: 00:00:35
+Progreso: 123000/391200 | Velocidad: 7670.75 reg/s | Tiempo restante: 00:00:34
+Progreso: 124000/391200 | Velocidad: 7680.57 reg/s | Tiempo restante: 00:00:34
+Progreso: 125000/391200 | Velocidad: 7692.14 reg/s | Tiempo restante: 00:00:34
+Progreso: 126000/391200 | Velocidad: 7698.40 reg/s | Tiempo restante: 00:00:34
+Progreso: 127000/391200 | Velocidad: 7714.84 reg/s | Tiempo restante: 00:00:34
+Progreso: 128000/391200 | Velocidad: 7722.25 reg/s | Tiempo restante: 00:00:34
+Progreso: 129000/391200 | Velocidad: 7733.73 reg/s | Tiempo restante: 00:00:33
+Progreso: 130000/391200 | Velocidad: 7747.82 reg/s | Tiempo restante: 00:00:33
+Progreso: 131000/391200 | Velocidad: 7758.08 reg/s | Tiempo restante: 00:00:33
+Progreso: 132000/391200 | Velocidad: 7763.65 reg/s | Tiempo restante: 00:00:33
+Progreso: 133000/391200 | Velocidad: 7766.88 reg/s | Tiempo restante: 00:00:33
+Progreso: 134000/391200 | Velocidad: 7780.42 reg/s | Tiempo restante: 00:00:33
+Progreso: 135000/391200 | Velocidad: 7796.95 reg/s | Tiempo restante: 00:00:32
+Progreso: 136000/391200 | Velocidad: 7809.72 reg/s | Tiempo restante: 00:00:32
+Progreso: 137000/391200 | Velocidad: 7821.01 reg/s | Tiempo restante: 00:00:32
+Progreso: 138000/391200 | Velocidad: 7829.51 reg/s | Tiempo restante: 00:00:32
+Progreso: 139000/391200 | Velocidad: 7837.91 reg/s | Tiempo restante: 00:00:32
+Progreso: 140000/391200 | Velocidad: 7849.27 reg/s | Tiempo restante: 00:00:32
+Progreso: 141000/391200 | Velocidad: 7854.39 reg/s | Tiempo restante: 00:00:31
+Progreso: 142000/391200 | Velocidad: 7859.88 reg/s | Tiempo restante: 00:00:31
+Progreso: 143000/391200 | Velocidad: 7873.51 reg/s | Tiempo restante: 00:00:31
+Progreso: 144000/391200 | Velocidad: 7880.97 reg/s | Tiempo restante: 00:00:31
+Progreso: 145000/391200 | Velocidad: 7891.33 reg/s | Tiempo restante: 00:00:31
+Progreso: 146000/391200 | Velocidad: 7885.41 reg/s | Tiempo restante: 00:00:31
+Progreso: 147000/391200 | Velocidad: 7883.37 reg/s | Tiempo restante: 00:00:30
+Progreso: 148000/391200 | Velocidad: 7907.81 reg/s | Tiempo restante: 00:00:30
+Progreso: 149000/391200 | Velocidad: 7906.47 reg/s | Tiempo restante: 00:00:30
+Progreso: 150000/391200 | Velocidad: 7914.29 reg/s | Tiempo restante: 00:00:30
+Progreso: 151000/391200 | Velocidad: 7922.46 reg/s | Tiempo restante: 00:00:30
+Progreso: 152000/391200 | Velocidad: 7931.76 reg/s | Tiempo restante: 00:00:30
+Progreso: 153000/391200 | Velocidad: 7938.50 reg/s | Tiempo restante: 00:00:30
+Error procesando padrón_UNACE_w1252.csv: el valor es demasiado largo para el tipo character varying(2)
+
+
+[13/13] Procesando: regciv_UNACE_w1252.csv
+Total registros a procesar: 3,035,846
+Registros cargados en memoria: 3,035,846
+Progreso: 1000/3035846 | Velocidad: 3518.29 reg/s | Tiempo restante: 00:14:22
+Progreso: 2000/3035846 | Velocidad: 4951.65 reg/s | Tiempo restante: 00:10:12
+Progreso: 3000/3035846 | Velocidad: 5479.28 reg/s | Tiempo restante: 00:09:13
+Progreso: 4000/3035846 | Velocidad: 5681.03 reg/s | Tiempo restante: 00:08:53
+Error procesando regciv_UNACE_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 379: ...LUES (1006861, 'AIDA NOHEMI', 'LOPEZ DE CACERES', 'NaT'::tim...
+                                                               ^
+
+
+Proceso completado exitosamente.

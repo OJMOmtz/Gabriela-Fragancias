@@ -179,10 +179,10 @@ class ETLApp:
         if pd.isna(sex_value):
             return None
         sex_value = str(sex_value).upper().strip()
-        if sex_value in ['F', '1']:
-            return 'F'
-        elif sex_value in ['M', '2']:
+        if sex_value in ['M', '1', 'MASCULINO']:
             return 'M'
+        elif sex_value in ['F', '2', 'FEMENINO']:
+            return 'F'
         return None
 
     def process_files(self):
@@ -222,8 +222,7 @@ class ETLApp:
 
                 # Aplicar transformaciones
                 transformed_data = []
-                for batch_start in range(0, len(df), 1000):
-                    batch = df.iloc[batch_start:batch_start+1000]
+                for _, row in df.iterrows():
                     record = {}
 
                     # Mapear y transformar cada columna
@@ -250,37 +249,36 @@ class ETLApp:
                         transformed_data.append(record)
                         records_processed += 1
 
-                    # Insertar datos transformados
-                    if transformed_data:
-                        columns = transformed_data[0].keys()
-                        values_template = ','.join(['%s'] * len(columns))
-                        insert_query = f"""
-                        INSERT INTO gf.cedulas ({','.join(columns)})
-                        VALUES ({values_template})
-                        ON CONFLICT (numero_cedula)
-                        DO UPDATE SET
-                        {','.join(f"{col} = EXCLUDED.{col}" for col in columns if col != 'numero_cedula')}
-                        """
-                        
-                        cursor.executemany(insert_query,
-                                           batch.values,
-                                           [tuple(record.values()) for record in transformed_data])
+                # Insertar datos transformados
+                if transformed_data:
+                    columns = transformed_data[0].keys()
+                    values_template = ','.join(['%s'] * len(columns))
+                    insert_query = f"""
+                    INSERT INTO Cedulas ({','.join(columns)})
+                    VALUES ({values_template})
+                    ON CONFLICT (numero_cedula)
+                    DO UPDATE SET
+                    {','.join(f"{col} = EXCLUDED.{col}" for col in columns if col != 'numero_cedula')}
+                    """
+                    
+                    cursor.executemany(insert_query, 
+                                       [tuple(record.values()) for record in transformed_data])
 
-                        conn.commit()
-                        self.progress['value'] = i + 1
-                        self.root.update_idletasks()
+                    conn.commit()
+                    self.progress['value'] = i + 1
+                    self.root.update_idletasks()
 
-                    cursor.close()
-                    conn.close()
+            cursor.close()
+            conn.close()
 
-        self.progress_label['text'] = f"¡Proceso completado! {records_processed} registros procesados"
-        self.total_label['text'] = f"Total registros procesados: {self.total_records}"
-        messagebox.showinfo("Éxito", 
-                          f"ETL completado exitosamente\nArchivos procesados: {total_files}\n"
-                          f"Registros procesados: {records_processed}")
+            self.progress_label['text'] = f"¡Proceso completado! {records_processed} registros procesados"
+            self.total_label['text'] = f"Total registros procesados: {self.total_records}"
+            messagebox.showinfo("Éxito", 
+                              f"ETL completado exitosamente\nArchivos procesados: {total_files}\n"
+                              f"Registros procesados: {records_processed}")
 
-    except Exception as e:
-        messagebox.showerror("Error", f"Error durante el procesamiento: {str(e)}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Error durante el procesamiento: {str(e)}")
 
 def process_record(self, record: Dict) -> Optional[tuple]:
     """Procesamiento mejorado de registros con logging detallado"""
@@ -349,17 +347,4 @@ def process_record(self, record: Dict) -> Optional[tuple]:
             f"Lugar Nac.: {lugar_nac}\n"
             f"Dpto: {id_dpto}\n"
             f"Distrito: {id_distrito}\n"
-            f"Fecha Defunc.: {fecha_defunc}"
-        )
-        
-        return (cedula, nombre, apellido, sexo, fecha_nac, direccion, lugar_nac, id_dpto, id_distrito, fecha_defunc)
-        
-    except Exception as e:
-        self.logger.error(f"Error procesando registro: {str(e)}")
-        self.log_to_ui(f"❌ Error en registro: {str(e)}")
-        return None
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ETLApp(root)
-    root.mainloop()
+            f"Fecha Defunc.: {fecha_defunc

@@ -1,0 +1,89 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+================ RESTART: E:/ETL gf.cédulas/csvtogf_d(LAMBDA).py ===============
+
+[1/13] Procesando: padrón 2017 anr_w1252.csv
+Total registros a procesar: 2,309,253
+Registros cargados en memoria: 2,309,048
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/padrón 2017 anr_w1252.csv_errores.csv
+Registros insertados en padrón 2017 anr_w1252.csv: 0
+
+[2/13] Procesando: padrón_UNACE_w1252.csv
+Total registros a procesar: 391,200
+Registros cargados en memoria: 391,200
+Error procesando padrón_UNACE_w1252.csv: 'fecha_valida'
+
+[3/13] Procesando: regciv_2010_w1252.csv
+Total registros a procesar: 3,031,143
+Registros cargados en memoria: 3,031,143
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2010_w1252.csv_errores.csv
+Error procesando regciv_2010_w1252.csv: datos extra después de la última columna esperada
+CONTEXT:  COPY cedulas, línea 1: «1000000,JUANA DEL CARMEN,CAÑETE GONZALEZ,1976-06-20,F,3,11,0,True,,,»
+
+
+[4/13] Procesando: regciv_2013_w1252.csv
+Total registros a procesar: 3,516,273
+Registros cargados en memoria: 3,516,273
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2013_w1252.csv_errores.csv
+Registros insertados en regciv_2013_w1252.csv: 0
+
+[5/13] Procesando: regciv_2015_w1252.csv
+Total registros a procesar: 3,947,574
+Registros cargados en memoria: 3,947,574
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2015_w1252.csv_errores.csv
+Registros insertados en regciv_2015_w1252.csv: 0
+
+[6/13] Procesando: regciv_2018_w1252.csv
+Total registros a procesar: 4,241,507
+Registros cargados en memoria: 4,241,507
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2018_w1252.csv_errores.csv
+Registros insertados en regciv_2018_w1252.csv: 0
+
+[7/13] Procesando: regciv_2020_w1252.csv
+Total registros a procesar: 4,466,866
+Registros cargados en memoria: 4,466,866
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2020_w1252.csv_errores.csv
+Registros insertados en regciv_2020_w1252.csv: 0
+
+[8/13] Procesando: regciv_2021_w1252.csv
+Total registros a procesar: 4,684,841
+Registros cargados en memoria: 4,684,841
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_2021_w1252.csv_errores.csv
+Registros insertados en regciv_2021_w1252.csv: 0
+
+[9/13] Procesando: regciv_UNACE_w1252.csv
+Total registros a procesar: 3,035,846
+Registros cargados en memoria: 3,035,846
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regciv_UNACE_w1252.csv_errores.csv
+Error procesando regciv_UNACE_w1252.csv: datos extra después de la última columna esperada
+CONTEXT:  COPY cedulas, línea 1: «1000000,JUANA DEL CARMEN,CAÑETE GONZALEZ,1976-06-20,F,3,11,0,True,,,»
+
+
+[10/13] Procesando: regcivext_2015_w1252.csv
+Total registros a procesar: 22,621
+Registros cargados en memoria: 22,621
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regcivext_2015_w1252.csv_errores.csv
+Registros insertados en regcivext_2015_w1252.csv: 0
+
+[11/13] Procesando: regcivext_2020_w1252.csv
+Total registros a procesar: 37,338
+Registros cargados en memoria: 37,338
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regcivext_2020_w1252.csv_errores.csv
+Registros insertados en regcivext_2020_w1252.csv: 0
+
+[12/13] Procesando: regcivext_2021_w1252.csv
+Total registros a procesar: 37,424
+Registros cargados en memoria: 37,424
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/regcivext_2021_w1252.csv_errores.csv
+Registros insertados en regcivext_2021_w1252.csv: 0
+
+[13/13] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+Registros inválidos guardados en: D:/PADRONES/csvs/Cédulas/poli01_W1252.csv_errores.csv
+Error procesando poli01_W1252.csv: datos extra después de la última columna esperada
+CONTEXT:  COPY cedulas, línea 1: «1,CARLOS,SILVA,1884-10-13,M,MONTEVIDEO E/CNEL MARTINEZ Y HUMAITA,True,,,,,»
+
+
+Proceso completado exitosamente.

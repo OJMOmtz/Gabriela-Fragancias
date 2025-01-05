@@ -1,0 +1,121 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+================ RESTART: E:/ETL gf.cédulas/csvtogf_a(chtgpt).py ===============
+
+[1/13] Procesando: poli01_W1252.csv
+Total registros a procesar: 4,502,706
+Registros cargados en memoria: 4,502,581
+
+Insertando registros:   0%|          | 0/4502581 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 1000/4502581 [00:01<1:16:21, 982.53reg/s]
+Insertando registros:   0%|          | 2000/4502581 [00:01<43:49, 1711.29reg/s] 
+Insertando registros:   0%|          | 4000/4502581 [00:01<24:15, 3089.80reg/s]
+Insertando registros:   0%|          | 4000/4502581 [00:01<36:11, 2071.83reg/s]
+Error procesando poli01_W1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 223: ...               VALUES (1004556, 'SETSUKO', 'STO', 'NaT'::tim...
+                                                               ^
+
+
+[2/13] Procesando: padrón 2017 anr_w1252.csv
+Total registros a procesar: 2,309,253
+Registros cargados en memoria: 2,309,048
+
+Insertando registros:   0%|          | 0/2309048 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 0/2309048 [00:00<?, ?reg/s]
+Error procesando padrón 2017 anr_w1252.csv: la sintaxis de entrada no es válida para tipo timestamp: «NaT»
+LINE 3: ...     VALUES (1000001, 'RAQUEL', 'CHIR DE CHUANG', 'NaT'::tim...
+                                                             ^
+
+
+[3/13] Procesando: padrón_UNACE_w1252.csv
+Total registros a procesar: 391,200
+Registros cargados en memoria: 391,200
+
+Insertando registros:   0%|          | 0/391200 [00:00<?, ?reg/s]
+Insertando registros:   0%|          | 1000/391200 [00:06<44:52, 144.90reg/s]
+Insertando registros:   1%|          | 2000/391200 [00:10<31:59, 202.76reg/s]
+Insertando registros:   1%|          | 3000/391200 [00:11<24:39, 262.36reg/s]
+Insertando registros:   1%|          | 4000/391200 [00:14<21:56, 294.11reg/s]
+Insertando registros:   1%|▏         | 5000/391200 [00:15<18:44, 343.35reg/s]
+Insertando registros:   2%|▏         | 6000/391200 [00:18<18:43, 342.85reg/s]
+Insertando registros:   2%|▏         | 7000/391200 [00:20<16:46, 381.86reg/s]
+Insertando registros:   2%|▏         | 8000/391200 [00:21<15:35, 409.57reg/s]
+Insertando registros:   2%|▏         | 9000/391200 [00:23<14:27, 440.60reg/s]
+Insertando registros:   3%|▎         | 10000/391200 [00:24<13:47, 460.54reg/s]
+Insertando registros:   3%|▎         | 11000/391200 [00:26<13:19, 475.35reg/s]
+Insertando registros:   3%|▎         | 12000/391200 [00:27<12:28, 506.73reg/s]
+Insertando registros:   3%|▎         | 13000/391200 [00:29<12:14, 514.89reg/s]
+Insertando registros:   4%|▎         | 14000/391200 [00:31<12:19, 510.32reg/s]
+Insertando registros:   4%|▍         | 15000/391200 [00:31<11:03, 566.64reg/s]
+Insertando registros:   4%|▍         | 16000/391200 [00:32<10:04, 620.65reg/s]
+Insertando registros:   4%|▍         | 17000/391200 [00:32<09:07, 683.20reg/s]
+Insertando registros:   5%|▍         | 18000/391200 [00:32<08:15, 753.43reg/s]
+Insertando registros:   5%|▍         | 19000/391200 [00:33<07:34, 819.02reg/s]
+Insertando registros:   5%|▌         | 20000/391200 [00:34<07:09, 863.87reg/s]
+Insertando registros:   5%|▌         | 21000/391200 [00:35<07:23, 834.77reg/s]
+Insertando registros:   6%|▌         | 22000/391200 [00:37<07:32, 815.51reg/s]
+Insertando registros:   6%|▌         | 23000/391200 [00:38<07:25, 827.29reg/s]
+Insertando registros:   6%|▌         | 24000/391200 [00:39<07:48, 784.00reg/s]
+Insertando registros:   6%|▋         | 25000/391200 [00:40<07:22, 827.65reg/s]
+Insertando registros:   7%|▋         | 26000/391200 [00:41<07:01, 866.77reg/s]
+Insertando registros:   7%|▋         | 27000/391200 [00:41<06:36, 918.88reg/s]
+Insertando registros:   7%|▋         | 28000/391200 [00:42<06:16, 965.49reg/s]
+Insertando registros:   7%|▋         | 29000/391200 [00:42<05:53, 1025.21reg/s]
+Insertando registros:   8%|▊         | 30000/391200 [00:43<05:34, 1080.48reg/s]
+Insertando registros:   8%|▊         | 31000/391200 [00:44<05:42, 1051.50reg/s]
+Insertando registros:   8%|▊         | 32000/391200 [00:46<06:05, 982.63reg/s] 
+Insertando registros:   8%|▊         | 33000/391200 [00:47<06:17, 948.43reg/s]
+Insertando registros:   9%|▊         | 34000/391200 [00:48<06:21, 935.26reg/s]
+Insertando registros:   9%|▉         | 35000/391200 [00:51<07:11, 824.73reg/s]
+Insertando registros:   9%|▉         | 36000/391200 [00:52<07:03, 838.69reg/s]
+Insertando registros:   9%|▉         | 37000/391200 [00:54<07:44, 762.85reg/s]
+Insertando registros:  10%|▉         | 38000/391200 [00:55<07:40, 766.86reg/s]
+Insertando registros:  10%|▉         | 39000/391200 [00:58<08:37, 680.30reg/s]
+Insertando registros:  10%|█         | 40000/391200 [00:59<08:24, 696.21reg/s]
+Insertando registros:  10%|█         | 41000/391200 [01:02<09:22, 623.13reg/s]
+Insertando registros:  11%|█         | 42000/391200 [01:04<09:29, 613.64reg/s]
+Insertando registros:  11%|█         | 43000/391200 [01:06<09:38, 602.16reg/s]
+Insertando registros:  11%|█         | 44000/391200 [01:08<09:41, 596.67reg/s]
+Insertando registros:  12%|█▏        | 45000/391200 [01:10<10:02, 574.71reg/s]
+Insertando registros:  12%|█▏        | 46000/391200 [01:12<09:53, 581.39reg/s]
+Insertando registros:  12%|█▏        | 47000/391200 [01:14<09:54, 579.04reg/s]
+Insertando registros:  12%|█▏        | 48000/391200 [01:15<09:29, 602.89reg/s]
+Insertando registros:  13%|█▎        | 49000/391200 [01:16<09:12, 619.53reg/s]
+Insertando registros:  13%|█▎        | 50000/391200 [01:17<09:00, 630.76reg/s]
+Insertando registros:  13%|█▎        | 51000/391200 [01:19<08:58, 632.30reg/s]
+Insertando registros:  13%|█▎        | 52000/391200 [01:20<08:59, 629.23reg/s]
+Insertando registros:  14%|█▎        | 53000/391200 [01:22<08:52, 635.13reg/s]
+Insertando registros:  14%|█▍        | 54000/391200 [01:24<09:06, 617.08reg/s]
+Insertando registros:  14%|█▍        | 55000/391200 [01:26<09:03, 618.53reg/s]
+Insertando registros:  14%|█▍        | 56000/391200 [01:27<09:00, 620.64reg/s]
+Insertando registros:  15%|█▍        | 57000/391200 [01:29<09:05, 613.06reg/s]
+Insertando registros:  15%|█▍        | 58000/391200 [01:30<08:49, 629.08reg/s]
+Insertando registros:  15%|█▌        | 59000/391200 [01:31<08:36, 642.81reg/s]
+Insertando registros:  15%|█▌        | 60000/391200 [01:33<08:24, 656.47reg/s]
+Insertando registros:  16%|█▌        | 61000/391200 [01:34<08:17, 663.45reg/s]
+Insertando registros:  16%|█▌        | 62000/391200 [01:35<08:10, 671.65reg/s]
+Insertando registros:  16%|█▌        | 63000/391200 [01:37<08:00, 683.01reg/s]
+Insertando registros:  16%|█▋        | 64000/391200 [01:38<07:58, 683.11reg/s]
+Insertando registros:  17%|█▋        | 65000/391200 [01:39<07:54, 687.55reg/s]
+Insertando registros:  17%|█▋        | 66000/391200 [01:41<07:51, 689.32reg/s]
+Insertando registros:  17%|█▋        | 67000/391200 [01:42<07:56, 680.73reg/s]
+Insertando registros:  17%|█▋        | 68000/391200 [01:44<08:00, 672.33reg/s]
+Insertando registros:  18%|█▊        | 69000/391200 [01:46<08:08, 658.99reg/s]
+Insertando registros:  18%|█▊        | 70000/391200 [01:48<08:17, 645.56reg/s]
+Insertando registros:  18%|█▊        | 71000/391200 [01:49<08:21, 638.17reg/s]
+Insertando registros:  18%|█▊        | 72000/391200 [01:51<08:30, 624.69reg/s]
+Insertando registros:  19%|█▊        | 73000/391200 [01:53<08:39, 612.71reg/s]
+Insertando registros:  19%|█▉        | 74000/391200 [01:55<08:56, 591.74reg/s]
+Insertando registros:  19%|█▉        | 75000/391200 [01:58<09:08, 576.10reg/s]
+Insertando registros:  19%|█▉        | 76000/391200 [02:00<09:17, 565.70reg/s]
+Insertando registros:  20%|█▉        | 77000/391200 [02:02<09:34, 547.09reg/s]
+Insertando registros:  20%|█▉        | 78000/391200 [02:04<09:50, 530.32reg/s]
+Insertando registros:  20%|██        | 79000/391200 [02:07<10:01, 518.74reg/s]
+Insertando registros:  20%|██        | 80000/391200 [02:09<10:17, 504.27reg/s]
+Insertando registros:  21%|██        | 81000/391200 [02:12<10:33, 489.32reg/s]
+Insertando registros:  21%|██        | 82000/391200 [02:14<10:42, 480.96reg/s]
+Insertando registros:  21%|██        | 83000/391200 [02:17<10:53, 471.61reg/s]
+Insertando registros:  21%|██▏       | 84000/391200 [02:19<11:07, 460.04reg/s]
+Insertando registros:  22%|██▏       | 85000/391200 [02:22<11:24, 447.08reg/s]
+Insertando registros:  22%|██▏       | 86000/391200 [02:25<11:35, 438.66reg/s]

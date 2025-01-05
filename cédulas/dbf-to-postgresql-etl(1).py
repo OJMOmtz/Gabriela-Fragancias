@@ -5,7 +5,7 @@ import psycopg2
 from datetime import datetime
 import dbf
 import re
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 import os
 
 class ETLApp:
@@ -18,14 +18,15 @@ class ETLApp:
         self.files_selected: List[str] = []
         self.mappings: Dict[str, Dict] = {}  # Mapeo por archivo
         self.dbf_tables = {}  # Guardar referencia a las tablas DBF
-        self.total_records = 0
         
         # Columnas destino PostgreSQL
         self.pg_columns = [
-            'numero_cedula', 'nombre', 'apellido', 'fecha_nacimiento', 'sexo',
-            'direccion', 'barrio', 'distrito', 'dpto', 'lugar_nacimiento', 'fecha_defuncion'
+            'numero_cedula', 'nombre', 'apellido', 'sexo',
+            'fecha_nacimiento', 'lugar_nacimiento', 'direccion',
+            'id_barrio', 'id_distrito', 'id_dpto', 'zona',
+            'fecha_defuncion',
         ]
-    
+        
         self.create_widgets()
         
     def create_widgets(self):
@@ -67,9 +68,6 @@ class ETLApp:
 
         self.progress_label = ttk.Label(progress_frame, text="")
         self.progress_label.pack(pady=5)
-
-        self.total_label = ttk.Label(progress_frame, text="Total registros procesados: 0")
-        self.total_label.pack(pady=5)
 
         # Botón procesar
         ttk.Button(scrollable_frame, text="Procesar", 
@@ -179,10 +177,10 @@ class ETLApp:
         if pd.isna(sex_value):
             return None
         sex_value = str(sex_value).upper().strip()
-        if sex_value in ['F', '1']:
-            return 'F'
-        elif sex_value in ['M', '2']:
+        if sex_value in ['M', '1', 'MASCULINO']:
             return 'M'
+        elif sex_value in ['F', '2', 'FEMENINO']:
+            return 'F'
         return None
 
     def process_files(self):
@@ -222,8 +220,7 @@ class ETLApp:
 
                 # Aplicar transformaciones
                 transformed_data = []
-                for batch_start in range(0, len(df), 1000):
-                    batch = df.iloc[batch_start:batch_start+1000]
+                for _, row in df.iterrows():
                     record = {}
 
                     # Mapear y transformar cada columna
@@ -237,7 +234,7 @@ class ETLApp:
                         # Aplicar transformaciones específicas
                         if pg_col == 'fecha_nacimiento':
                             value = self.transform_date(value)
-                        elif pg_col in ['nombre', 'apellido']:
+                        elif pg_col in ['nombre', 'apellido', 'lugar_nacimiento']:
                             value = self.clean_text(value)
                         elif pg_col == 'sexo':
                             value = self.transform_sex(value)
@@ -250,114 +247,35 @@ class ETLApp:
                         transformed_data.append(record)
                         records_processed += 1
 
-                    # Insertar datos transformados
-                    if transformed_data:
-                        columns = transformed_data[0].keys()
-                        values_template = ','.join(['%s'] * len(columns))
-                        insert_query = f"""
+                # Insertar datos transformados
+                if transformed_data:
+                    columns = transformed_data[0].keys()
+                    values_template = ','.join(['%s'] * len(columns))
+                    insert_query = f"""
                         INSERT INTO gf.cedulas ({','.join(columns)})
                         VALUES ({values_template})
-                        ON CONFLICT (numero_cedula)
+                        ON CONFLICT (numero_cedula) 
                         DO UPDATE SET
-                        {','.join(f"{col} = EXCLUDED.{col}" for col in columns if col != 'numero_cedula')}
-                        """
-                        
-                        cursor.executemany(insert_query,
-                                           batch.values,
-                                           [tuple(record.values()) for record in transformed_data])
+                            {','.join(f"{col} = EXCLUDED.{col}" for col in columns if col != 'numero_cedula')}
+                    """
 
-                        conn.commit()
-                        self.progress['value'] = i + 1
-                        self.root.update_idletasks()
+                    cursor.executemany(insert_query, 
+                                     [tuple(record.values()) for record in transformed_data])
 
-                    cursor.close()
-                    conn.close()
+                conn.commit()
+                self.progress['value'] = i + 1
+                self.root.update_idletasks()
 
-        self.progress_label['text'] = f"¡Proceso completado! {records_processed} registros procesados"
-        self.total_label['text'] = f"Total registros procesados: {self.total_records}"
-        messagebox.showinfo("Éxito", 
-                          f"ETL completado exitosamente\nArchivos procesados: {total_files}\n"
-                          f"Registros procesados: {records_processed}")
+            cursor.close()
+            conn.close()
 
-    except Exception as e:
-        messagebox.showerror("Error", f"Error durante el procesamiento: {str(e)}")
+            self.progress_label['text'] = f"¡Proceso completado! {records_processed} registros procesados"
+            messagebox.showinfo("Éxito", 
+                              f"ETL completado exitosamente\nArchivos procesados: {total_files}\n"
+                              f"Registros procesados: {records_processed}")
 
-def process_record(self, record: Dict) -> Optional[tuple]:
-    """Procesamiento mejorado de registros con logging detallado"""
-    try:
-        # Debug del registro completo
-        self.logger.debug(f"Procesando registro: {record}")
-        
-        # Obtener y validar cédula
-        cedula = self.safe_str(record.get('cedula', record.get('ci', record.get('nro_doc', ''))))
-        if not cedula or not cedula.isdigit():
-            self.logger.warning(f"Cédula inválida: {cedula}")
-            self.log_to_ui(f"⚠️ Cédula inválida: {cedula}")
-            return None
-        
-        # Procesar nombre y apellido
-        nombre = self.safe_str(record.get('nombre', record.get('nombres', '')))
-        apellido = self.safe_str(record.get('apellido', record.get('apellidos', '')))
-        
-        # Procesar sexo
-        sexo = self.safe_str(record.get('sexo', record.get('genero', '')))
-        if sexo:
-            sexo = sexo.upper()[:1]  # Tomar solo la primera letra en mayúscula
-        
-        # Procesar fecha de nacimiento
-        fecha_nac = None
-        for field in ['fec_nac', 'fecha_nac', 'fechanac', 'fnac', 'nacimiento']:
-            if field in record:
-                fecha_nac = self.standardize_date(record[field])
-                if fecha_nac:
-                    break
-        
-        # Procesar dirección
-        direccion = None
-        for field in ['direcc', 'direccion', 'direc', 'dir', 'domicilio']:
-            if field in record:
-                direccion = self.clean_address(record[field])
-                if direccion:
-                    break
-        
-        # Procesar lugar de nacimiento
-        lugar_nac = self.safe_str(record.get('lugar_nac', record.get('lugnac', '')))
-        
-        # Procesar departamento
-        id_dpto = self.safe_str(record.get('id_dpto', record.get('depart', '')))
-        
-        # Procesar distrito
-        id_distrito = self.safe_str(record.get('id_distrito', record.get('distrito', '')))
-        
-        # Procesar fecha de defunción
-        fecha_defunc = None
-        for field in ['fec_defunc', 'fecha_defunc', 'fechadefunc']:
-            if field in record:
-                fecha_defunc = self.standardize_date(record[field])
-                if fecha_defunc:
-                    break
-        
-        # Logging detallado
-        self.logger.debug(
-            f"Registro procesado:\n"
-            f"Cédula: {cedula}\n"
-            f"Nombre: {nombre}\n"
-            f"Apellido: {apellido}\n"
-            f"Sexo: {sexo}\n"
-            f"Fecha Nac.: {fecha_nac}\n"
-            f"Dirección: {direccion}\n"
-            f"Lugar Nac.: {lugar_nac}\n"
-            f"Dpto: {id_dpto}\n"
-            f"Distrito: {id_distrito}\n"
-            f"Fecha Defunc.: {fecha_defunc}"
-        )
-        
-        return (cedula, nombre, apellido, sexo, fecha_nac, direccion, lugar_nac, id_dpto, id_distrito, fecha_defunc)
-        
-    except Exception as e:
-        self.logger.error(f"Error procesando registro: {str(e)}")
-        self.log_to_ui(f"❌ Error en registro: {str(e)}")
-        return None
+        except Exception as e:
+            messagebox.showerror("Error", f"Error durante el procesamiento: {str(e)}")
 
 if __name__ == "__main__":
     root = tk.Tk()

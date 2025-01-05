@@ -1,0 +1,3 @@
+2025-01-02 21:34:13,536 - ERROR - Error en la selección de archivos: 'ETLApp' object has no attribute '_process_file_selection'
+2025-01-02 21:34:26,239 - ERROR - Error en la selección de archivos: 'ETLApp' object has no attribute '_process_file_selection'
+2025-01-02 21:48:18,199 - ERROR - Error en la selección de archivos: 'ETLApp' object has no attribute '_process_file_selection'
