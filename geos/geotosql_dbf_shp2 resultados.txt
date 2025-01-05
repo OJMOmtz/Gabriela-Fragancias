@@ -1,0 +1,91 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+= RESTART: D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py
+Procesando la tabla barrios_localidades desde ['D:\\Web\\Barrios_Localidades_Paraguay.dbf', 'D:\\Web\\Barrios_Localidades_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla barrios_localidades.
+Procesando la tabla ciudades_paraguay desde ['D:\\Web\\Ciudades_Paraguay.dbf', 'D:\\Web\\Ciudades_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla ciudades_paraguay.
+Procesando la tabla comunidades_indigenas desde ['D:\\Web\\Comunidades_Indigenas_Paraguay.dbf', 'D:\\Web\\Comunidades_Indigenas_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla comunidades_indigenas.
+Procesando la tabla departamentos desde ['D:\\Web\\Departamentos_Paraguay.dbf', 'D:\\Web\\Departamentos_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla departamentos.
+Procesando la tabla distritos desde ['D:\\Web\\Distritos_Paraguay.dbf', 'D:\\Web\\Distritos_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla distritos.
+Procesando la tabla hidrografia desde ['D:\\Web\\Hidrografia_Paraguay.dbf', 'D:\\Web\\Hidrografia_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla hidrografia.
+Procesando la tabla locales_de_salud desde ['D:\\Web\\LOCALES_DE_SALUD_DGEEC2012.dbf', 'D:\\Web\\LOCALES_DE_SALUD_DGEEC2012.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla locales_de_salud.
+Procesando la tabla locales_educativos desde ['D:\\Web\\LOCALES_EDUCATIVOS_DGEEC2012.dbf', 'D:\\Web\\LOCALES_EDUCATIVOS_DGEEC2012.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla locales_educativos.
+Procesando la tabla locales_policiales desde ['D:\\Web\\LOCALES_POLICIALES_DGEEC2012.dbf', 'D:\\Web\\LOCALES_POLICIALES_DGEEC2012.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla locales_policiales.
+Procesando la tabla manzanas desde ['D:\\Web\\Manzanas_Paraguay.dbf', 'D:\\Web\\Manzanas_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla manzanas.
+Procesando la tabla vias_principales desde ['D:\\Web\\Vias_principales_Paraguay.dbf', 'D:\\Web\\Vias_principales_Paraguay.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla vias_principales.
+Procesando la tabla vias desde ['D:\\Web\\Vias_Paraguay.dbf', 'D:\\Web\\Vias_Paraguay.shp']...
+Error procesando vias: 'NoneType' object has no attribute 'wkt'
+Procesando la tabla codigos_postales desde ['D:\\Web\\ZONA_POSTAL_PARAGUAY.dbf', 'D:\\Web\\ZONA_POSTAL_PARAGUAY.shp']...
+
+Warning (from warnings module):
+  File "D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/geos/geotosql_dbf_shp2.py", line 52
+    gdf["geometry"] = gdf["geometry"].apply(lambda geom: geom.wkt)
+UserWarning: Geometry column does not contain geometry.
+Datos cargados exitosamente para la tabla codigos_postales.
+Proceso finalizado.
