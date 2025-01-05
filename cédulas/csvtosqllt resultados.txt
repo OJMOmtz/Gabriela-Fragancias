@@ -1,0 +1,462 @@
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+= RESTART: D:/IA provechar/GabrielaFragancias/scripts/DBF to SQL/csvtosqllt.py =
+Procesando D:\PADRONES\csvs\cedulas\poli01_w1252.csv...
+D:\PADRONES\csvs\cedulas\poli01_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regcivext_2015_w1252.csv...
+D:\PADRONES\csvs\cedulas\regcivext_2015_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regcivext_2020_w1252.csv...
+D:\PADRONES\csvs\cedulas\regcivext_2020_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regcivext_2021_w1252.csv...
+D:\PADRONES\csvs\cedulas\regcivext_2021_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2010_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2010_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2013_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2013_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2015_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2015_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2018_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2018_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2020_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2020_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_2021_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_2021_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\regciv_UNACE_w1252.csv...
+D:\PADRONES\csvs\cedulas\regciv_UNACE_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\wpadron 2017 anr_w1252.csv...
+D:\PADRONES\csvs\cedulas\wpadron 2017 anr_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv...
+Omitiendo fila 4237 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 11074 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 21196 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 33300 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 39353 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 48234 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 68559 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 92157 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 92344 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 92430 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 94227 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 94635 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 94957 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 96321 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 110986 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 112824 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 113358 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 114553 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 131325 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 159165 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 161537 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 183702 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 186228 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 197183 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 210853 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 213346 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 224692 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 238910 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 240258 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 241646 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 242577 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 250203 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 265298 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 304837 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 338278 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 368779 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 369175 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 382589 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 391332 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 414064 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 426734 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 439502 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 451645 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 463486 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 476910 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 481829 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 504149 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 514521 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 519646 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 519829 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 529171 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 534367 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 534601 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 545081 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 595121 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 597872 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 607072 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 618085 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 643126 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 663331 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 664578 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 670130 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 671255 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 671590 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 704159 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 712579 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 769768 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 778494 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 778495 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 790003 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 808289 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 819364 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 824247 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 851754 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 852634 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 865279 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 872200 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 872367 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 875422 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 876748 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 883565 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 889292 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 910160 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 920339 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 921951 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 923247 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 926116 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 946099 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 950063 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 997638 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1000666 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1002474 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1014966 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1021923 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1024486 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1027741 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1037736 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1059545 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1066705 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1067450 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1072059 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1140084 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1140941 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1152424 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1169772 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1199304 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1221909 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1223194 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1229048 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1243435 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1244035 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1244368 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1247158 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1251425 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1294513 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1311120 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1311652 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1318414 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1326874 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1328050 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1329956 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1342857 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1357038 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1357225 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1367443 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1371326 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1373411 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1386691 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 1446060 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1454172 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1469468 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1474774 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1499264 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1507154 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1512102 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1512319 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1524764 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1534096 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1537806 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1539958 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1548001 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1548026 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1569674 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1574129 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1591992 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1597517 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1606354 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1631026 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1647482 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1648165 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1655588 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1665865 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1675748 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1682320 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1682554 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1691433 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1698142 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1698748 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1706674 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 1713078 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1714413 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1714879 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1725603 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1731843 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1732639 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1732973 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1744718 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1746436 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1754268 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1775796 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1781346 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1798432 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1806106 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1812183 con error de datos: el valor es demasiado largo para el tipo character(1)
+
+Omitiendo fila 1823401 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1877128 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1882155 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1921559 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1947228 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1948680 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1952461 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1956062 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1957868 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1961795 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 1989755 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2027395 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2063960 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2082451 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2084688 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2157084 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2180207 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2191768 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2249724 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2280365 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2323649 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2333987 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2350498 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2350520 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2359339 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2370909 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2417461 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2420599 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2424951 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2455927 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2470297 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2479757 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2495836 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2506074 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2515830 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2526528 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2527139 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2531150 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2531451 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+Omitiendo fila 2561239 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+D:\PADRONES\csvs\cedulas\wpadron 2021 anr_w1252.csv procesado correctamente.
+Procesando D:\PADRONES\csvs\cedulas\wpadron_UNACE_w1252.csv...
+Omitiendo fila 153079 con error de datos: el valor es demasiado largo para el tipo character varying(2)
+
+D:\PADRONES\csvs\cedulas\wpadron_UNACE_w1252.csv procesado correctamente.
