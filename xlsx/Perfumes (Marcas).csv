@@ -1,0 +1,701 @@
+-- Tabla Marca
+CREATE TABLE gf.marca (
+    id_marca SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+	sitio_web TEXT,
+    año_fundacion INT,
+	ciudad TEXT,
+	país TEXT,	
+    estado gf.estado_registro DEFAULT 'activo'
+);
+
+INSERT INTO gf.marca (nombre,sitio_web,año_fundacion,ciudad,país)
+Marca,Sitio web,Año de fundación,Ciudad,País
+1,Antonio Banderas,https://www.banderasperfumes.com/us/en/,1997,Madrid,España
+2,Carolina Herrera,https://www.carolinaherrera.com/,1981,New York City,Estados Unidos
+3,New Brand Perfumes,,,,
+4,Shakira,https://www.shakira.com,2010,,
+5,Calvin Klein,https://www.calvinklein.us/en/women/fragrance/fragrance,1968,New York City,Estados Unidos
+6,Azzaro,https://www.azzaro.com/en,1969,Paris,Francia
+7,Chic 'N Glam Perfumes,https://www.walmart.com/browse/beauty/fragrances/chic-n-glam/1085666_133225/YnJhbmQ6Q2hpYyduIEdsYW0ie,2015,New York City,Estados Unidos
+8,Christian Dior,https://www.dior.com/en_us/beauty/fragrance/women-fragrance-home.html,1946,Paris,Francia
+9,Cuba,https://www.fragranceoutlet.com/collections/cuba-colognes-and-perfumes,1994,Havana,Cuba
+10,Emper,https://www.emperperfumes.com/,2010,Dubai,UAE
+11,Ferrari Fragrances,https://luxuryperfume.com/collections/ferrari,1999,Maranello,
+12,Grès,https://www.parfumsgres.com/en/heritage,1932,Paris,Francia
+13,Hugo Boss,https://www.hugoboss.com/fragrances-men/,1924,Metzingen,Germany
+14,Paco Rabanne,https://www.pacorabanne.com/fr/parfums,1966,París,Francia
+15,Ralph Lauren,,1967,Nueva York,Estados Unidos
+16,Ted Lapidus,https://www.lapidus.fr/,1954,París,Francia
+17,Ulric de Varens,,1982,París,Francia
+18,Adidas,https://www.perfume.com/adidas,1949,Herzogenaurach,Germany
+19,Jesús Del Pozo,https://www.fragranceoutlet.com/collections/jesus-del-pozo-fragrances,,,
+20,Alta Moda,https://www.fragrantica.com/designers/Alta-Moda.html,1995,Milan,Italia
+21,Yves de Sistelle
+22,Christine Darvin,https://www.parfums-christinedarvin.com/en/content/6-brand,1995,Paris,Francia
+23,Omerta
+24,Pacha Ibiza,,1973,Ibiza,España
+25,Puig,https://www.puig.com/en/brands,1914,Barcelona,España
+26,Mavive,https://www.mavive.com/en/,1948,,Italia
+27,Elizabeth Arden,https://www.elizabetharden.com/collections/fragrance,1910,New York City,Estados Unidos
+28,Animale,https://www.sephora.com.br/animale/,1974,São Paulo,Brasil
+29,Carlotta Zuofun,https://www.zuofun.com/,2010,Milan,Italia
+30,Moschino,,1983,Milán,Italia
+31,Versace,,1978,Milán,Italia
+32,Ágatha Ruiz De La Prada,https://agatharuizdelapradaperfumes.com/en,1981,Madrid,España
+33,Gilles Cantuel,https://www.perfume.com/gilles-cantuel,1992,Paris,Francia
+34,Stella Dustin
+35,Chanel,https://www.chanel.com/us/fragrance/,1910,Paris,Francia
+36,Karen Low,,2005,Australia,
+37,Nina Ricci,,1932,París,Francia
+38,NYC Scents
+39,Air-Val International,https://www.air-val.com/en/,1985,Paris,Francia
+40,Britney Spears,https://www.instagram.com/britneyspearsfragrances/?hl=en,2001,New York City,Estados Unidos
+41,Estelle Ewen,https://geparlys.com/collections/estelle-ewen,2015,Los Angeles,Estados Unidos
+42,Cofinluxe,https://us.amazon.com/Cafe-Cofinluxe-Women-Parfum-Spray/dp/B001360EWE,1989,Paris,Francia
+43,Cacharel,https://www.loreal.com/en/loreal-luxe/cacharel/,1962,Paris,Francia
+44,Tommy Hilfiger,,1985,Nueva York,Estados Unidos
+45,Givenchy,https://www.givenchybeauty.com/us/fragrance/,1952,Paris,Francia
+46,Dolce & Gabbana,https://www.dolcegabbana.com/en-us/beauty/perfumes-for-her/all-products/,1985,Milan,Italia
+47,Yves Saint Laurent,https://www.yslbeautyus.com/fragrance/,1961,París,Francia
+48,Lanvin Parfums,,1889,París,Francia
+49,Jeanne Arthes,https://www.jeanne-arthes.com/,1978,Paris,Francia
+50,Lattafa
+51,Marina De Bourbon,,1992,París,Francia
+52,Maison Alhambra
+53,Sappil
+54,Lacoste,,1933,París,Francia
+55,Fragantia Secrets,https://www.fragrantica.com/designers/Fragrantia-Secrets.html,2010,Dubai,UAE
+56,Via Paris Parfums
+57,Sex in the City,,2004,Estados Unidos,
+58,Burberry,https://us.burberry.com/l/beauty/womens-fragrances/,1856,London,Inglaterra
+59,Guy Laroche,https://www.fragrantica.com/designers/Guy-Laroche.html,1963,Paris,Francia
+60,Escada,https://www.escada-fragrances.com/,1978,Munich,Germany
+61,Kenzo,,1970,París,Francia
+62,Unforgettable Moments
+63,INCC,https://www.incc-parfums.com/,2010,Dubai,UAE
+64,Give Back Brands,https://givebackbeauty.com/,2012,Los Angeles,Estados Unidos
+65,Cadillac,https://www.perfume.com/cadillac,1902,Detroit,Estados Unidos
+66,Victoria's Secret,https://www.victoriassecret.com/beauty/fragrances,1977,Columbus,Ohio
+67,Jean Paul Gaultier,https://www.jeanpaulgaultier.com/,1976,Paris,Francia
+68,Mont Blanc,,1906,Hamburgo,Alemania
+69,Benetton,https://www.benettonfragrances.com/,1965,Treviso,Italia
+70,Issey Miyake,https://www.isseymiyakeparfums.com/en,1970,Tokyo,Japan
+71,Nuparfums Group
+72,Paris Elysees,https://www.pariselysees.fr/,1968,París,Francia
+73,LAK Paris,,2008,París,Francia
+74,Lancôme,,1935,París,Francia
+75,Giorgio Armani,https://www.armani.com/en-us/experience/giorgio-armani/fragrances,1981,Milan,Italia
+76,Lolita Lempicka,,1997,París,Francia
+77,Bvlgari,https://www.bulgari.com/en-us/fragrances,1884,Rome,Italia
+78,Sergio Tacchini,,1966,Belluno,Italia
+79,Aco
+Adolfo Domínguez
+Agent Provocateur
+Alejandro Sanz,https://www.amazon.com/Alejandro-Sanz-Acorde-Woman-Edt/dp/B07TXBXBNK,1991,Madrid,España
+Ambercrombie & Fitch
+Angel Schlesser
+Angry Birds
+Arabiyat Prestige
+Aramis,https://www.fragrantica.com/perfume/Aramis/Aramis-113.html,1964,New York City,Estados Unidos
+Ariana Grande
+Armaf
+Armand Basi
+Armani,https://www.armani.com/en-us/experience/fragrances,1975,Milan,Italia
+Aromatics
+Asdaaf
+Attimo
+Azzedine
+Baldessarini
+Balenciaga
+Banana Republic
+Barbie
+Bbny
+Bcbg Maxazria
+Beautiful
+Bebe
+Bentley
+Beverly Hills
+Beyoncé,https://parfum.beyonce.com/,2016,New York City,Estados Unidos
+Bharara
+Big Pony
+Bill Blass
+Bogart
+Boucheron,https://www.boucheron.com/us/la-maison-menu/notre-maison/fragrances.html,1898,Paris,Francia
+C2u
+Cartier,https://www.cartier.com/en-us/fragrances/fragrances/,1847,Paris,Francia
+Celine Dion
+Chloe Narcisse
+Chloe,https://www.chloe.com/us/chloe/shop-online/women/fragrances,1952,Paris,Francia
+Christian Siriano
+Cinderella
+Clinique,https://www.clinique.com/products/1577/fragrance,1968,New York City,Estados Unidos
+Coach
+Creed
+Cristian Dior
+Cristiano Ronaldo
+Curve,https://www.curvefragrances.com/,1996,New York City,Estados Unidos
+Davidoff,https://www.zinodavidoff.com/fragrances,1970,Geneva,Switzerland
+Diesel,https://global.diesel.com/man/perfumes/,1978,Asolo,Italia
+Disney
+Dkny
+Donna Karan,https://www.donnakaran.com/collections/fragrance,1985,New York City,Estados Unidos
+Ducati,https://www.ducati.com/ww/en/editorial/ducati-ice,1926,Bologna,Italia
+Dunhill
+Dupont,https://en.st-dupont.com/collections/accessories-fragrances,1817,Wilmington,Delaware
+EA Fragrances,https://www.aurafragrance.com/collections/womens-fragrances,2012,Los Angeles,Estados Unidos
+Ekw
+Elie Saab
+Elizabeth Taylor,https://elizabethtaylor.com/world-of-fragrance/,1987,Los Angeles,Estados Unidos
+Emanuel Ungaro,https://www.ungaro.com/perfumes/,1965,Paris,Francia
+Ermenegildo Zegna
+Estée Lauder,https://www.esteelauder.com/products/571/product-catalog/fragrance,1946,New York City,Estados Unidos
+Euroitalia,https://www.euroitalia.it/en/,1974,Milan,Italia
+Fandi,https://fandi-perfume.com/,1992,Dubai,UAE
+Ford,https://www.tomfordbeauty.com/products/fragrance,1903,Dearborn,Michigan
+Fragantia
+Fragrance World
+Fred Hayman
+French Avenue
+Fujiyama,https://www.fragrantica.com/perfume/Succes-de-Paris/Fujiyama-6748.html,1985,Tokyo,Japan
+GAP
+Gabriela Sabatini
+Gale Hayman
+Garden Secret
+Gian Franco Ferré
+Giorgio Beverlly Hills,https://www.giorgiobeverlyhills.com/en/,1987,Beverly Hills,California
+Gisele Denis
+Gloria Vanderbilt
+Gucci,https://www.gucci.com/us/en/ca/beauty/fragrances/fragrances-for-women-c-fragrances-for-women,1921,Florence,Italia
+Guerlain,https://www.guerlain.com/us/en-us,1828,Paris,Francia
+Guess,https://www.guess.com/us/en/women/accessories/fragrance/,1981,Los Angeles,Estados Unidos
+HBO
+Halston,https://www.amazon.com/Halston-Cologne-Spray-Women-Ounce/dp/B00065IZUG,1973,New York City,Estados Unidos
+Hermenegildo Zegna,,1910,Trivero,Italia
+Hermes
+Hollister
+Interparfums,https://www.interparfumsinc.com/,1989,Paris,Francia
+Jacques Bogart
+Jaguar
+Jennifer Lopez,http://designerparfums.com/jennifer-lopez-fragrances,2002,New York City,Estados Unidos
+Jessica Simpson
+Jimmy Choo,,1996,Londres,Inglaterra
+Jo Milano
+Joaquin Cortez
+Joop!,,1987,Hamburgo,Alemania
+Jovan
+Juicy Couture,,2006,Los Angeles,Estados Unidos
+Just Paris
+Karl Lagerfeld,,1984,París,Francia
+Katy Perry,https://www.katyperryfragrances.com/,2010,Estados Unidos,
+Kenneth Cole
+Kim Kardashian
+L'Oreal
+Lady Gaga
+Lamborghini
+Le Gazelle
+Liz Claiborne
+Loewe,,1846,Madrid,España
+Lomani
+MTV,,1981,Nueva York,Estados Unidos
+Maison Des Parfums
+Mandarina Duck
+Mango
+Marc Jacobs,,1984,Nueva York,Estados Unidos
+Mariah Carey
+Maubossin,,1927,París,Francia
+Mercedes Benz,,1926,Stuttgart,Alemania
+Micheal Kors,,1981,Nueva York,Estados Unidos
+Michel Germain
+Molyneux,,1919,París,Francia
+Montale
+Montana,,1970,París,Francia
+Mush Mush
+Narciso Rodriguez,,2003,Nueva York,Estados Unidos
+Nautica,,1983,Hartford,Connecticut
+Nice Shoe
+Nicki Minaj,,2012,Trinidad y Tobago,
+Nike,,1964,Beaverton,Oregón
+Nostrum
+Ocean Pacific
+Off Brands
+One Direction,,2013,Reino Unidos,
+Orientica
+Oscar De La Renta,,1965,Nueva York,Estados Unidos
+P&G Prestige Beauté,,1837,Cincinnati,Ohio
+Pablo Picasso,,1881,Málaga,España
+Pacific Creation
+Paloma Picasso
+Paparazzi
+Parfums Café
+Parfums Des Champs
+Paris Hilton,https://www.parishiltonfragrances.com/,2004,Los Angeles,Estados Unidos
+Penguin,,1939,Nueva York,Estados Unidos
+Perry Ellis,,1976,Nueva York,Estados Unidos
+Pierre Cardin
+Pino Silvestre
+Playboy
+Police
+Prada,,1913,Milán,Italia
+Privé
+Rasasi
+Rave
+Revlon,,1932,Nueva York,Estados Unidos
+Riffs
+Rihanna,,2011,Barbados,
+Roberto Cavalli,,1970,Florencia,Italia
+Rochas,,1925,París,Francia
+Salvador Dali,,1982,Figueres,España
+Salvatore Ferragamo,,1927,Florencia,Italia
+Silver Quartz
+Spider Man
+Starluxe
+Stella McCartney,,2003,Londres,Inglaterra
+Swiss Arabian
+Swiss Army Victorinox
+Swiss Guard
+Terre de Hermès,,1837,París,Francia
+Texill
+Thierry Mugler,,1973,París,Francia
+Tiverton
+Tom Ford,https://www.tomfordbeauty.com/,2005,Londres,Inglaterra
+Tous,,1920,Barcelona,España
+Trussardi
+Umbro
+Valentino
+Van Cleef & Arpels,,1906,París,Francia
+Vera Wang,https://www.verawang.com/fragrance/,2002,Nueva York,Estados Unidos
+Victorinox,,1884,Ibach-Schwyz,Suiza
+Victory
+Viktor&Rolf,,1993,Ámsterdam,Países Bajos
+Warner Bros.,,1923,Burbank,California
+Xeryus
+Xoxo
+Zippo,,1932,Bradford,Pensilvania
+
+
+1,AntonioBanderas
+2,CarolinaHerrera
+3,Shakira
+4,NewBrandPerfumes
+5,ChicNGlamPerfumes
+6,CalvinKlein
+7,Grès
+8,P&GPrestigeBeauté
+9,TedLapidus
+10,Azzaro
+11,UlricdeVarens
+12,FerrariFragrances
+14,ParfumsDesChamps
+15,JesúsDelPozo
+16,YvesdeSistelle
+17,Emper
+18,AltaModa
+19,PachaIbiza
+20,ChristineDarvin
+21,Omerta
+11,Adidas
+24,Puig
+25,Mavive
+26,ElizabethArden
+27,AnimaleGroup
+28,CarlottaZuofun
+29,Euroitalia
+30,ParfumsCafé
+31,PacoRabanne
+32,ÁgataRuizdelaPrada
+33,GillesCantuel
+34,StellaDustin
+35,Chanel
+36,KarenLow
+37,NinaRicci
+38,HugoBoss
+39,Air-ValInternational
+40,EAFragrances
+41,EstelleEwen
+42,Cofinluxe
+43,Cacharel
+44,TommyHilfiger
+45,Givenchy
+46,Dolce&Gabbana
+47,YvesSaintLaurent
+48,LanvinParfums
+49,JeanneArthes
+50,ChristianDior
+51,MarinadeBourbon
+53,Sapil
+54,Lacoste
+55,FragantiaSecrets
+56,ViaParisParfums
+57,SexintheCity
+58,BurberryFragances
+59,GuyLaroche
+60,GiorgioArmani
+61,Kenzo
+62,UnforgettableMoments
+63,INCC
+64,GiveBackBrands
+65,Cadillac
+66,VictoriasSecret
+67,JeanPaulGaultier
+68,Interparfums
+69,Benetton
+70,IsseyMiyake
+71,NuparfumsGroup
+72,ParisElysees
+73,LAKParis
+74,Lancome
+75,EmporioArmani
+76,PacificCreation
+77,Bvlgari
+78,RalphLauren
+80,SergioTacchini
+81,Moschino
+-- Tabla Marca,,,,
+CREATE TABLE gf.marca (,,,,
+    id_marca SERIAL PRIMARY KEY,,,,
+    nombre VARCHAR(100) NOT NULL UNIQUE,,,,
+,sitio_web TEXT,,,
+    año_fundacion INT,,,,
+,ciudad TEXT,,,
+,país TEXT,,,
+    estado gf.estado_registro DEFAULT 'activo',,,,
+),,,,
+
+INSERT INTO gf.prefijos (prefijo, descripcion) 
+VALUES 
+    ('+595961', 'HOLA PARAGUAY-VOX'),
+    ('+595971', 'PERSONAL'),
+    ('+595972', 'PERSONAL'),
+    ('+595973', 'PERSONAL'),
+    ('+595975', 'PERSONAL'),
+    ('+595976', 'PERSONAL'),
+    ('+595981', 'TELECEL-TIGO'),
+    ('+595982', 'TELECEL-TIGO'),
+    ('+595983', 'TELECEL-TIGO'),
+    ('+595984', 'TELECEL-TIGO'),
+    ('+595985', 'TELECEL-TIGO'),
+    ('+595991', 'AMX MOVIL CLARO'),
+    ('+595992', 'AMX MOVIL CLARO'),
+    ('+595993', 'AMX MOVIL CLARO'),
+    ('+595995', 'AMX MOVIL CLARO');
+
+
+/* Data for the 'gf.marca' table  (Records 1 - 79) */,,,,
+
+INSERT INTO gf.marca (nombre)
+(1,'AntonioBanderas'),
+(2,'CarolinaHerrera'),
+(3,'Shakira'),
+(4,'NewBrandPerfumes'),
+(5,'Chic'NGlamPerfumes'),
+(6,'CalvinKlein'),
+(7,'Grès'),
+(8,'P&GPrestigeBeauté'),
+(9,'TedLapidus'),
+(10,'Azzaro'),
+(11,'UlricdeVarens'),
+(12,'FerrariFragrances'),
+(14,'ParfumsDesChamps'),
+(15,'JesúsDelPozo'),
+(16,'YvesdeSistelle'),
+(17,'Emper'),
+(18,'AltaModa'),
+(19,'PachaIbiza'),
+(20,'ChristineDarvin'),
+(21,'Omerta'),
+(11,'Adidas'),
+(24,'Puig'),
+(25,'Mavive'),
+(26,'ElizabethArden'),
+(27,'AnimaleGroup'),
+(28,'CarlottaZuofun'),
+(29,'Euroitalia'),
+(30,'ParfumsCafé'),
+(31,'PacoRabanne'),
+(32,'ÁgataRuizdelaPrada'),
+(33,'GillesCantuel'),
+(34,'StellaDustin'),
+(35,'Chanel'),
+(36,'KarenLow'),
+(37,'NinaRicci'),
+(38,'HugoBoss'),
+(39,'Air-ValInternational'),
+(40,'EAFragrances'),
+(41,'EstelleEwen'),
+(42,'Cofinluxe'),
+(43,'Cacharel'),
+(44,'TommyHilfiger'),
+(45,'Givenchy'),
+(46,'Dolce&Gabbana'),
+(47,'YvesSaintLaurent'),
+(48,'LanvinParfums'),
+(49,'JeanneArthes'),
+(50,'ChristianDior'),
+(51,'MarinadeBourbon'),
+(53,'Sapil'),
+(54,'Lacoste'),
+(55,'FragantiaSecrets'),
+(56,'ViaParisParfums'),
+(57,'SexintheCity'),
+(58,'BurberryFragances'),
+(59,'GuyLaroche'),
+(60,'GiorgioArmani'),
+(61,'Kenzo'),
+(62,'UnforgettableMoments'),
+(63,'INCC'),
+(64,'GiveBackBrands'),
+(65,'Cadillac'),
+(66,'Victoria'sSecret'),
+(67,'JeanPaulGaultier'),
+(68,'Interparfums'),
+(69,'Benetton'),
+(70,'IsseyMiyake'),
+(71,'NuparfumsGroup'),
+(72,'ParisElysees'),
+(73,'LAKParis'),
+(74,'Lancome'),
+(75,'EmporioArmani'),
+(76,'PacificCreation'),
+(77,'Bvlgari'),
+(78,'RalphLauren'),
+(80,'SergioTacchini'),
+(81,'Moschino');
+
+
+INSERT INTO gf.marca,,,,
+VALUES (2, 'Antonio Banderas'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (3, 'New Brand Perfumes'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (4, 'Chic ''''N Glam Perfumes'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (32, 'Ágata Ruiz de la Prada'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (5, 'Master of New Brand'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (6, 'Grès'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (7, 'P&G Prestige Beauté'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (8, 'Ted Lapidus'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (9, 'Azzaro'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (10, 'Ulric de Varens'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (11, 'Adidas'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (12, 'Ferrari Fragrances'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (13, 'Shakira'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (14, 'Parfums Des Champs'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (15, 'Jesús Del Pozo'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (16, 'Yves de Sistelle'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (17, 'Emper'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (18, 'Alta Moda'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (19, 'Pacha Ibiza'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (20, 'Christine Darvin'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (21, 'Omerta'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (22, 'Calvin Klein'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (33, 'Gilles Cantuel'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (23, 'Carolina Herrera'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (24, 'Puig'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (25, 'Mavive'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (26, 'Elizabeth Arden'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (27, 'Animale Group'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (28, 'Carlotta Zuofun'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (29, 'Euroitalia'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (30, 'Parfums Café'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (31, 'Paco Rabanne'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (34, 'Stella Dustin'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (35, 'Chanel'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (36, 'Karen Low'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (37, 'Nina Ricci'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (38, 'Hugo Boss'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (39, 'Air-Val International'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (40, 'EA Fragrances'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (41, 'Estelle Ewen'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (42, 'Cofinluxe'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (43, 'Cacharel'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (44, 'Tommy Hilfiger'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (45, 'Givenchy'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (46, 'Dolce & Gabbana'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (47, 'Yves Saint Laurent'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (48, 'Lanvin Parfums'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (49, 'Jeanne Arthes'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (50, 'Christian Dior'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (51, 'Marina de Bourbon'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (54, 'Lacoste'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (53, 'Sapil'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (55, 'Fragantia Secrets'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (56, 'Via Paris Parfums'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (57, 'Sex in the City'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (59, 'Guy Laroche'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (60, 'Giorgio Armani'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (58, 'Burberry Fragances'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (61, 'Kenzo'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (62, 'Unforgettable Moments'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (63, 'INCC'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (64, 'Give Back Brands'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (65, 'Cadillac'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (66, 'Victoria''''s Secret'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (67, 'Jean Paul Gaultier'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (68, 'Interparfums'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (69, 'Benetton'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (70, 'Issey Miyake'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (71, 'Nuparfums Group'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (72, 'Paris Elysees'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (73, 'LAK Paris'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (74, 'Lancome'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (75, 'Emporio Armani'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (76, 'Pacific Creation'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (77, 'Bulgari'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (78, 'Ralph Lauren'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (79, 'Parfums'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (80, 'Sergio Tacchini'),,,
+,,,,
+INSERT INTO gf.marca,,,,
+VALUES (81, 'Moschino'),,,
