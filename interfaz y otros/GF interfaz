@@ -1,0 +1,163 @@
+import React, { useState } from 'react';
+import { Card } from '@/components/ui/card';
+
+const PaymentCard = () => {
+  const [payments, setPayments] = useState([
+    { control: '28 SEP', fecha: '28-09', entrega: '50.000', saldo: '230.000' },
+    { control: '15 OCT', fecha: '05-10', entrega: '40.000', saldo: '190.000' },
+    { control: '22 OCT', fecha: '12-10', entrega: '20.000', saldo: '170.000' },
+    { control: '28 OCT', fecha: '20-10', entrega: '20.000', saldo: '150.000' },
+    { control: '09 NOV', fecha: '02-11', entrega: '20.000', saldo: '130.000' },
+  ]);
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-8 flex justify-center items-start">
+      <Card className="w-full max-w-2xl bg-emerald-50 p-6 relative">
+        {/* Logo y Encabezado */}
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex-1">
+            <h1 className="text-4xl font-serif italic tracking-wide text-gray-800">Gabriela</h1>
+            <p className="text-sm text-gray-600 italic">+ fragancias</p>
+          </div>
+          <img 
+            src="/api/placeholder/80/120"
+            alt="Torre Eiffel"
+            className="w-20 h-30 opacity-30"
+          />
+        </div>
+
+        {/* Información de Contacto */}
+        <div className="text-xs text-gray-600 mb-4 font-mono">
+          <p>Venta Puerta a Puerta de Perfumes Importados</p>
+          <p>Cel.: (0972) 260 891 - (0986) 794 774  Caaguazú - Paraguay</p>
+        </div>
+
+        {/* Formulario Principal */}
+        <div className="space-y-3 font-mono text-sm">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-gray-600">Prod:</label>
+              <input 
+                type="text" 
+                className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+                placeholder="Blue"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600">Vendedor/a:</label>
+              <input 
+                type="text" 
+                className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+                placeholder="Marian"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-gray-600">Cliente:</label>
+            <input 
+              type="text" 
+              className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-gray-600">Celular:</label>
+              <input 
+                type="text" 
+                className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600">Ciudad:</label>
+              <input 
+                type="text" 
+                className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-gray-600">Calle:</label>
+            <input 
+              type="text" 
+              className="w-full border-b border-gray-300 bg-transparent px-2 py-1"
+            />
+          </div>
+        </div>
+
+        {/* Total y Forma de Pago */}
+        <div className="mt-6 mb-4 font-mono">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Total Gs.:</span>
+            <input 
+              type="text" 
+              className="w-32 border-b border-gray-300 bg-transparent px-2 py-1 text-right"
+              defaultValue="250.000"
+            />
+          </div>
+          <div className="flex items-center justify-start space-x-4 mt-2">
+            <span className="text-gray-600">Forma de Pago:</span>
+            <label className="inline-flex items-center">
+              <input type="checkbox" className="form-checkbox" checked />
+              <span className="ml-2">Sem.</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input type="checkbox" className="form-checkbox" />
+              <span className="ml-2">Quin.</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input type="checkbox" className="form-checkbox" />
+              <span className="ml-2">Mens.</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Tabla de Pagos */}
+        <div className="mt-4 font-mono text-sm">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-gray-300">
+                <th className="py-2 text-left">CONTROL</th>
+                <th className="py-2 text-left">FECHA</th>
+                <th className="py-2 text-right">ENTREGA</th>
+                <th className="py-2 text-right">SALDO</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.map((payment, index) => (
+                <tr key={index} className="border-b border-gray-100">
+                  <td className="py-2 text-blue-600">{payment.control}</td>
+                  <td className="py-2">{payment.fecha}</td>
+                  <td className="py-2 text-right">{payment.entrega}</td>
+                  <td className="py-2 text-right">{payment.saldo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Texto Legal */}
+        <div className="mt-6 text-[0.6rem] text-gray-500 font-mono">
+          <p>Queda expresamente convenido que la falta de pago en la fecha que se pagare me (nos) constituirá en mora automáticamente, 
+             sin necesidad de interpelación Judicial o extrajudicial alguna devengando durante el tiempo de la mora un interés 
+             del ....... %, un interés moratorio del ......... % y una comisión del .........% por el simple retardo sin que esto implique 
+             prorroga del plazo de la obligación.</p>
+        </div>
+
+        {/* Firma */}
+        <div className="mt-4 flex justify-between items-center font-mono text-sm">
+          <div className="border-t border-gray-400 flex-1 mr-4">
+            <p className="mt-1">Firma del Cliente</p>
+          </div>
+          <div>
+            <p>C.I. Nº: ____________</p>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+export default PaymentCard;
